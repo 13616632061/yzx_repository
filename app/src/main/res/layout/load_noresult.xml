@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:paddingLeft="@dimen/common_margin" android:paddingRight="@dimen/common_margin" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:gravity="center_horizontal" android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_centerHorizontal="true">
+        <TextView android:textSize="@dimen/text_size_list" android:gravity="center" android:id="@id/load_tv_noresult" android:text="@string/common_search_noresult" android:drawableTop="@drawable/icon_no_result_melt" android:drawablePadding="28.0dip" style="@style/tv_warning_info_null_style" />
+        <Button android:id="@id/load_btn_retry" android:layout_width="fill_parent" android:layout_height="48.0dip" android:layout_marginLeft="39.0dip" android:layout_marginTop="18.0dip" android:layout_marginRight="39.0dip" android:text="重新搜索" style="@style/btn_err_layout_white_style" />
+    </LinearLayout>
+</RelativeLayout>

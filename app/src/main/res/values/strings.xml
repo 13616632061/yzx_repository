@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">易之星</string>
+    <string name="weibosdk_demo_toast_auth_success">授权成功</string>
+    <string name="weibosdk_demo_toast_auth_failed">授权失败</string>
+    <string name="weibosdk_demo_toast_auth_canceled">取消授权</string>
+    <string name="errcode_success">发送成功</string>
+    <string name="errcode_cancel">发送取消</string>
+    <string name="errcode_deny">发送被拒绝</string>
+    <string name="errcode_unknown">发送返回</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_set">商户设置</string>
+    <string name="title_activity_about">关于Yi游</string>
+    <string name="title_activity_fk">帮助反馈</string>
+    <string name="title_activity_login">登录</string>
+    <string name="title_activity_register">注册</string>
+    <string name="title_activity_share_sina">分享到新浪微博</string>
+    <string name="common_search_noresult">木有结果，再找找看</string>
+    <string name="common_filter_noresult">木有结果，换个条件再试试</string>
+    <string name="common_no_network_msg">网络不给力，再试试</string>
+    <string name="common_server_error_msg">服务器偷懒了，先去其他页面逛逛吧</string>
+    <string name="title_activity_register_second">注册2/3</string>
+    <string name="title_activity_register_three">注册3/3</string>
+    <string name="title_activity_profile">账号信息</string>
+    <string name="title_activity_job_select">选择职业</string>
+    <string name="title_activity_profile_nickname">修改昵称</string>
+    <string name="title_activity_profile_sign">更新签名</string>
+    <string name="title_activity_local">选择城市</string>
+    <string name="title_activity_city_search">城市搜索</string>
+    <string name="title_activity_like">我喜欢的</string>
+    <string name="title_activity_want">我想要的</string>
+    <string name="title_activity_buy">我的宝贝</string>
+
+    <string-array name="sex_list">
+        <item>男</item>
+        <item>女</item>
+    </string-array>
+
+    <string name="title_activity_profile_email">修改邮箱</string>
+    <string name="title_activity_profile_email_code">修改邮箱2/2</string>
+    <string name="title_activity_profile_password">修改密码</string>
+    <string name="title_activity_profile_bind">合作账号管理</string>
+    <string name="title_activity_profile_mobile">修改手机号1/2</string>
+    <string name="title_activity_profile_mobile_code">修改手机号2/2</string>
+    <string name="crop__saving">正在保存照片…</string>
+    <string name="crop__wait">请等待…</string>
+    <string name="crop__pick_error">无效的图片</string>
+    <string name="crop__done">完成</string>
+    <string name="crop__cancel" tools:ignore="ButtonCase">取消</string>
+    <string name="title_activity_forget_password">重置密码1/2</string>
+    <string name="title_activity_forget_password_second">重置密码2/2</string>
+    <string name="title_activity_address">发货地址</string>
+    <string name="title_activity_address_add">新增收货地址</string>
+    <string name="title_activity_address_detail">收货地址</string>
+    <string name="title_activity_bind">绑定手机号</string>
+    <string name="title_activity_pay">收银台</string>
+    <string name="title_activity_address_location">选择地址</string>
+    <string name="title_activity_news_detail">精选详情</string>
+    <string name="title_activity_video_detail">视频详情</string>
+    <string name="title_activity_search">搜索</string>
+    <string name="title_activity_msg">消息列表</string>
+    <string name="title_activity_money">充值/提现</string>
+    <string name="title_activity_money_log">历史记录</string>
+    <string name="title_activity_report">收入统计</string>
+    <string-array name="size_item">
+        <item>中等</item>
+        <item>大</item>
+        <item>很大</item>
+        <item>最大</item>
+    </string-array>
+    <string name="title_activity_fav">我的收藏</string>
+    <string name="subscribe_my_category">我的频道</string>
+    <string name="subscribe_more_category">更多频道</string>
+    <string name="subscribe_manager_category_info_2">单击增删频道，长按拖拽排序</string>
+
+
+    <string name="webview_refresh">刷新</string>
+    <string name="webview_share">分享</string>
+    <string name="webview_copy_link">复制链接</string>
+    <string name="webview_open">用浏览器打开</string>
+
+
+    <string name="pickerview_cancel">取消</string>
+    <string name="pickerview_submit">确定</string>
+    <string name="pickerview_year">年</string>
+    <string name="pickerview_month">月</string>
+    <string name="pickerview_day">日</string>
+    <string name="pickerview_hours">时</string>
+    <string name="pickerview_minutes">分</string>
+    <string name="pickerview_seconds">秒</string>
+
+</resources>

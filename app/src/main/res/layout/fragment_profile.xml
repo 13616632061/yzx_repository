@@ -1,0 +1,293 @@
+<RelativeLayout
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="?gray_bg"
+    android:paddingTop="?actionBarSize"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <ScrollView
+        android:scrollbars="none"
+        android:fadingEdge="none"
+        android:overScrollMode="always"
+        android:id="@id/scrollView1"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_centerHorizontal="true">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+            <include layout="@layout/set_line_spacer" />
+            <!--余额-->
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:id="@id/linearLayout2"
+                android:background="@drawable/selector_cell_two_line_short"
+                android:paddingLeft="16.0dip"
+                android:clickable="true"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/s_component_height">
+                <TextView
+                    android:textSize="@dimen/text_size_list"
+                    android:textColor="@color/text_secondary_color"
+                    android:gravity="left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="94.0dip"
+                    android:text="余额" />
+                <TextView
+                    android:textSize="@dimen/text_size_list"
+                    android:textColor="@color/text_color"
+                    android:textColorHint="@color/text_hint_color"
+                    android:gravity="right"
+                    android:id="@id/textView2"
+                    android:background="@null"
+                    android:layout_width="0.0dip"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:layout_weight="1.0" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16.0dip"
+                    android:layout_marginRight="16.0dip"
+                    android:src="@drawable/ic_right_grey" />
+            </LinearLayout>
+
+            <!--账号信息-->
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:id="@id/linearLayout3"
+                android:background="@drawable/selector_cell_left_blank"
+                android:paddingLeft="16.0dip"
+                android:clickable="true"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/s_component_height">
+                <TextView
+                    android:textSize="@dimen/text_size_list"
+                    android:textColor="@color/text_secondary_color"
+                    android:gravity="left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="94.0dip"
+                    android:text="账号信息" />
+                <TextView
+                    android:textSize="@dimen/text_size_list"
+                    android:textColor="@color/text_color"
+                    android:textColorHint="@color/text_hint_color"
+                    android:gravity="right"
+                    android:id="@id/textView3"
+                    android:background="@null"
+                    android:layout_width="0.0dip"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:layout_weight="1.0" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16.0dip"
+                    android:layout_marginRight="16.0dip"
+                    android:src="@drawable/ic_right_grey" />
+            </LinearLayout>
+
+
+
+            <!--发货地址-->
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:id="@id/linearLayout5"
+                android:background="@drawable/selector_cell_left_blank"
+                android:paddingLeft="16.0dip"
+                android:clickable="true"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/s_component_height">
+                <TextView
+                    android:textSize="@dimen/text_size_list"
+                    android:textColor="@color/text_secondary_color"
+                    android:gravity="left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="94.0dip"
+                    android:text="发货地址" />
+                <TextView
+                    android:textSize="@dimen/text_size_list"
+                    android:textColor="@color/text_color"
+                    android:textColorHint="@color/text_hint_color"
+                    android:gravity="right"
+                    android:id="@id/textView5"
+                    android:background="@null"
+                    android:layout_width="0.0dip"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:layout_weight="1.0" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16.0dip"
+                    android:layout_marginRight="16.0dip"
+                    android:src="@drawable/ic_right_grey" />
+            </LinearLayout>
+
+            <!--消息推送-->
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:id="@id/linearLayout6"
+                android:background="@drawable/selector_cell_left_blank"
+                android:paddingLeft="16.0dip"
+                android:clickable="true"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/s_component_height">
+                <TextView
+                    android:textSize="@dimen/text_size_list"
+                    android:textColor="@color/text_secondary_color"
+                    android:gravity="left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="94.0dip"
+                    android:text="消息推送" />
+                <TextView
+                    android:textSize="@dimen/text_size_list"
+                    android:textColor="@color/text_color"
+                    android:textColorHint="@color/text_hint_color"
+                    android:gravity="right"
+                    android:id="@id/textView6"
+                    android:background="@null"
+                    android:layout_width="0.0dip"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:layout_weight="1.0" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16.0dip"
+                    android:layout_marginRight="16.0dip"
+                    android:src="@drawable/ic_right_grey" />
+            </LinearLayout>
+
+            <!--商户设置-->
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:id="@id/linearLayout1"
+                android:background="@drawable/selector_cell_left_blank"
+                android:paddingLeft="16.0dip"
+                android:clickable="true"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/s_component_height">
+                <TextView
+                    android:textSize="@dimen/text_size_list"
+                    android:textColor="@color/text_secondary_color"
+                    android:gravity="left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="94.0dip"
+                    android:text="商户设置" />
+                <TextView
+                    android:textSize="@dimen/text_size_list"
+                    android:textColor="@color/text_color"
+                    android:textColorHint="@color/text_hint_color"
+                    android:gravity="right"
+                    android:id="@id/textView1"
+                    android:background="@null"
+                    android:layout_width="0.0dip"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:layout_weight="1.0" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16.0dip"
+                    android:layout_marginRight="16.0dip"
+                    android:src="@drawable/ic_right_grey" />
+            </LinearLayout>
+
+            <!--修改密码-->
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:id="@id/linearLayout8"
+                android:background="@drawable/selector_cell_single_line"
+                android:paddingLeft="16.0dip"
+                android:clickable="true"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/s_component_height">
+                <TextView
+                    android:textSize="@dimen/text_size_list"
+                    android:textColor="@color/text_secondary_color"
+                    android:gravity="left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="94.0dip"
+                    android:text="修改密码" />
+                <TextView
+                    android:textSize="@dimen/text_size_list"
+                    android:textColor="@color/text_color"
+                    android:textColorHint="@color/text_hint_color"
+                    android:gravity="right"
+                    android:id="@id/textView8"
+                    android:background="@null"
+                    android:layout_width="0.0dip"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:layout_weight="1.0" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16.0dip"
+                    android:layout_marginRight="16.0dip"
+                    android:src="@drawable/ic_right_grey" />
+            </LinearLayout>
+
+            <include layout="@layout/set_line_spacer" />
+
+            <!--联系客服-->
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:id="@id/linearLayout7"
+                android:background="@drawable/selector_cell_two_line"
+                android:paddingLeft="16.0dip"
+                android:clickable="true"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/s_component_height">
+                <TextView
+                    android:textSize="@dimen/text_size_list"
+                    android:textColor="@color/text_secondary_color"
+                    android:gravity="left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="94.0dip"
+                    android:text="联系客服" />
+                <TextView
+                    android:textSize="@dimen/text_size_list"
+                    android:textColor="@color/text_color"
+                    android:textColorHint="@color/text_hint_color"
+                    android:gravity="right"
+                    android:id="@id/textView7"
+                    android:background="@null"
+                    android:layout_width="0.0dip"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:layout_weight="1.0" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16.0dip"
+                    android:layout_marginRight="16.0dip"
+                    android:src="@drawable/ic_right_grey" />
+            </LinearLayout>
+
+            <!--退出登录-->
+            <com.material.widget.PaperButton
+                android:id="@id/button1"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/paper_height"
+                android:layout_margin="10dp"
+                app:paper_text="退出"/>
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

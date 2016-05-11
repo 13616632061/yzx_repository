@@ -1,0 +1,20 @@
+<RelativeLayout
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/white"
+    android:paddingTop="?actionBarSize"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.astuetz.PagerSlidingTabStrip
+        style="?tabStyle"
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="38dip"
+        android:orientation="horizontal"
+        android:layout_weight="0"/>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tabs" />
+</RelativeLayout>
