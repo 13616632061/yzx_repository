@@ -45,7 +45,7 @@ public class PicDetailActivity extends ShareBaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState, false, false);
+        super.onCreate(savedInstanceState, 0, false);
         setContentView(R.layout.activity_pic_detail);
 
         initToolbar(this, 2);

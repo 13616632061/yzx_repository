@@ -6,8 +6,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -36,6 +36,8 @@ public class LoginActivity extends BaseActivity {
     private boolean is_eye_open = false;
     ImageView textView7;
     EditText textView9;
+    private int fkType = 0;
+    CheckBox cb_left, cb_right;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,12 +47,17 @@ public class LoginActivity extends BaseActivity {
         SysUtils.setupUI(this, findViewById(R.id.main));
 
         initToolbar(this, 3);
-
         setToolbarTitle(null);
         //隐藏工具栏
-        setToolbarTitle(null);
         toolbar.setVisibility(View.GONE);
 
+
+        Bundle bundle = this.getIntent().getExtras();
+        if (bundle != null) {
+            if (bundle.containsKey("loginType")) {
+                fkType = bundle.getInt("loginType");
+            }
+        }
 
         ImageButton btn_done = (ImageButton) findViewById(R.id.btn_back);
         btn_done.setOnClickListener(new View.OnClickListener() {
@@ -100,6 +107,23 @@ public class LoginActivity extends BaseActivity {
         });
         textView9 = (EditText) findViewById(R.id.textView9);
 
+        cb_left = (CheckBox) findViewById(R.id.cb_left);
+        cb_left.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setFkType(1);
+            }
+        });
+        cb_right = (CheckBox) findViewById(R.id.cb_right);
+        cb_right.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setFkType(2);
+            }
+        });
+
+        setFkType(fkType);
+
         PaperButton button1 = (PaperButton) findViewById(R.id.button1);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,44 +147,57 @@ public class LoginActivity extends BaseActivity {
                             if(!captcha.equalsIgnoreCase(realCode)) {
                                 SysUtils.showError("验证码不正确");
                             } else {
-                                Map<String,Object> map = new HashMap<String,Object>();
-                                map.put("username", username);
-                                map.put("password", password);
+                                if (fkType != 1 && fkType != 2) {
+                                    SysUtils.showError("请选择登录类型");
+                                } else {
+                                    Map<String,String> map = new HashMap<String,String>();
+                                    map.put("name", username);
+                                    map.put("pwd", password);
+                                    map.put("type", String.valueOf(fkType));
 
-                                Map<String,String> postMap = SysUtils.apiCall(LoginActivity.this, map);
+                                    CustomRequest r = new CustomRequest(Request.Method.POST, SysUtils.getServiceUrl("log"), map, new Response.Listener<JSONObject>() {
+                                        @Override
+                                        public void onResponse(JSONObject jsonObject) {
+                                            hideLoading();
 
-                                CustomRequest r = new CustomRequest(Request.Method.POST, SysUtils.getServiceUrl("user/login"), postMap, new Response.Listener<JSONObject>() {
-                                    @Override
-                                    public void onResponse(JSONObject jsonObject) {
-                                        hideLoading();
+                                            try {
+                                                JSONObject ret = SysUtils.didResponse(jsonObject);
+                                                String status = ret.getString("status");
+                                                String message = ret.getString("message");
+                                                JSONObject dataObject = ret.getJSONObject("data");
 
-                                        try {
-                                            int error = jsonObject.getInt("code");
-                                            if(error > 0) {
-                                                String errstr = jsonObject.getString("message");
-                                                SysUtils.showError(errstr);
-                                            } else {
-                                                SysUtils.showSuccess("登录成功");
+                                                if (!status.equals("200")) {
+                                                    SysUtils.showError(message);
+                                                } else {
+                                                    SysUtils.showSuccess("登录成功");
 
-                                                KsApplication.putString("login_username", username);
+                                                    textView6.setText("");
+                                                    textView9.setText("");
 
-                                                LoginUtils.afterLogin(LoginActivity.this, jsonObject);
+                                                    KsApplication.putString("login_username", username);
+                                                    LoginUtils.afterLogin(LoginActivity.this, dataObject, false, fkType);
+
+                                                    toAct();
+
+                                                    finish();
+                                                }
+                                            } catch(Exception e) {
+                                                e.printStackTrace();
                                             }
-                                        } catch(Exception e) {
-                                            e.printStackTrace();
                                         }
-                                    }
-                                }, new Response.ErrorListener() {
-                                    @Override
-                                    public void onErrorResponse(VolleyError volleyError) {
-                                        hideLoading();
-                                        SysUtils.showNetworkError();
-                                    }
-                                });
+                                    }, new Response.ErrorListener() {
+                                        @Override
+                                        public void onErrorResponse(VolleyError volleyError) {
+                                            hideLoading();
+                                            SysUtils.showNetworkError();
+                                        }
+                                    });
 
-                                executeRequest(r);
+                                    executeRequest(r);
 
-                                showLoading(LoginActivity.this, "正在登录......");
+                                    showLoading(LoginActivity.this, "正在登录......");
+                                }
+
 
                             }
 
@@ -171,6 +208,20 @@ public class LoginActivity extends BaseActivity {
         });
     }
 
+    private void setFkType(int type) {
+        if(type == 1) {
+            cb_left.setChecked(false);
+            cb_right.setChecked(true);
+        } else if (type == 2){
+            cb_left.setChecked(true);
+            cb_right.setChecked(false);
+        } else {
+            cb_left.setChecked(false);
+            cb_right.setChecked(false);
+        }
+
+        this.fkType = type;
+    }
 
     //接受广播，更新ui
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
@@ -196,6 +247,16 @@ public class LoginActivity extends BaseActivity {
             unregisterReceiver(broadcastReceiver);
         } catch(Exception e) {
 
+        }
+    }
+
+    private void toAct() {
+        if (LoginUtils.isSeller()) {
+            //店铺
+            SysUtils.startAct(LoginActivity.this, new ShopActivity());
+        } else if (LoginUtils.isMember()) {
+            //业务员
+            SysUtils.startAct(LoginActivity.this, new ReportActivity());
         }
     }
 }

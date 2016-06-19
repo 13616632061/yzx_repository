@@ -41,7 +41,7 @@ public class PicViewActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState, false, false);
+        super.onCreate(savedInstanceState, 0, false);
         setContentView(R.layout.activity_pic_view);
 
         Bundle bundle = new Bundle();

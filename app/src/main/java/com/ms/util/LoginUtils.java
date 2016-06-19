@@ -3,6 +3,7 @@ package com.ms.util;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 
 import com.ms.global.Global;
 import com.ms.ks.LoginActivity;
@@ -14,29 +15,69 @@ import org.json.JSONObject;
 
 public class LoginUtils {
 
-    public static void toLogin(Context ctx) {
+    public static void toLogin(Context ctx, int loginType) {
         //未登录
 //        showError("请先登录");
-        SysUtils.startAct(ctx, new LoginActivity());
-    }
+        Bundle b = new Bundle();
+        b.putInt("loginType", loginType);
 
-    public static void doLogoutAfter(Context ctx, int type) {
-        if(type == 2) {
-            LoginUtils.toLogin(ctx);
-            ((Activity)ctx).finish();
-        }
+        SysUtils.startAct(ctx, new LoginActivity(), b);
     }
 
     public static boolean hasLogin() {
-        String uid = KsApplication.getString("uid", "");
-        String token = KsApplication.getString("token", "");
+        boolean hasLogin = false;
+        int login_type = KsApplication.getInt("login_type", 0);
+        if (login_type == 1) {
+            //店铺
+            int seller_id = KsApplication.getInt("seller_id", 0);
+            if (seller_id > 0) {
+                hasLogin = true;
+            }
+        } else if (login_type == 2) {
+            //业务员
+            int member_id = KsApplication.getInt("member_id", 0);
+            if (member_id > 0) {
+                hasLogin = true;
+            }
+        }
 
-        if(uid.length() <= 0 || token.length() <= 0) {
-            return false;
+        return hasLogin;
+    }
+
+    /**
+     * 是否店家
+     * @return
+     */
+    public static boolean isSeller() {
+        boolean isSeller = false;
+
+        int login_type = KsApplication.getInt("login_type", 0);
+        if (login_type == 1) {
+            int seller_id = KsApplication.getInt("seller_id", 0);
+            if (seller_id > 0) {
+                isSeller = true;
+            }
         }
-        else {
-            return true;
+
+        return isSeller;
+    }
+
+    /**
+     * 是否业务员
+     * @return
+     */
+    public static boolean isMember() {
+        boolean isMember = false;
+
+        int login_type = KsApplication.getInt("login_type", 0);
+        if (login_type == 2) {
+            int member_id = KsApplication.getInt("member_id", 0);
+            if (member_id > 0) {
+                isMember = true;
+            }
         }
+
+        return isMember;
     }
 
     public static String ssoTypeStr() {
@@ -54,40 +95,25 @@ public class LoginUtils {
     }
 
     public static void afterLogin(Context ctx, JSONObject jsonObject) {
-        LoginUtils.afterLogin(ctx, jsonObject, true, true);
+        LoginUtils.afterLogin(ctx, jsonObject, true, 0);
     }
 
-    public static void afterLogin(Context ctx, JSONObject jsonObject, boolean writeToken, boolean finish) {
+    public static void afterLogin(Context ctx, JSONObject jsonObject, int loginType) {
+        LoginUtils.afterLogin(ctx, jsonObject, true, loginType);
+    }
+
+    public static void afterLogin(Context ctx, JSONObject jsonObject, boolean finish, int loginType) {
         try {
-            JSONObject userObject = jsonObject.getJSONObject("user");
-
-            KsApplication.putString("uid", userObject.getString("id"));
-            KsApplication.putString("email", userObject.getString("email"));
-            KsApplication.putString("mobile", userObject.getString("mobile"));
-            KsApplication.putString("level", userObject.getString("level"));
-            KsApplication.putString("levelText", userObject.getString("levelText"));
-            KsApplication.putString("nickname", userObject.getString("nickname"));
-            KsApplication.putString("signature", userObject.getString("signature"));
-            KsApplication.putString("sex", userObject.getString("sexName"));
-            KsApplication.putString("birthday", userObject.getString("birthday"));
-            KsApplication.putString("city", userObject.getString("city"));
-            KsApplication.putString("cityName", userObject.getString("cityName"));
-            KsApplication.putString("job", userObject.getString("jobName"));
-            KsApplication.putString("smallAvatar", userObject.getString("smallAvatar"));
-            KsApplication.putString("mediumAvatar", userObject.getString("mediumAvatar"));
-            KsApplication.putString("largeAvatar", userObject.getString("largeAvatar"));
-
-            String gender = userObject.getString("gender");
-            String originGender = KsApplication.getString("gender", "male");
-
-            if (!gender.equals(originGender)) {
-                //更改了性别
-                KsApplication.putString("gender", gender);
-                ctx.sendBroadcast(new Intent(Global.BROADCAST_REFRESH_THEME_ACTION).putExtra("gender", gender));
-            }
-
-            if(writeToken) {
-                KsApplication.putString("token", jsonObject.getString("token"));
+            KsApplication.putInt("login_type", loginType);
+            if (loginType > 0) {
+                KsApplication.putInt("type", jsonObject.getInt("type"));
+                if (loginType == 1) {
+                    //店铺
+                    KsApplication.putInt("seller_id", jsonObject.getInt("seller_id"));
+                } else if (loginType == 2) {
+                    //业务员
+                    KsApplication.putInt("member_id", jsonObject.getInt("member_id"));
+                }
             }
 
             //发送登录广播
@@ -104,8 +130,7 @@ public class LoginUtils {
     }
 
     public static void logout(final Context ctx, final int type) {
-        KsApplication.putString("token", "");
-
+        KsApplication.putInt("login_type", 0);
         //发出登录广播
         ctx.sendBroadcast(new Intent(Global.BROADCAST_LOGIN_ACTION));
     }

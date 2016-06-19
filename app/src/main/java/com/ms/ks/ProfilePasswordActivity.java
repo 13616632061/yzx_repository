@@ -31,7 +31,7 @@ public class ProfilePasswordActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState, false);
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_password);
 
         SysUtils.setupUI(this, findViewById(R.id.main));

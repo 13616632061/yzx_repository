@@ -57,8 +57,8 @@ public class ShareBaseActivity extends BaseActivity {
     public int wxScene = 0;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState, boolean chkLogin, boolean setTheme) {
-        super.onCreate(savedInstanceState, chkLogin, setTheme);
+    protected void onCreate(Bundle savedInstanceState, int loginType, boolean setTheme) {
+        super.onCreate(savedInstanceState, loginType, setTheme);
         __mHandler = new Handler();
     }
 

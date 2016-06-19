@@ -34,7 +34,7 @@ public class ShopActivity extends BaseActivity implements OnTabChangeListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState, 1);
         setContentView(R.layout.activity_shop);
 
         initToolbar(this);

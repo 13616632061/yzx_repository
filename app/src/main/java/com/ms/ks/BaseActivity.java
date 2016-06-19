@@ -16,10 +16,11 @@ import com.android.volley.VolleyError;
 import com.ms.util.DialogUtils;
 import com.ms.util.LoginUtils;
 import com.ms.util.RequestManager;
-import com.ms.util.StringUtils;
 import com.ms.util.SysUtils;
 import com.ms.util.SystemBarTintManager;
 import com.nostra13.universalimageloader.core.ImageLoader;
+
+import org.json.JSONObject;
 
 public class BaseActivity extends ActionBarActivity {
     private Dialog progressDialog = null;
@@ -30,39 +31,43 @@ public class BaseActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        onCreate(savedInstanceState, false);
+        onCreate(savedInstanceState, 0);
     }
 
-    protected  void onCreate(Bundle savedInstanceState, boolean chkLogin) {
-        onCreate(savedInstanceState, chkLogin, true);
+    protected  void onCreate(Bundle savedInstanceState, int loginType) {
+        onCreate(savedInstanceState, loginType, true);
     }
 
-    protected  void onCreate(Bundle savedInstanceState, boolean chkLogin, boolean setTheme) {
-        onCreate(savedInstanceState, chkLogin, setTheme, "");
+    protected  void onCreate(Bundle savedInstanceState, int loginType, boolean setTheme) {
+        onCreate(savedInstanceState, loginType, setTheme, "");
     }
 
-    protected  void onCreate(Bundle savedInstanceState, boolean chkLogin, boolean setTheme, String login_mod) {
+    protected  void onCreate(Bundle savedInstanceState, int loginType, boolean setTheme, String login_mod) {
         super.onCreate(savedInstanceState);
 
         setTitle(null);
 //        Log.d("huigu", "Activity Label: " + label);
 
-        if(chkLogin) {
-            //登录
-            if (!LoginUtils.hasLogin()) {
-                if(!StringUtils.isEmpty(login_mod)) {
-                    //记录来源
-                    KsApplication.putString("login_mod", login_mod);
-                }
-
-                LoginUtils.toLogin(this);
-
-                finish();
-                return;
+        boolean canNext = true;
+        if(loginType == 1) {
+            //卖家
+            if (!LoginUtils.isSeller()) {
+                canNext = false;
+            }
+        } else if (loginType == 2) {
+            //业务员
+            if (!LoginUtils.isMember()) {
+                canNext = false;
             }
         }
 
+        if (!canNext) {
+            LoginUtils.toLogin(this, loginType);
 
+            finish();
+            return;
+
+        }
         //应用主题
         if(setTheme) {
 //            Theme.onActivityCreate(this, savedInstanceState);
@@ -270,4 +275,5 @@ public class BaseActivity extends ActionBarActivity {
 //
 //        return new BitmapDrawable(getResources(), blurBitmap);
 //    }
+
 }

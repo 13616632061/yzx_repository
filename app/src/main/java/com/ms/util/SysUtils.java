@@ -70,11 +70,13 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.security.MessageDigest;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 //import com.xuebao.exam.AdActivity;
@@ -425,9 +427,13 @@ public class SysUtils {
     }
 
     public static String getServiceUrl(String method) {
-        String ret = SysUtils.getWebUri() + "api/";
+        String ret = "http://www.yzx6868.com/rpc/service/?method=ks.seller." + method + "&vsn=1.0&format=json";
+        return ret;
+    }
 
-        ret += method;
+    public static String getMemberServiceUrl(String method) {
+        String ret = "http://www.yzx6868.com/rpc/service/?method=ks.member." + method + "&vsn=1.0&format=json";
+        ret += "&member_id=" + KsApplication.getInt("member_id", 0);
         return ret;
     }
 
@@ -1112,6 +1118,28 @@ public class SysUtils {
         String deviceID = imei + devIDShort + androidID + wLANMAC + bTMAC;
 
         return deviceID;
+    }
+
+    public static String getMoneyFormat(double d) {
+        NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.CHINA);
+        return nf.format(d);
+    }
+
+    public  static JSONObject didResponse(JSONObject responseObject) {
+        JSONObject ret = new JSONObject();
+        try {
+            JSONObject re = responseObject.getJSONObject("response");
+            String status = re.getString("status");
+            String message = re.getString("message");
+
+            ret.put("status", status);
+            ret.put("message", message);
+            ret.put("data", re.getJSONObject("data"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return ret;
     }
 }
 
