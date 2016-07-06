@@ -1,5 +1,9 @@
 package com.ms.ks;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
@@ -7,11 +11,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.ms.global.Global;
 import com.ms.util.CustomRequest;
 import com.ms.util.SysUtils;
 
@@ -29,6 +35,8 @@ public class ReportActivity extends BaseActivity {
     private ListView lv_content;
     private SwipeRefreshLayout refresh_header;
     private boolean isLoading = false;
+
+    private RelativeLayout relativeLayout3, relativeLayout2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +66,11 @@ public class ReportActivity extends BaseActivity {
         textView8 = (TextView) reportView.findViewById(R.id.textView8);
         lv_content.addHeaderView(reportView);
 
+        relativeLayout3 = (RelativeLayout) reportView.findViewById(R.id.relativeLayout3);
+        relativeLayout3.setOnClickListener(a);
+        relativeLayout2 = (RelativeLayout) reportView.findViewById(R.id.relativeLayout2);
+        relativeLayout2.setOnClickListener(a);
+
         lv_content.setAdapter(null);
 
         refresh_header = (SwipeRefreshLayout) findViewById(R.id.refresh_header);
@@ -71,6 +84,13 @@ public class ReportActivity extends BaseActivity {
 
         loadData();
     }
+
+    private View.OnClickListener a = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            SysUtils.startAct(ReportActivity.this, new ReportDetailActivity());
+        }
+    };
 
     private void loadData() {
         refresh_header.post(new Runnable() {
@@ -98,7 +118,7 @@ public class ReportActivity extends BaseActivity {
             return true;
         } else if (id == R.id.menu_my) {
             //我的
-            SysUtils.showSuccess("my");
+            SysUtils.startAct(ReportActivity.this, new MemberProfileActivity());
             return true;
         }
 
@@ -162,5 +182,34 @@ public class ReportActivity extends BaseActivity {
 
     private void setRefreshing(boolean refreshing) {
         refresh_header.setRefreshing(refreshing);
+    }
+
+
+
+    //刷新点赞
+    private BroadcastReceiver broadcastLogoutReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            finish();
+        }
+    };
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        registerReceiver(broadcastLogoutReceiver, new IntentFilter(Global.BROADCAST_LOGOUT_ACTION));
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        try {
+            unregisterReceiver(broadcastLogoutReceiver);
+        } catch(Exception e) {
+
+        }
     }
 }

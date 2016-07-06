@@ -2,15 +2,19 @@ package com.ms.ks;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
 
+import com.ms.adapter.DisposeFragment;
 import com.ms.adapter.MainFragment;
 import com.ms.adapter.ProfileFragment;
 import com.ms.adapter.ReportFragment;
+import com.ms.util.SysUtils;
 import com.ms.view.FragmentTabHost;
 
 public class ShopActivity extends BaseActivity implements OnTabChangeListener {
@@ -23,7 +27,7 @@ public class ShopActivity extends BaseActivity implements OnTabChangeListener {
     private LayoutInflater layoutInflater;
 
     //定义数组来存放Fragment界面
-    private Class fragmentArray[] = {MainFragment.class,MainFragment.class,ReportFragment.class,ProfileFragment.class};
+    private Class fragmentArray[] = {MainFragment.class,DisposeFragment.class,ReportFragment.class,ProfileFragment.class};
 
     //定义数组来存放按钮图片
     private int mImageViewArray[] = {R.drawable.selector_btn_main,R.drawable.selector_btn_main2,R.drawable.selector_btn_report,R.drawable.selector_btn_profile};
@@ -123,5 +127,27 @@ public class ShopActivity extends BaseActivity implements OnTabChangeListener {
         } else if(tabId.equals("新订单")) {
             updateView("main");
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        if(current_tab.equals("main") || current_tab.equals("main2")) {
+            getMenuInflater().inflate(R.menu.menu_search, menu);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if(current_tab.equals("main") || current_tab.equals("main2")) {
+            if (id == R.id.menu_search) {
+                SysUtils.startAct(ShopActivity.this, new SearchActivity());
+                return true;
+            }
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

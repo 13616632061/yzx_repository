@@ -28,7 +28,6 @@ public class MainFragment extends BaseFragment{
 
     public static MainFragment newInstance() {
         MainFragment f = new MainFragment();
-
         return f;
     }
 
@@ -67,7 +66,7 @@ public class MainFragment extends BaseFragment{
 
         @Override
         public Fragment getItem(int position) {
-            return OrderFragment.newInstance();
+            return OrderFragment.newInstance(position + 1, "1");
         }
     }
 

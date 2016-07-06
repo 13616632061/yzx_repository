@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    android:background="@drawable/selector_cell_pressed"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout
+        android:padding="@dimen/listview_padding"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text=""
+            android:gravity="center_vertical"
+            android:id="@id/tv_content"
+            android:textSize="12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_color"/>
+
+        <TextView
+            android:layout_alignParentRight="true"
+            android:layout_weight="1"
+            android:textSize="12.0sp"
+            android:id="@id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""/>
+
+        <RelativeLayout
+            android:layout_marginTop="6dp"
+            android:layout_below="@id/tv_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text=""
+                android:gravity="center_vertical"
+                android:id="@id/textView2"
+                android:textSize="12sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_color"/>
+
+            <TextView
+                android:layout_alignParentRight="true"
+                android:layout_weight="1"
+                android:textSize="12.0sp"
+                android:id="@id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""/>
+        </RelativeLayout>
+    </RelativeLayout>
+    <include layout="@layout/set_line_grey_spacer" />
+</LinearLayout>

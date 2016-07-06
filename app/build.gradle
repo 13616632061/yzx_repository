@@ -53,4 +53,6 @@ dependencies {
     compile('com.github.afollestad.material-dialogs:core:0.8.5.2@aar') {
         transitive = true
     }
+    compile files('libs/alipaySdk-20160516.jar')
+    compile files('libs/Xg_sdk_v2.46_20160602_1638.jar')
 }

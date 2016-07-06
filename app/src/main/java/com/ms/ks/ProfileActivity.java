@@ -11,8 +11,6 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.material.widget.PaperButton;
-import com.ms.entity.Address;
-import com.ms.global.Global;
 import com.ms.util.CustomRequest;
 import com.ms.util.DeleteEditText;
 import com.ms.util.StringUtils;
@@ -53,10 +51,7 @@ public class ProfileActivity extends BaseActivity {
     EditText textView10;
 
     private int provinceId = 0, cityId = 0, areaId=  0;
-//    private AreaPicker areaPicker;
-
-    Address addressDetail = null;
-    private boolean isEdit = false;
+    private String area = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,17 +61,6 @@ public class ProfileActivity extends BaseActivity {
         SysUtils.setupUI(this, findViewById(R.id.main));
 
         initToolbar(this);
-
-        Bundle bundle = this.getIntent().getExtras();
-        if (bundle != null) {
-            if (bundle.containsKey("address")) {
-                addressDetail = bundle.getParcelable("address");
-
-                if(addressDetail != null && addressDetail.getId() > 0) {
-                    isEdit = true;
-                }
-            }
-        }
 
         imageView1 = (TextView) findViewById(R.id.imageView1);
         textView2 = (EditText) findViewById(R.id.textView2);    //姓名
@@ -122,20 +106,6 @@ public class ProfileActivity extends BaseActivity {
         textView10 = (EditText) findViewById(R.id.textView10);    //详细地址
         new DeleteEditText(textView10, textView9);
 
-        if(isEdit) {
-            textView2.setText(addressDetail.getConsignee());
-            textView4.setText(addressDetail.getMobile());
-            textView6.setText(addressDetail.getZipcode());
-            textView8.setText(addressDetail.getAreaStr());
-//            textView12.setText(addressDetail.getCityStr());
-//            textView14.setText(addressDetail.getTownStr());
-            textView10.setText(addressDetail.getAddress());
-
-            provinceId = addressDetail.getProvince();
-            cityId = addressDetail.getCity();
-            areaId = addressDetail.getTown();
-        }
-
 
         PaperButton button1 = (PaperButton) findViewById(R.id.button1);
         button1.setOnClickListener(new View.OnClickListener() {
@@ -158,48 +128,27 @@ public class ProfileActivity extends BaseActivity {
                             if(StringUtils.isEmpty(address)) {
                                 SysUtils.showError("请填写详细地址");
                             } else {
-                                Map<String,Object> finalMap = new HashMap<String,Object>();
                                 Map<String,String> map = new HashMap<String,String>();
                                 map.put("name", name);
                                 map.put("mobile", mobile);
-                                map.put("phone", phone);
-                                map.put("province", String.valueOf(provinceId));
-                                map.put("city", String.valueOf(cityId));
-                                map.put("town", String.valueOf(areaId));
-                                map.put("address", address);
-                                String method = isEdit ? "my/address/edit" : "my/address/create";
+                                map.put("tel", phone);
+                                map.put("area", getPostArea());
+                                map.put("addr", address);
 
-                                finalMap.put("address", map);
-                                if(isEdit) {
-                                    finalMap.put("id", addressDetail.getId());
-                                }
-
-                                Map<String,String> postMap = SysUtils.apiCall(ProfileActivity.this, finalMap);
-
-                                CustomRequest r = new CustomRequest(Request.Method.POST, SysUtils.getServiceUrl(method), postMap, new Response.Listener<JSONObject>() {
+                                CustomRequest r = new CustomRequest(Request.Method.POST, SysUtils.getSellerServiceUrl("doAccount"), map, new Response.Listener<JSONObject>() {
                                     @Override
                                     public void onResponse(JSONObject jsonObject) {
                                         hideLoading();
 
                                         try {
-                                            int error = jsonObject.getInt("code");
-                                            if(error > 0) {
-                                                String errstr = jsonObject.getString("message");
-                                                SysUtils.showError(errstr);
+                                            JSONObject ret = SysUtils.didResponse(jsonObject);
+                                            String status = ret.getString("status");
+                                            String message = ret.getString("message");
+
+                                            if (!status.equals("200")) {
+                                                SysUtils.showError(message);
                                             } else {
-                                                SysUtils.showSuccess("操作已执行");
-
-                                                sendBroadcast(new Intent(Global.BROADCAST_REFRESH_ADDRESS_ACTION));
-
-//                                                int address_id = dataObject.getInt("id");
-//                                                Intent returnIntent = new Intent();
-//                                                Bundle bundle = new Bundle();
-//                                                bundle.putInt("address_id", address_id);
-//                                                returnIntent.putExtras(bundle);
-//
-//                                                setResult(RESULT_OK, returnIntent);
-
-                                                finish();
+                                                SysUtils.showSuccess("修改已保存");
                                             }
                                         } catch(Exception e) {
                                             e.printStackTrace();
@@ -224,6 +173,8 @@ public class ProfileActivity extends BaseActivity {
                 }
             }
         });
+
+        initView();
     }
 
     @Override
@@ -237,8 +188,94 @@ public class ProfileActivity extends BaseActivity {
                 provinceId = b.getInt("provinceId");
                 cityId = b.getInt("cityId");
                 areaId = b.getInt("townId");
-                String areaStr = b.getString("areaStr");
-                textView8.setText(areaStr);
+                area = b.getString("areaStr");
+
+//                SysUtils.showSuccess(provinceId + "-" + cityId + "-" + areaId);
+                textView8.setText(area);
+            }
+        }
+    }
+
+    private void initView() {
+        CustomRequest r = new CustomRequest(Request.Method.POST, SysUtils.getSellerServiceUrl("account"), null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject jsonObject) {
+                hideLoading();
+                try {
+                    JSONObject ret = SysUtils.didResponse(jsonObject);
+                    String status = ret.getString("status");
+                    String message = ret.getString("message");
+                    JSONObject dataObject = ret.getJSONObject("data");
+
+                    if (!status.equals("200")) {
+                        SysUtils.showError(message);
+                    } else {
+                        JSONObject sellerObject = dataObject.getJSONObject("seller_info");
+
+                        textView2.setText(sellerObject.getString("seller_name"));
+                        textView4.setText(sellerObject.getString("mobile"));
+                        textView6.setText(sellerObject.getString("tel"));
+
+                        JSONObject areaObject = sellerObject.getJSONObject("area");
+
+                        area = areaObject.getString("area");
+                        textView8.setText(area);
+
+                        getAreaId(areaObject.getString("area_id"));
+                        textView10.setText(sellerObject.getString("addr"));
+                    }
+                } catch(Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                SysUtils.showNetworkError();
+                hideLoading();
+            }
+        });
+
+        executeRequest(r);
+        showLoading(this);
+    }
+
+
+    private String getPostArea() {
+        String ret = "mainland";
+        ret += ":" + area;
+        if(areaId > 0) {
+            ret += ":" + areaId;
+        } else if(cityId > 0) {
+            ret += ":" + cityId;
+        } else if(provinceId > 0) {
+            ret += ":" + provinceId;
+        }
+
+//        SysUtils.showSuccess(ret);
+
+        return ret;
+    }
+
+    private void getAreaId(String area_id) {
+        String[] aa = area_id.split(",");
+
+        int aIndex = 0;
+        for (int  i = 0; i < aa.length; i++) {
+            if (!StringUtils.isEmpty(aa[i])) {
+                int aid = Integer.parseInt(aa[i]);
+
+                if (aid > 0) {
+                    if (aIndex == 0) {
+                        provinceId = aid;
+                    } else if(aIndex == 1) {
+                        cityId = aid;
+                    } else if(aIndex == 2) {
+                        areaId= aid;
+                    }
+                    aIndex++;
+                }
+
             }
         }
     }

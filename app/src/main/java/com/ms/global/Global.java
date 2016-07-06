@@ -19,7 +19,7 @@ public class Global {
 	public static boolean isWifi = false;
 
     //版本地址
-	public static final String versionUrl = "http://114.55.63.134/apk/update.xml";
+	public static final String versionUrl = "http://www.yzx6868.com/apk/update.xml";
 	public static final String webUrl = "http://114.55.63.134/";
 
 	public static final String 	weiboServer = "https://api.weibo.com/2";
@@ -57,6 +57,9 @@ public class Global {
 	public static final String BROADCAST_REFRESH_BIND_ACTION = "com.ms.ks.receiver.refresh_bind";
 	public static final String BROADCAST_REFRESH_PARTY_MY_ACTION = "com.ms.ks.receiver.refresh_party_my";
 	public static final String BROADCAST_REFRESH_ORDER_ACTION = "com.ms.ks.receiver.refresh_order";
+	public static final String BROADCAST_REFRESH_ORDER_DETAIL_ACTION = "com.ms.ks.receiver.refresh_order_detail";
+	public static final String BROADCAST_CANCEL_ORDER_ACTION = "com.ms.ks.receiver.cancel_order";
+	public static final String BROADCAST_AFFIRM_ORDER_ACTION = "com.ms.ks.receiver.affirm_order";
 	public static final String BROADCAST_REFRESH_SHOP_ACTION = "com.ms.ks.receiver.refresh_shop";
 	public static final String BROADCAST_REFRESH_PARTY_ACTION = "com.ms.ks.receiver.refresh_party";
 	public static final String BROADCAST_PAY_SUCCESS_ACTION = "com.ms.ks.receiver.pay_success";
@@ -68,6 +71,7 @@ public class Global {
 	public static final String BROADCAST_CART_NUM_ACTION = "com.ms.ks.receiver.cart_num";
 	public static final String BROADCAST_CART_UPDATE_ACTION = "com.ms.ks.receiver.cart_update";
 	public static final String BROADCAST_REFRESH_THEME_ACTION = "com.ms.ks.receiver.refresh_theme";
+	public static final String BROADCAST_LOGOUT_ACTION = "com.ms.ks.receiver.logout";
 
 	public static final String NEWS_USER_TAG = "my_news_cat";
 	public static final String NEWS_OTHER_TAG = "other_news_cat";
@@ -75,5 +79,7 @@ public class Global {
 
 	public static final String API_VERSION = "v1";
 
-	public static final String SERVICE_PHONE = "4008015650";
+	public static final String SERVICE_PHONE = "4008386755";
+
+	public static final String LOGIN_KEY = "12324567889";
 }

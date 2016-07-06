@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -19,11 +18,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.ms.global.Global;
+import com.ms.ks.KsApplication;
 import com.ms.util.DialogUtils;
 import com.ms.util.SysUtils;
-import com.ms.ks.KsApplication;
 
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -198,7 +196,6 @@ public class UpdateAsyncTask {
             Intent service = new Intent(context, DownloadService.class);
             service.putExtra(DownloadService.INTENT_URL, dl);
             context.startService(service);
-
         } else {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(dl));
             context.startActivity(intent);

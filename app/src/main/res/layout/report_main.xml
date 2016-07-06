@@ -131,7 +131,6 @@
         android:layout_height="100dp">
         <RelativeLayout
             android:background="@drawable/selector_cell_pressed"
-            android:id="@id/relativeLayout3"
             android:clickable="true"
             android:layout_width="0.0dip"
             android:layout_height="match_parent"
@@ -185,7 +184,6 @@
 
         <RelativeLayout
             android:background="@drawable/selector_cell_pressed"
-            android:id="@id/relativeLayout2"
             android:clickable="true"
             android:layout_width="0.0dip"
             android:layout_height="fill_parent"
@@ -245,7 +243,6 @@
         android:layout_height="100dp">
         <RelativeLayout
             android:background="@drawable/selector_cell_pressed"
-            android:id="@id/relativeLayout3"
             android:clickable="true"
             android:layout_width="0.0dip"
             android:layout_height="match_parent"
@@ -302,7 +299,6 @@
 
         <RelativeLayout
             android:background="@drawable/selector_cell_pressed"
-            android:id="@id/relativeLayout2"
             android:clickable="true"
             android:layout_width="0.0dip"
             android:layout_height="fill_parent"
@@ -363,7 +359,6 @@
         android:layout_height="100dp">
         <RelativeLayout
             android:background="@drawable/selector_cell_pressed"
-            android:id="@id/relativeLayout3"
             android:clickable="true"
             android:layout_width="0.0dip"
             android:layout_height="match_parent"
@@ -419,7 +414,6 @@
 
         <RelativeLayout
             android:background="@drawable/selector_cell_pressed"
-            android:id="@id/relativeLayout2"
             android:clickable="true"
             android:layout_width="0.0dip"
             android:layout_height="fill_parent"

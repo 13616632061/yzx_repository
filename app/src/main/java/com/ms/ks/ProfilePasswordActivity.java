@@ -6,10 +6,20 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.material.widget.PaperButton;
+import com.ms.util.CustomRequest;
 import com.ms.util.DeleteEditText;
+import com.ms.util.LoginUtils;
 import com.ms.util.StringUtils;
 import com.ms.util.SysUtils;
+
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class ProfilePasswordActivity extends BaseActivity {
@@ -78,52 +88,45 @@ public class ProfilePasswordActivity extends BaseActivity {
                 } else if(!newpwd.equals(re_newpwd)) {
                     SysUtils.showError("确认密码应与新密码一致");
                 } else {
-//                    Map<String,String> map = new HashMap<String,String>();
-//                    map.put("uid", ExamApplication.getString("uid", ""));
-//                    map.put("password", ExamApplication.getString("password", ""));
-//                    map.put("old_password", username);
-//                    map.put("new_password", newpwd);
-//                    map.put("re_new_password", re_newpwd);
-//
-//                    CustomRequest r = new CustomRequest(Request.Method.POST, SysUtils.getServiceUrl("user/modify_password"), map, new Response.Listener<JSONObject>() {
-//                        @Override
-//                        public void onResponse(JSONObject jsonObject) {
-//                            hideLoading();
-//
-//                            try {
-//                                int error = jsonObject.getInt("error");
-//                                if(error > 0) {
-//                                    String errstr = jsonObject.getString("errmsg");
-//                                    SysUtils.showError(errstr);
-//                                } else {
-//                                    SysUtils.showSuccess("密码已修改");
-//
-//                                    ExamApplication.putString("password", jsonObject.getString("password"));
-//                                    ExamApplication.putString("has_password", "1");
-//                                    relativeLayout1.setVisibility(View.VISIBLE);
-//                                    has_password = true;
-//
-//                                    //发送资料修改广播
-//                                    sendBroadcast(new Intent(Global.BROADCAST_PROFILE_UPDATE_ACTION));
-//
-//                                    finish();
-//                                }
-//                            } catch(Exception e) {
-//                                e.printStackTrace();
-//                            }
-//                        }
-//                    }, new Response.ErrorListener() {
-//                        @Override
-//                        public void onErrorResponse(VolleyError volleyError) {
-//                            hideLoading();
-//
-//                            SysUtils.showNetworkError();
-//                        }
-//                    });
-//
-//                    executeRequest(r);
-//
-//                    showLoading(ProfilePasswordActivity.this, "请稍等......");
+                    Map<String,String> map = new HashMap<String,String>();
+                    map.put("name", KsApplication.getString("login_username", ""));
+                    map.put("pwd", username);
+                    map.put("passwd", newpwd);
+                    map.put("passwdcfm", re_newpwd);
+                    map.put("type", LoginUtils.isSeller() ? "1" : "2");
+
+                    CustomRequest r = new CustomRequest(Request.Method.POST, SysUtils.getSellerServiceUrl("updatepwd"), map, new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject jsonObject) {
+                            hideLoading();
+
+                            try {
+                                JSONObject ret = SysUtils.didResponse(jsonObject);
+                                String status = ret.getString("status");
+                                String message = ret.getString("message");
+
+                                if (!status.equals("200")) {
+                                    SysUtils.showError(message);
+                                } else {
+                                    SysUtils.showSuccess("密码已修改");
+
+                                    finish();
+                                }
+                            } catch(Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError volleyError) {
+                            hideLoading();
+                            SysUtils.showNetworkError();
+                        }
+                    });
+
+                    executeRequest(r);
+
+                    showLoading(ProfilePasswordActivity.this);
                 }
             }
         });

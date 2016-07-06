@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -133,7 +134,7 @@ public class LoginActivity extends BaseActivity {
                 if(StringUtils.isEmpty(username)) {
                     SysUtils.showError("用户名不能为空");
                 } else {
-                    String password = textView6.getText().toString();
+                    final String password = textView6.getText().toString();
 
                     if(StringUtils.isEmpty(password)) {
                         SysUtils.showError("登录密码不能为空");
@@ -151,35 +152,24 @@ public class LoginActivity extends BaseActivity {
                                     SysUtils.showError("请选择登录类型");
                                 } else {
                                     Map<String,String> map = new HashMap<String,String>();
-                                    map.put("name", username);
-                                    map.put("pwd", password);
-                                    map.put("type", String.valueOf(fkType));
+                                    map.put("key", Global.LOGIN_KEY);
 
-                                    CustomRequest r = new CustomRequest(Request.Method.POST, SysUtils.getServiceUrl("log"), map, new Response.Listener<JSONObject>() {
+                                    CustomRequest r = new CustomRequest(Request.Method.POST, SysUtils.getSellerServiceUrl("sign"), map, new Response.Listener<JSONObject>() {
                                         @Override
                                         public void onResponse(JSONObject jsonObject) {
-                                            hideLoading();
-
                                             try {
                                                 JSONObject ret = SysUtils.didResponse(jsonObject);
                                                 String status = ret.getString("status");
                                                 String message = ret.getString("message");
-                                                JSONObject dataObject = ret.getJSONObject("data");
+                                                String signs = ret.getString("data");
+
+//                                                Log.v("ks", ret.toString());
 
                                                 if (!status.equals("200")) {
+                                                    hideLoading();
                                                     SysUtils.showError(message);
                                                 } else {
-                                                    SysUtils.showSuccess("登录成功");
-
-                                                    textView6.setText("");
-                                                    textView9.setText("");
-
-                                                    KsApplication.putString("login_username", username);
-                                                    LoginUtils.afterLogin(LoginActivity.this, dataObject, false, fkType);
-
-                                                    toAct();
-
-                                                    finish();
+                                                    doLogin(username, password, signs);
                                                 }
                                             } catch(Exception e) {
                                                 e.printStackTrace();
@@ -206,6 +196,54 @@ public class LoginActivity extends BaseActivity {
                 }
             }
         });
+    }
+
+    private void doLogin(final String username, String password, String sign) {
+        Map<String,String> map = new HashMap<String,String>();
+        map.put("name", username);
+        map.put("pwd", password);
+        map.put("signs", sign);
+        map.put("type", String.valueOf(fkType));
+
+        CustomRequest r = new CustomRequest(Request.Method.POST, SysUtils.getServiceUrl("log"), map, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject jsonObject) {
+                hideLoading();
+
+                try {
+                    JSONObject ret = SysUtils.didResponse(jsonObject);
+                    String status = ret.getString("status");
+                    String message = ret.getString("message");
+
+                    if (!status.equals("200")) {
+                        SysUtils.showError(message);
+                    } else {
+                        SysUtils.showSuccess("登录成功");
+
+                        textView6.setText("");
+                        textView9.setText("");
+
+                        KsApplication.putString("login_username", username);
+                        JSONObject dataObject = ret.getJSONObject("data");
+                        LoginUtils.afterLogin(LoginActivity.this, dataObject, false, fkType);
+
+                        toAct();
+
+                        finish();
+                    }
+                } catch(Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                hideLoading();
+                SysUtils.showNetworkError();
+            }
+        });
+
+        executeRequest(r);
     }
 
     private void setFkType(int type) {

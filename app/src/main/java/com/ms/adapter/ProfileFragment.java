@@ -7,6 +7,11 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.material.widget.PaperButton;
 import com.ms.global.Global;
 import com.ms.ks.AddressActivity;
 import com.ms.ks.BaseFragment;
@@ -17,10 +22,15 @@ import com.ms.ks.ProfilePasswordActivity;
 import com.ms.ks.R;
 import com.ms.ks.SetActivity;
 import com.ms.ks.ShopActivity;
+import com.ms.util.CustomRequest;
+import com.ms.util.LoginUtils;
 import com.ms.util.SysUtils;
+
+import org.json.JSONObject;
 
 public class ProfileFragment extends BaseFragment{
     private ShopActivity mainAct;
+    private TextView textView2;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,6 +49,8 @@ public class ProfileFragment extends BaseFragment{
 //        mainAct.updateView("home");
 
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
+
+        textView2 = (TextView) view.findViewById(R.id.textView2);
 
         TextView textView7 = (TextView) view.findViewById(R.id.textView7);
         textView7.setText(Global.SERVICE_PHONE);
@@ -104,7 +116,67 @@ public class ProfileFragment extends BaseFragment{
             }
         });
 
+
+        PaperButton button1 = (PaperButton) view.findViewById(R.id.button1);
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new MaterialDialog.Builder(getActivity())
+                        .theme(SysUtils.getDialogTheme())
+                        .content("确定退出登录？")
+                        .positiveText("确定")
+                        .negativeText("取消")
+                        .callback(new MaterialDialog.ButtonCallback() {
+                            @Override
+                            public void onPositive(MaterialDialog dialog) {
+                                LoginUtils.logout(getActivity(), 2);
+                                SysUtils.showSuccess("已退出登录");
+
+                                getActivity().finish();
+                            }
+                        })
+                        .show();
+            }
+        });
+
+        getData();
+
         return view;
+    }
+
+    private void getData() {
+        CustomRequest r = new CustomRequest(Request.Method.POST, SysUtils.getSellerServiceUrl("center"), null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject jsonObject) {
+                hideLoading();
+
+                try {
+                    JSONObject ret = SysUtils.didResponse(jsonObject);
+                    String status = ret.getString("status");
+                    String message = ret.getString("message");
+                    JSONObject dataObject = ret.getJSONObject("data");
+
+                    if (!status.equals("200")) {
+                        SysUtils.showError(message);
+                    } else {
+                        double advance = dataObject.getDouble("advance");
+                        textView2.setText(SysUtils.getMoneyFormat(advance));
+                    }
+                } catch(Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                hideLoading();
+                SysUtils.showNetworkError();
+            }
+        });
+
+        executeRequest(r);
+
+        showLoading(getActivity());
     }
 }
 

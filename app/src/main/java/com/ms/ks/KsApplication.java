@@ -1,10 +1,12 @@
 package com.ms.ks;
 
+import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
+import android.util.Log;
 
 import com.ms.db.DBHelper;
 import com.ms.global.Global;
@@ -12,9 +14,13 @@ import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.tencent.android.tpush.XGNotifaction;
+import com.tencent.android.tpush.XGPushManager;
+import com.tencent.android.tpush.XGPushNotifactionCallback;
 import com.tencent.bugly.crashreport.CrashReport;
 
 import java.io.File;
+import java.util.List;
 
 public class KsApplication extends Application {
     private static SharedPreferences sp;
@@ -28,9 +34,47 @@ public class KsApplication extends Application {
     public static boolean hasNewVersion = false;
     public static String newVersionName = "";
 
+
+    public boolean isMainProcess() {
+        ActivityManager am = ((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE));
+        List<ActivityManager.RunningAppProcessInfo> processInfos = am.getRunningAppProcesses();
+        String mainProcessName = getPackageName();
+        int myPid = android.os.Process.myPid();
+        for (ActivityManager.RunningAppProcessInfo info : processInfos) {
+            if (info.pid == myPid && mainProcessName.equals(info.processName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
+
+        // 在主进程设置信鸽相关的内容
+        if (isMainProcess()) {
+            // 为保证弹出通知前一定调用本方法，需要在application的onCreate注册
+            // 收到通知时，会调用本回调函数。
+            // 相当于这个回调会拦截在信鸽的弹出通知之前被截取
+            // 一般上针对需要获取通知内容、标题，设置通知点击的跳转逻辑等等
+            XGPushManager
+                    .setNotifactionCallback(new XGPushNotifactionCallback() {
+
+                        @Override
+                        public void handleNotify(XGNotifaction xGNotifaction) {
+                            Log.v("ks", "处理信鸽通知：" + xGNotifaction);
+                            // 获取标签、内容、自定义内容
+                            String title = xGNotifaction.getTitle();
+                            String content = xGNotifaction.getContent();
+                            String customContent = xGNotifaction
+                                    .getCustomContent();
+                            // 其它的处理
+                            // 如果还要弹出通知，可直接调用以下代码或自己创建Notifaction，否则，本通知将不会弹出在通知栏中。
+                            xGNotifaction.doNotify();
+                        }
+                    });
+        }
 
         sContext = getApplicationContext();
         sp = PreferenceManager.getDefaultSharedPreferences(this);

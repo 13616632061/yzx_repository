@@ -52,6 +52,7 @@ import com.material.widget.PaperButton;
 import com.ms.db.DBHelper;
 import com.ms.entity.News;
 import com.ms.entity.NewsCat;
+import com.ms.entity.Order;
 import com.ms.global.Global;
 import com.ms.ks.KsApplication;
 import com.ms.ks.MainActivity;
@@ -433,7 +434,13 @@ public class SysUtils {
 
     public static String getMemberServiceUrl(String method) {
         String ret = "http://www.yzx6868.com/rpc/service/?method=ks.member." + method + "&vsn=1.0&format=json";
-        ret += "&member_id=" + KsApplication.getInt("member_id", 0);
+        ret += "&member_token=" + KsApplication.getString("token", "");
+        return ret;
+    }
+
+    public static String getSellerServiceUrl(String method) {
+        String ret = "http://www.yzx6868.com/rpc/service/?method=ks.seller." + method + "&vsn=1.0&format=json";
+        ret += "&seller_token=" + KsApplication.getString("token", "");
         return ret;
     }
 
@@ -1134,8 +1141,59 @@ public class SysUtils {
 
             ret.put("status", status);
             ret.put("message", message);
-            ret.put("data", re.getJSONObject("data"));
+
+            Object o = re.get("data");
+            ret.put("data", o);
+
+//            if (o instanceof String) {
+//
+//            }
+//            ret.put("data", re.getJSONObject("data"));
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return ret;
+    }
+
+    public static Order getOrderRow(JSONObject data) {
+        Order b = null;
+
+        try {
+            b = new Order(
+                    data.getString("order_id"),
+                    data.getString("createtime"),
+                    SysUtils.getFinalString("name", data),
+                    data.optInt("pay_status"),
+                    data.optInt("pay_status"),
+                    data.optInt("pay_status"),
+                    data.optInt("button_affirm"),
+                    data.optInt("button_off"),
+                    data.optInt("shipments_yes"),
+                    data.optInt("shipments_no"),
+                    SysUtils.getFinalString("ship_addr", data),
+                    data.optDouble("final_amount"),
+                    data.optDouble("cost_freight"),
+                    data.optInt("delivery_express"),
+                    data.optInt("delivery_seller"),
+                    data.optInt("delivery_seller_dt_id"),
+                    SysUtils.getFinalString("seller_name", data),
+                    SysUtils.getFinalString("seller_tel", data));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return b;
+    }
+
+    public static String getFinalString(String key, JSONObject data) {
+        String ret = "";
+
+        try {
+            if (!data.isNull(key)) {
+                ret = data.getString(key);
+            }
+        } catch(Exception e) {
             e.printStackTrace();
         }
 

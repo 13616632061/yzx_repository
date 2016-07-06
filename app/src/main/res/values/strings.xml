@@ -23,14 +23,15 @@
     <string name="title_activity_register_second">注册2/3</string>
     <string name="title_activity_register_three">注册3/3</string>
     <string name="title_activity_profile">账号信息</string>
-    <string name="title_activity_job_select">选择职业</string>
-    <string name="title_activity_profile_nickname">修改昵称</string>
-    <string name="title_activity_profile_sign">更新签名</string>
-    <string name="title_activity_local">选择城市</string>
-    <string name="title_activity_city_search">城市搜索</string>
-    <string name="title_activity_like">我喜欢的</string>
-    <string name="title_activity_want">我想要的</string>
-    <string name="title_activity_buy">我的宝贝</string>
+    <string name="title_activity_member_profile">个人信息</string>
+    <string name="title_activity_member_profile_nickname">修改姓名</string>
+    <string name="title_activity_member_profile_mobile">修改手机号</string>
+    <string name="title_activity_member_profile_tel">修改固定电话</string>
+    <string name="title_activity_member_profile_address">修改地址</string>
+    <string name="title_activity_order_detail">订单详情</string>
+    <string name="title_activity_order_delivery">快递发货</string>
+    <string name="title_activity_order_delivery_corp">选择物流公司</string>
+    <string name="title_activity_order_delivery_code">快递单号</string>
 
     <string-array name="sex_list">
         <item>男</item>

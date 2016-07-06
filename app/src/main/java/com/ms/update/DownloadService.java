@@ -19,12 +19,12 @@ import android.os.Message;
 import android.util.Log;
 import android.widget.RemoteViews;
 
-import com.ms.ks.MainActivity;
 import com.ms.ks.R;
+import com.ms.ks.WelcomeActivity;
 
 public class DownloadService extends Service {
 	// notification 名字
-	private String notify_name = "康帅正在下载...";
+	private String notify_name = "易之星正在下载...";
 	public static final String INTENT_URL = "url";
 	private Context mContext = this;
 	Notification mNotification;
@@ -114,7 +114,7 @@ public class DownloadService extends Service {
 				contentView.setTextViewText(R.id.name, "下载失败");
 				// 指定个性化视图
 				mNotification.contentView = contentView;
-				Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+				Intent intent = new Intent(getApplicationContext(), WelcomeActivity.class);
 				PendingIntent contentIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 				// 指定内容意图
@@ -198,7 +198,7 @@ public class DownloadService extends Service {
 					}
 					fos.write(buf, 0, numread);
 				} while (!canceled);// 点击取消就停止下载.
-//				Log.i("DownloadService----------canceled", canceled + "");
+				Log.i("DownloadService----------canceled", canceled + "");
 				fos.close();
 				is.close();
 			} catch (Exception e) {

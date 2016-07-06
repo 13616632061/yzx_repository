@@ -157,11 +157,17 @@ public class AddressLocationActivity extends BaseActivity {
 
         isLoading = true;
 
-        Map<String,Object> finalMap = new HashMap<String,Object>();
-        finalMap.put("parentId", pid);
-        Map<String,String> postMap = SysUtils.apiCall(AddressLocationActivity.this, finalMap);
+        HashMap<String,String> finalMap = new HashMap<String,String>();
 
-        CustomRequest r = new CustomRequest(Request.Method.POST, SysUtils.getServiceUrl("address/fetch"), postMap, new Response.Listener<JSONObject>() {
+        String method = "";
+        if (level > 0) {
+            finalMap.put("p_region_id", pid);
+            method = "p_region";
+        } else {
+            method = "regions";
+        }
+
+        CustomRequest r = new CustomRequest(Request.Method.POST, SysUtils.getSellerServiceUrl(method), finalMap, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject jsonObject) {
                 hideLoading();
@@ -179,18 +185,21 @@ public class AddressLocationActivity extends BaseActivity {
                 updateAreaStr();
 
                 try {
-                    int code = jsonObject.getInt("code");
+                    JSONObject ret = SysUtils.didResponse(jsonObject);
+                    String status = ret.getString("status");
+                    String message = ret.getString("message");
+                    JSONObject dataObject = ret.getJSONObject("data");
 
-                    if(code == 0) {
-                        JSONArray array = jsonObject.optJSONArray("addressList");
+                    if (status.equals("200")) {
+                        JSONArray array = dataObject.optJSONArray("data");
                         if (array != null && array.length() > 0) {
                             //有数据
                             l.clear();
                             for (int i = 0; i < array.length(); i++) {
                                 JSONObject o = array.optJSONObject(i);
                                 AddressCity bean = new AddressCity();
-                                bean.setCid(o.getString("id"));
-                                bean.setTitle(o.getString("name"));
+                                bean.setCid(o.getString("region_id"));
+                                bean.setTitle(o.getString("local_name"));
                                 l.add(bean);
                             }
                             list.setAdapter(myAdapter);

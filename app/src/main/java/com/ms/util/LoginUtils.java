@@ -10,6 +10,7 @@ import com.ms.ks.LoginActivity;
 import com.ms.ks.KsApplication;
 
 import org.json.JSONObject;
+import com.tencent.android.tpush.XGPushManager;
 
 //import com.ms.yiyou.LoginActivity;
 
@@ -27,18 +28,20 @@ public class LoginUtils {
     public static boolean hasLogin() {
         boolean hasLogin = false;
         int login_type = KsApplication.getInt("login_type", 0);
-        if (login_type == 1) {
-            //店铺
-            int seller_id = KsApplication.getInt("seller_id", 0);
-            if (seller_id > 0) {
+        String token = KsApplication.getString("token", "");
+
+        if (!StringUtils.isEmpty(token)) {
+            if (login_type == 1) {
+                //店铺
+                int seller_id = KsApplication.getInt("seller_id", 0);
+                if (seller_id > 0) {
+                    hasLogin = true;
+                }
+            } else if (login_type == 2) {
+                //业务员
                 hasLogin = true;
             }
-        } else if (login_type == 2) {
-            //业务员
-            int member_id = KsApplication.getInt("member_id", 0);
-            if (member_id > 0) {
-                hasLogin = true;
-            }
+
         }
 
         return hasLogin;
@@ -53,9 +56,12 @@ public class LoginUtils {
 
         int login_type = KsApplication.getInt("login_type", 0);
         if (login_type == 1) {
-            int seller_id = KsApplication.getInt("seller_id", 0);
-            if (seller_id > 0) {
-                isSeller = true;
+            String token = KsApplication.getString("token", "");
+            if (!StringUtils.isEmpty(token)) {
+                int seller_id = KsApplication.getInt("seller_id", 0);
+                if (seller_id > 0) {
+                    isSeller = true;
+                }
             }
         }
 
@@ -71,8 +77,8 @@ public class LoginUtils {
 
         int login_type = KsApplication.getInt("login_type", 0);
         if (login_type == 2) {
-            int member_id = KsApplication.getInt("member_id", 0);
-            if (member_id > 0) {
+            String token = KsApplication.getString("token", "");
+            if (!StringUtils.isEmpty(token)) {
                 isMember = true;
             }
         }
@@ -107,12 +113,10 @@ public class LoginUtils {
             KsApplication.putInt("login_type", loginType);
             if (loginType > 0) {
                 KsApplication.putInt("type", jsonObject.getInt("type"));
+                KsApplication.putString("token", jsonObject.getString("token"));
                 if (loginType == 1) {
                     //店铺
-                    KsApplication.putInt("seller_id", jsonObject.getInt("seller_id"));
-                } else if (loginType == 2) {
-                    //业务员
-                    KsApplication.putInt("member_id", jsonObject.getInt("member_id"));
+                    KsApplication.putInt("seller_id", jsonObject.getInt("id"));
                 }
             }
 
@@ -120,6 +124,9 @@ public class LoginUtils {
             ctx.sendBroadcast(new Intent(Global.BROADCAST_LOGIN_ACTION));
 
             KsApplication.putString("login_mod", "");
+
+            //注册推送tag
+            LoginUtils.setTag(ctx);
 
             if(finish) {
                 ((Activity) ctx).finish();
@@ -129,8 +136,21 @@ public class LoginUtils {
         }
     }
 
+    public static void setTag(Context ctx) {
+        String account = "seller_" + KsApplication.getInt("seller_id", 0);
+        if (LoginUtils.isSeller()) {
+            //商家，设置tag
+            XGPushManager.setTag(ctx, account);
+        } else {
+            XGPushManager.deleteTag(ctx, account);
+        }
+    }
+
     public static void logout(final Context ctx, final int type) {
         KsApplication.putInt("login_type", 0);
+
+        //删除tag
+        LoginUtils.setTag(ctx);
         //发出登录广播
         ctx.sendBroadcast(new Intent(Global.BROADCAST_LOGIN_ACTION));
     }
