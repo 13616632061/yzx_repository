@@ -305,6 +305,7 @@ public class OrderFragment extends BaseLazyLoadFragment implements SwipeRefreshL
                     holder.linearLayout5 = (LinearLayout) convertView.findViewById(R.id.linearLayout5);
                     holder.editText1 = (TextView) convertView.findViewById(R.id.editText1);
                     holder.editText2 = (TextView) convertView.findViewById(R.id.editText2);
+                    holder.linearlayout01 = (LinearLayout) convertView.findViewById(R.id.linearlayout01);
 
                     convertView.setTag(holder);
                 } catch (Exception e) {
@@ -316,6 +317,13 @@ public class OrderFragment extends BaseLazyLoadFragment implements SwipeRefreshL
 
             final Order data = cat_list.get(position);
             if(data != null) {
+//                if (data.getPayStatus() == 1) {
+//                    //已付款
+//                    holder.linearlayout01.setBackgroundResource(R.drawable.selector_cell_pressed);
+//                } else {
+//                    holder.linearlayout01.setBackgroundResource(R.drawable.selector_cell_pressed_2);
+//                }
+
                 holder.textView3.setText(data.getOrderTime());
                 holder.textView10.setText(data.getPayStatusStr());
 
@@ -487,6 +495,7 @@ public class OrderFragment extends BaseLazyLoadFragment implements SwipeRefreshL
         public RelativeLayout relativeLayout1;
         public LinearLayout linearLayout5;
         public TextView editText1, editText2;
+        public LinearLayout linearlayout01;
     }
 
     private void setView() {

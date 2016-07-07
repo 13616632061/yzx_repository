@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
+    android:id="@id/linearlayout01"
     android:background="@drawable/selector_cell_pressed"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
@@ -8,7 +9,6 @@
     <RelativeLayout
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
-        android:background="@drawable/selector_cell_single_line"
         android:layout_width="fill_parent"
         android:layout_height="@dimen/s_component_height">
         <TextView
@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:textColor="@color/text_color"
-            android:textSize="12sp"
+            android:textSize="14sp"
             android:text=""/>
         <TextView
             android:id="@id/textView10"
@@ -25,9 +25,13 @@
             android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
+            android:textSize="14sp"
             android:text=""/>
     </RelativeLayout>
+    <TextView
+        android:background="@color/divider_color"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/divider_height" />
     <LinearLayout
         android:id="@id/linearlayout01"
         android:padding="@dimen/listview_padding"
@@ -40,7 +44,7 @@
             android:id="@id/textView2"
             android:lineSpacingExtra="2dp"
             android:singleLine="false"
-            android:textSize="12sp"
+            android:textSize="14sp"
             android:textColor="@color/text_secondary_color"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -50,14 +54,14 @@
             android:orientation="horizontal">
             <TextView
                 android:id="@id/textView4"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:textColor="@color/text_color"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
                 android:layout_marginLeft="30dp"
                 android:id="@id/textView5"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:textColor="@color/text_color"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -72,7 +76,7 @@
                 android:text=""
                 android:gravity="center_vertical"
                 android:id="@id/textView6"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/text_color"/>
@@ -95,9 +99,12 @@
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:orientation="horizontal"
-        android:background="@drawable/bg_upline_common"
         android:layout_width="fill_parent"
         android:layout_height="@dimen/s_component_height">
+        <TextView
+            android:background="@color/divider_color"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/divider_height" />
 
         <LinearLayout
             android:id="@id/linearLayout2"

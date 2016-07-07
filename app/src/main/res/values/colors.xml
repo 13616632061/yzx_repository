@@ -88,4 +88,5 @@
     <!-- 浅灰色 -->
     <color name="bg_Gray_light">#EEEEEE</color>
     <color name="shape_bg">#ddffffff</color>
+    <color name="bg_selector">#ffe5e5e5</color>
 </resources>

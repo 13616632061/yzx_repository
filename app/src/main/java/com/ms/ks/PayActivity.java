@@ -224,7 +224,7 @@ public class PayActivity extends ShareBaseActivity {
         Map<String,String> map = new HashMap<String,String>();
         map.put("money", String.valueOf(pay_money));
 
-        CustomRequest r = new CustomRequest(Request.Method.POST, "http://www.smgypt.com/api/user/create_ali_order", map, new Response.Listener<JSONObject>() {
+        CustomRequest r = new CustomRequest(Request.Method.POST, SysUtils.getMemberServiceUrl("create_ali_order"), map, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject jsonObject) {
                 isLoading = false;
@@ -239,8 +239,10 @@ public class PayActivity extends ShareBaseActivity {
                     if (!status.equals("200")) {
                         SysUtils.showError(message);
                     } else {
-                        String orderInfo = dataObject.getString("order_spec");
-                        String sign = dataObject.getString("signedString");
+                        JSONObject orderObject = dataObject.getJSONObject("data");
+
+                        String orderInfo = orderObject.getString("order_spec");
+                        String sign = orderObject.getString("signedString");
 
                         // 完整的符合支付宝参数规范的订单信息
                         final String payInfo = orderInfo + "&sign=\"" + sign + "\"&sign_type=\"RSA\"";

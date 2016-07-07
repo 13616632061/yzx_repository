@@ -32,6 +32,7 @@
     <string name="title_activity_order_delivery">快递发货</string>
     <string name="title_activity_order_delivery_corp">选择物流公司</string>
     <string name="title_activity_order_delivery_code">快递单号</string>
+    <string name="title_activity_print">打印设置</string>
 
     <string-array name="sex_list">
         <item>男</item>

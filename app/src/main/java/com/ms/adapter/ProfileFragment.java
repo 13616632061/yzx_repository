@@ -17,6 +17,7 @@ import com.ms.ks.AddressActivity;
 import com.ms.ks.BaseFragment;
 import com.ms.ks.MoneyActivity;
 import com.ms.ks.MsgActivity;
+import com.ms.ks.PrintActivity;
 import com.ms.ks.ProfileActivity;
 import com.ms.ks.ProfilePasswordActivity;
 import com.ms.ks.R;
@@ -113,6 +114,14 @@ public class ProfileFragment extends BaseFragment{
             @Override
             public void onClick(View v) {
                 SysUtils.startAct(getActivity(), new MsgActivity());
+            }
+        });
+
+        LinearLayout linearlayout01 = (LinearLayout) view.findViewById(R.id.linearlayout01);
+        linearlayout01.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SysUtils.startAct(getActivity(), new PrintActivity());
             }
         });
 

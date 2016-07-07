@@ -8,11 +8,9 @@ import android.os.Bundle;
 import com.ms.global.Global;
 import com.ms.ks.LoginActivity;
 import com.ms.ks.KsApplication;
+import com.xiaomi.mipush.sdk.MiPushClient;
 
 import org.json.JSONObject;
-import com.tencent.android.tpush.XGPushManager;
-
-//import com.ms.yiyou.LoginActivity;
 
 public class LoginUtils {
 
@@ -140,9 +138,9 @@ public class LoginUtils {
         String account = "seller_" + KsApplication.getInt("seller_id", 0);
         if (LoginUtils.isSeller()) {
             //商家，设置tag
-            XGPushManager.setTag(ctx, account);
+            MiPushClient.setUserAccount(ctx, account, null);
         } else {
-            XGPushManager.deleteTag(ctx, account);
+            MiPushClient.unsetUserAccount(ctx, account, null);
         }
     }
 

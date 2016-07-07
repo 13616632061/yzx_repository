@@ -1,9 +1,7 @@
 package com.ms.ks;
 
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
+import android.support.v4.app.ActivityCompat;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -15,12 +13,6 @@ import com.ms.util.SysUtils;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.tencent.android.tpush.XGIOperateCallback;
-import com.tencent.android.tpush.XGPushConfig;
-import com.tencent.android.tpush.XGPushManager;
-
-import java.lang.ref.WeakReference;
-
 public class WelcomeActivity extends BaseActivity {
 //    private boolean hasSpash = false;
 Boolean isExit = false;
@@ -28,37 +20,14 @@ Boolean isExit = false;
     Timer tExit;
     TimerTask task;
     RelativeLayout relativeLayout2, relativeLayout1, relativeLayout3;
-    Message m = null;
+    private static final int REQUEST_PERMISSION = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState, 0);
-        XGPushConfig.enableDebug(this, true);
         View view = getLayoutInflater().from(this).inflate(R.layout.activity_welcome, null);
 
         setContentView(view);
-
-
-        // 1.获取设备Token
-        Handler handler = new HandlerExtension(WelcomeActivity.this);
-        m = handler.obtainMessage();
-        // 注册接口
-        XGPushManager.registerPush(getApplicationContext(),
-                new XGIOperateCallback() {
-                    @Override
-                    public void onSuccess(Object data, int flag) {
-                        Log.v("ks",
-                                "+++ register push sucess. token:" + data);
-                    }
-
-                    @Override
-                    public void onFail(Object data, int errCode, String msg) {
-                        Log.v("ks",
-                                "+++ register push fail. token:" + data
-                                        + ", errCode:" + errCode + ",msg:"
-                                        + msg);
-                    }
-                });
 
         tExit = new Timer();
         task = new TimerTask() {
@@ -99,27 +68,10 @@ Boolean isExit = false;
         checkVersion();
     }
 
+    private void requestPermission() {
+        ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE, android.Manifest.permission.READ_PHONE_STATE},
+                REQUEST_PERMISSION);
 
-
-    private static class HandlerExtension extends Handler {
-        WeakReference<WelcomeActivity> mActivity;
-
-        HandlerExtension(WelcomeActivity activity) {
-            mActivity = new WeakReference<WelcomeActivity>(activity);
-        }
-
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            WelcomeActivity theActivity = mActivity.get();
-            if (theActivity == null) {
-                theActivity = new WelcomeActivity();
-            }
-            if (msg != null) {
-            }
-            // XGPushManager.registerCustomNotification(theActivity,
-            // "BACKSTREET", "BOYS", System.currentTimeMillis() + 5000, 0);
-        }
     }
 
     @Override

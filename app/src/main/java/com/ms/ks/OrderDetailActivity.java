@@ -22,15 +22,13 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.material.widget.PaperButton;
 import com.ms.entity.Order;
 import com.ms.entity.OrderGoods;
 import com.ms.global.Global;
 import com.ms.util.CustomRequest;
-import com.ms.util.LoginUtils;
 import com.ms.util.StringUtils;
 import com.ms.util.SysUtils;
-import com.tencent.android.tpush.XGPushClickedResult;
-import com.tencent.android.tpush.XGPushManager;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -62,6 +60,8 @@ public class OrderDetailActivity extends BaseActivity {
 
     public View shipView;
     private boolean hasKuaidi = false, hasWaimai = false;
+    public View printView;
+    public PaperButton btnPrint;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -189,6 +189,18 @@ public class OrderDetailActivity extends BaseActivity {
             }
         });
 
+
+        printView = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.order_print, lv_content, false);
+        lv_content.addFooterView(printView);
+        printView.setVisibility(View.GONE);
+        btnPrint = (PaperButton) printView.findViewById(R.id.button1);
+        btnPrint.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SysUtils.showSuccess("print");
+            }
+        });
+
         textView3 = (TextView) firstView.findViewById(R.id.textView3);
         textView10 = (TextView) firstView.findViewById(R.id.textView10);
         textView2 = (TextView) firstView.findViewById(R.id.textView2);
@@ -249,6 +261,8 @@ public class OrderDetailActivity extends BaseActivity {
                             shipView.setVisibility(View.GONE);
 
                         }
+
+                        printView.setVisibility(View.VISIBLE);
 
                         textView3.setText(order.getOrderTime());
                         textView10.setText(order.getPayStatusStr());
