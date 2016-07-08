@@ -1172,13 +1172,21 @@ public class SysUtils {
                     data.optInt("shipments_yes"),
                     data.optInt("shipments_no"),
                     SysUtils.getFinalString("ship_addr", data),
+                    SysUtils.getFinalString("ship_name", data),
+                    SysUtils.getFinalString("ship_mobile", data),
                     data.optDouble("final_amount"),
                     data.optDouble("cost_freight"),
                     data.optInt("delivery_express"),
                     data.optInt("delivery_seller"),
                     data.optInt("delivery_seller_dt_id"),
                     SysUtils.getFinalString("seller_name", data),
-                    SysUtils.getFinalString("seller_tel", data));
+                    SysUtils.getFinalString("seller_tel", data),
+                    SysUtils.getFinalString("mark_text", data),
+                    data.optInt("distribution"),
+                    SysUtils.getFinalString("status", data),
+                    data.optDouble("cost_item"),
+                    data.optDouble("pmt_order"),
+                    data.optDouble("payed"));
         } catch (Exception e) {
             e.printStackTrace();
         }

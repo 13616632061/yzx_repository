@@ -8,6 +8,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.ms.update.UpdateAsyncTask;
+import com.ms.util.LoginUtils;
 import com.ms.util.SysUtils;
 
 import java.util.Timer;
@@ -37,21 +38,20 @@ Boolean isExit = false;
             }
         };
 
-        //业务员
+        //普通登录
         relativeLayout2 = (RelativeLayout) findViewById(R.id.relativeLayout2);
         relativeLayout2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SysUtils.startAct(WelcomeActivity.this, new ReportActivity());
+                SysUtils.openUrl(WelcomeActivity.this, "http://www.yzx6868.com/wap/");
             }
         });
 
-        //商城
+        //易星到家
         relativeLayout1 = (RelativeLayout) findViewById(R.id.relativeLayout1);
         relativeLayout1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SysUtils.openUrl(WelcomeActivity.this, "http://www.yzx6868.com/wap/");
             }
         });
 
@@ -60,7 +60,13 @@ Boolean isExit = false;
         relativeLayout3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SysUtils.startAct(WelcomeActivity.this, new ShopActivity());
+                if (LoginUtils.isSeller()) {
+                    SysUtils.startAct(WelcomeActivity.this, new ShopActivity());
+                } else if (LoginUtils.isMember()) {
+                    SysUtils.startAct(WelcomeActivity.this, new ReportActivity());
+                } else {
+                    SysUtils.startAct(WelcomeActivity.this, new LoginActivity());
+                }
             }
         });
 

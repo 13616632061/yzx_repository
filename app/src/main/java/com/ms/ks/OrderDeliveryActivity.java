@@ -3,6 +3,7 @@ package com.ms.ks;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -56,6 +57,12 @@ public class OrderDeliveryActivity extends BaseActivity {
     public TextView corp_name_label;
     public TextView corp_no_label;
 
+    public View addressView;
+    public TextView textView15, textView16, textView_title;
+
+    public View remarkView;
+    public TextView order_memo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,6 +105,22 @@ public class OrderDeliveryActivity extends BaseActivity {
         cat_list = new ArrayList<OrderGoods>();
 
         lv_content = (ListView) findViewById(R.id.lv_content);
+
+
+        //配送地址
+        addressView = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.item_address, lv_content, false);
+        lv_content.addHeaderView(addressView);
+        addressView.setVisibility(View.GONE);
+        textView15 = (TextView) addressView.findViewById(R.id.textView15);
+        textView16 = (TextView) addressView.findViewById(R.id.textView16);
+        textView_title = (TextView) addressView.findViewById(R.id.textView_title);
+
+        //订单备注
+        remarkView = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.item_remark, lv_content, false);
+        lv_content.addHeaderView(remarkView);
+        remarkView.setVisibility(View.GONE);
+        order_memo = (TextView) remarkView.findViewById(R.id.order_memo);
+
         View firstView = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.item_order, lv_content, false);
         lv_content.addHeaderView(firstView);
 
@@ -210,19 +233,39 @@ public class OrderDeliveryActivity extends BaseActivity {
 
     private void initView() {
         textView3.setText(order.getOrderTime());
-        textView10.setText(order.getPayStatusStr());
+//        textView10.setText(order.getPayStatusStr());
+//
+//        if (order.getPayStatus() == 1) {
+//            textView10.setTextColor(textColor);
+//        } else {
+//            textView10.setTextColor(redColor);
+//        }
+        textView10.setText(Html.fromHtml(order.getStatusStr()));
 
-        if (order.getPayStatus() == 1) {
-            textView10.setTextColor(textColor);
+        textView2.setVisibility(View.GONE);
+        if (order.hasShippingAddr()) {
+//                            textView2.setText("配送地址：" + order.getShipAddr());
+            textView15.setText(order.getShipName());
+            textView16.setText(Html.fromHtml("<u>" + order.getShipMobile() + "</u>"));
+            textView16.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    SysUtils.callTel(OrderDeliveryActivity.this, order.getShipMobile());
+                }
+            });
+            textView_title.setText(order.getShipAddr());
+            addressView.setVisibility(View.VISIBLE);
         } else {
-            textView10.setTextColor(redColor);
+            addressView.setVisibility(View.GONE);
+            lv_content.removeHeaderView(addressView);
         }
 
-        if (order.hasShippingAddr()) {
-            textView2.setText("配送地址：" + order.getShipAddr());
-            textView2.setVisibility(View.VISIBLE);
+        if (!StringUtils.isEmpty(order.getMemo())) {
+            order_memo.setText(Html.fromHtml(order.getMemo()));
+            remarkView.setVisibility(View.VISIBLE);
         } else {
-            textView2.setVisibility(View.GONE);
+            remarkView.setVisibility(View.GONE);
+            lv_content.removeHeaderView(remarkView);
         }
         textView4.setText(order.getShippingStr());
         textView5.setText("订单号：" + order.getOrderSn());

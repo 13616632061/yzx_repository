@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -95,6 +96,8 @@ public class PrintActivity extends BaseActivity {
                         if(hasConnect) {
                             //已连接
                             String printMsg = PrintUtil.getTestMsg();
+
+//                            Log.v("ks", printMsg);
                             mService.sendMessage(printMsg, "GBK");
                         } else {
                             //未连接，尝试连接

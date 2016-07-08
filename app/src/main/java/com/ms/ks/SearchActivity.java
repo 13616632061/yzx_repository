@@ -163,14 +163,14 @@ public class SearchActivity extends BaseActivity implements SwipeRefreshLayout.O
         }
 
         //更改提交按钮
-//        int goButtonId = getResources().getIdentifier("search_go_btn", "id", getPackageName());
-//        ImageView goButtonImage = (ImageView) mSearchView.findViewById(goButtonId);
-//        if (goButtonImage != null) {
-//            goButtonImage.setImageResource(R.drawable.icon_search);
-//        }
+        int goButtonId = getResources().getIdentifier("search_go_btn", "id", getPackageName());
+        ImageView goButtonImage = (ImageView) mSearchView.findViewById(goButtonId);
+        if (goButtonImage != null) {
+            goButtonImage.setImageResource(R.drawable.icon_search);
+        }
 //
-//        mSearchView.setSubmitButtonEnabled(true);
-        mSearchView.setSubmitButtonEnabled(false);
+        mSearchView.setSubmitButtonEnabled(true);
+//        mSearchView.setSubmitButtonEnabled(false);
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {

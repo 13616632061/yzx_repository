@@ -6,6 +6,7 @@ public class OrderGoods implements Serializable {
 	private int quantity;
 	private String name;
 	private double price;
+	private String formatPrice;
 
 	public int getQuantity() {
 		return quantity;
@@ -29,5 +30,13 @@ public class OrderGoods implements Serializable {
 
 	public void setPrice(double price) {
 		this.price = price;
+	}
+
+	public String getFormatPrice() {
+		return formatPrice;
+	}
+
+	public void setFormatPrice(String formatPrice) {
+		this.formatPrice = formatPrice;
 	}
 }

@@ -6,12 +6,12 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -32,8 +32,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LoginActivity extends BaseActivity {
+    RelativeLayout relativeLayout1, relativeLayout2, relativeLayout3;
     TextView textView1, textView4;
     EditText textView3, textView6;
+    LinearLayout linearlayout01, linearlayout02;
     private boolean is_eye_open = false;
     ImageView textView7;
     EditText textView9;
@@ -47,26 +49,7 @@ public class LoginActivity extends BaseActivity {
 
         SysUtils.setupUI(this, findViewById(R.id.main));
 
-        initToolbar(this, 3);
-        setToolbarTitle(null);
-        //隐藏工具栏
-        toolbar.setVisibility(View.GONE);
-
-
-        Bundle bundle = this.getIntent().getExtras();
-        if (bundle != null) {
-            if (bundle.containsKey("loginType")) {
-                fkType = bundle.getInt("loginType");
-            }
-        }
-
-        ImageButton btn_done = (ImageButton) findViewById(R.id.btn_back);
-        btn_done.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
+        initToolbar(this);
 
         textView1 = (TextView) findViewById(R.id.textView1);
         textView4 = (TextView) findViewById(R.id.textView4);
@@ -97,6 +80,7 @@ public class LoginActivity extends BaseActivity {
             }
         });
 
+
         //验证码
         textView7  =(ImageView) findViewById(R.id.textView7);
         textView7.setImageBitmap(Code.getInstance().createBitmap());
@@ -108,18 +92,19 @@ public class LoginActivity extends BaseActivity {
         });
         textView9 = (EditText) findViewById(R.id.textView9);
 
+
         cb_left = (CheckBox) findViewById(R.id.cb_left);
         cb_left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setFkType(1);
+                setFkType(2);
             }
         });
         cb_right = (CheckBox) findViewById(R.id.cb_right);
         cb_right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setFkType(2);
+                setFkType(1);
             }
         });
 

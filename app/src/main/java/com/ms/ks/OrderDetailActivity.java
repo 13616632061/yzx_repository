@@ -1,11 +1,15 @@
 package com.ms.ks;
 
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.util.Log;
+import android.os.Handler;
+import android.os.Message;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,13 +26,15 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.material.widget.PaperButton;
+import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.ms.entity.Order;
 import com.ms.entity.OrderGoods;
 import com.ms.global.Global;
 import com.ms.util.CustomRequest;
+import com.ms.util.PrintUtil;
 import com.ms.util.StringUtils;
 import com.ms.util.SysUtils;
+import com.zj.btsdk.BluetoothService;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -45,6 +51,7 @@ public class OrderDetailActivity extends BaseActivity {
     private Button load_btn_refresh_net, load_btn_retry;
     private TextView load_tv_noresult;
     private int textColor, redColor;
+    public ArrayList<OrderGoods> goodsList;
     public ArrayList<OrderGoods> cat_list;
     private PartyAdapter adapter;
 
@@ -60,8 +67,22 @@ public class OrderDetailActivity extends BaseActivity {
 
     public View shipView;
     private boolean hasKuaidi = false, hasWaimai = false;
-    public View printView;
-    public PaperButton btnPrint;
+
+    public View addressView;
+    public TextView textView15, textView16, textView_title;
+
+    public View remarkView;
+    public TextView order_memo;
+
+    //蓝牙服务
+    BluetoothService mService = null;
+    //表示是否连接上蓝牙打印机
+    private boolean hasConnect = false;
+    //尝试打开蓝牙
+    private static final int REQUEST_ENABLE_BT = 2;
+
+    public FloatingActionButton tv_print;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,13 +101,12 @@ public class OrderDetailActivity extends BaseActivity {
             finish();
         }
 
-        Intent intent = new Intent(this, OrderDetailActivity.class);
-        Bundle b = new Bundle();
-        b.putString("order_id", "1606271257453732");
-        intent.putExtras(b);
 
-        String intentStr = intent.toUri(Intent.URI_INTENT_SCHEME);
-        Log.v("ks", intentStr);
+        mService = new BluetoothService(this, mHandler);
+
+        if( mService.isAvailable() == false ){
+//            SysUtils.showError(OrderDetailActivity.this, "蓝牙不可用，将无法进行打印");
+        }
 
         textColor = getResources().getColor(R.color.text_color);
         redColor = getResources().getColor(R.color.red_color);
@@ -114,8 +134,24 @@ public class OrderDetailActivity extends BaseActivity {
         });
 
         cat_list = new ArrayList<OrderGoods>();
+        goodsList = new ArrayList<OrderGoods>();
 
         lv_content = (ListView) findViewById(R.id.lv_content);
+
+        //配送地址
+        addressView = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.item_address, lv_content, false);
+        lv_content.addHeaderView(addressView);
+        addressView.setVisibility(View.GONE);
+        textView15 = (TextView) addressView.findViewById(R.id.textView15);
+        textView16 = (TextView) addressView.findViewById(R.id.textView16);
+        textView_title = (TextView) addressView.findViewById(R.id.textView_title);
+
+        //订单备注
+        remarkView = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.item_remark, lv_content, false);
+        lv_content.addHeaderView(remarkView);
+        remarkView.setVisibility(View.GONE);
+        order_memo = (TextView) remarkView.findViewById(R.id.order_memo);
+
         View firstView = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.item_order, lv_content, false);
         lv_content.addHeaderView(firstView);
 
@@ -145,7 +181,7 @@ public class OrderDetailActivity extends BaseActivity {
                         .callback(new MaterialDialog.ButtonCallback() {
                             @Override
                             public void onPositive(MaterialDialog dialog) {
-                                Map<String,String> map = new HashMap<String,String>();
+                                Map<String, String> map = new HashMap<String, String>();
                                 map.put("order_id", order.getOrderSn());
                                 map.put("corp_id", String.valueOf(order.getDeliverySellerDtId()));
 
@@ -166,7 +202,7 @@ public class OrderDetailActivity extends BaseActivity {
 
                                                 initView();
                                             }
-                                        } catch(Exception e) {
+                                        } catch (Exception e) {
                                             e.printStackTrace();
                                         }
                                     }
@@ -189,15 +225,23 @@ public class OrderDetailActivity extends BaseActivity {
             }
         });
 
-
-        printView = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.order_print, lv_content, false);
-        lv_content.addFooterView(printView);
-        printView.setVisibility(View.GONE);
-        btnPrint = (PaperButton) printView.findViewById(R.id.button1);
-        btnPrint.setOnClickListener(new View.OnClickListener() {
+        tv_print = (FloatingActionButton) findViewById(R.id.tv_print);
+        tv_print.setSize(FloatingActionButton.SIZE_MINI);
+        tv_print.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SysUtils.showSuccess("print");
+                new MaterialDialog.Builder(OrderDetailActivity.this)
+                        .theme(SysUtils.getDialogTheme())
+                        .content("确定打印小票？")
+                        .positiveText("确定")
+                        .negativeText("取消")
+                        .callback(new MaterialDialog.ButtonCallback() {
+                            @Override
+                            public void onPositive(MaterialDialog dialog) {
+                                startPrint();
+                            }
+                        })
+                        .show();
             }
         });
 
@@ -220,6 +264,37 @@ public class OrderDetailActivity extends BaseActivity {
 
         initView();
     }
+
+
+    private final Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case BluetoothService.MESSAGE_STATE_CHANGE:
+                    switch (msg.arg1) {
+                        case BluetoothService.STATE_CONNECTED:
+                            hasConnect = true;
+
+                            doPrint();
+                            break;
+                        case BluetoothService.STATE_CONNECTING:
+                            break;
+                        case BluetoothService.STATE_LISTEN:
+                        case BluetoothService.STATE_NONE:
+                            break;
+                    }
+                    break;
+                case BluetoothService.MESSAGE_CONNECTION_LOST:
+                    hasConnect = false;
+                    break;
+                case BluetoothService.MESSAGE_UNABLE_CONNECT:
+                    hasConnect = false;
+                    SysUtils.showError("无法连接到配对的蓝牙打印机，请先通过打印机测试再进行收银小票打印");
+                    break;
+            }
+        }
+
+    };
 
     private void initView() {
         Map<String,String> map = new HashMap<String,String>();
@@ -262,23 +337,45 @@ public class OrderDetailActivity extends BaseActivity {
 
                         }
 
-                        printView.setVisibility(View.VISIBLE);
-
                         textView3.setText(order.getOrderTime());
-                        textView10.setText(order.getPayStatusStr());
+//                        textView10.setText(order.getPayStatusStr());
+//
+//                        if (order.getPayStatus() == 1) {
+//                            textView10.setTextColor(textColor);
+//                        } else {
+//                            textView10.setTextColor(redColor);
+//                        }
 
-                        if (order.getPayStatus() == 1) {
-                            textView10.setTextColor(textColor);
-                        } else {
-                            textView10.setTextColor(redColor);
-                        }
+                        textView10.setText(Html.fromHtml(order.getStatusStr()));
 
+                        textView2.setVisibility(View.GONE);
                         if (order.hasShippingAddr()) {
-                            textView2.setText("配送地址：" + order.getShipAddr());
-                            textView2.setVisibility(View.VISIBLE);
+//                            textView2.setText("配送地址：" + order.getShipAddr());
+                            textView15.setText(order.getShipName());
+                            textView16.setText(Html.fromHtml("<u>" + order.getShipMobile() + "</u>"));
+                            textView16.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    SysUtils.callTel(OrderDetailActivity.this, order.getShipMobile());
+                                }
+                            });
+                            textView_title.setText(order.getShipAddr());
+                            addressView.setVisibility(View.VISIBLE);
                         } else {
-                            textView2.setVisibility(View.GONE);
+                            addressView.setVisibility(View.GONE);
+                            lv_content.removeHeaderView(addressView);
                         }
+
+                        if (!StringUtils.isEmpty(order.getMemo())) {
+                            order_memo.setText(Html.fromHtml(order.getMemo()));
+                            remarkView.setVisibility(View.VISIBLE);
+                        } else {
+                            remarkView.setVisibility(View.GONE);
+                            lv_content.removeHeaderView(remarkView);
+                        }
+
+                        tv_print.setVisibility(View.VISIBLE);
+
                         textView4.setText(order.getShippingStr());
                         textView5.setText("订单号：" + order.getOrderSn());
 
@@ -426,6 +523,7 @@ public class OrderDetailActivity extends BaseActivity {
                         });
 
                         cat_list.clear();
+                        goodsList.clear();
 
                         JSONArray array = dataObject.getJSONArray("orde_goods");
                         if (array != null && array.length() > 0) {
@@ -435,21 +533,47 @@ public class OrderDetailActivity extends BaseActivity {
                                 OrderGoods b = new OrderGoods();
                                 b.setName(data.getString("name"));
                                 b.setQuantity(data.getInt("quantity"));
-                                b.setPrice(data.getDouble("price"));
+                                double price = data.getDouble("price");
+                                b.setPrice(price);
+                                b.setFormatPrice(SysUtils.getMoneyFormat(price));
 
                                 cat_list.add(b);
+                                goodsList.add(b);
                             }
                         }
                         OrderGoods b = new OrderGoods();
-                        b.setName("运费");
+                        b.setName("商品总价");
                         b.setQuantity(0);
-                        b.setPrice(order.getShipped());
+                        b.setPrice(order.getCost_item());
+                        b.setFormatPrice(SysUtils.getMoneyFormat(order.getCost_item()));
                         cat_list.add(b);
 
                         b = new OrderGoods();
-                        b.setName("总计");
+                        b.setName("运费");
+                        b.setQuantity(0);
+                        b.setPrice(order.getShipped());
+                        b.setFormatPrice("+ " + SysUtils.getMoneyFormat(order.getShipped()));
+                        cat_list.add(b);
+
+                        b = new OrderGoods();
+                        b.setName("已优惠");
+                        b.setQuantity(0);
+                        b.setPrice(order.getPmt_order());
+                        b.setFormatPrice("- " + SysUtils.getMoneyFormat(order.getPmt_order()));
+                        cat_list.add(b);
+
+                        b = new OrderGoods();
+                        b.setName("订单总价");
                         b.setQuantity(0);
                         b.setPrice(order.getPayed());
+                        b.setFormatPrice("= " + SysUtils.getMoneyFormat(order.getPayed()));
+                        cat_list.add(b);
+
+                        b = new OrderGoods();
+                        b.setName("付款总额");
+                        b.setQuantity(0);
+                        b.setPrice(order.getFinalPayed());
+                        b.setFormatPrice(SysUtils.getMoneyFormat(order.getFinalPayed()));
                         cat_list.add(b);
 
                         adapter.notifyDataSetChanged();
@@ -521,9 +645,9 @@ public class OrderDetailActivity extends BaseActivity {
                 } else {
                     holder.textView2.setText("");
                 }
-                holder.textView3.setText(SysUtils.getMoneyFormat(data.getPrice()));
+                holder.textView3.setText(data.getFormatPrice());
 
-                if (cat_list.size() > 2 && position == (cat_list.size() - 3)) {
+                if (cat_list.size() > 5 && position == (cat_list.size() - 6)) {
                     holder.line.setVisibility(View.VISIBLE);
                 } else {
                     holder.line.setVisibility(View.GONE);
@@ -582,29 +706,89 @@ public class OrderDetailActivity extends BaseActivity {
         } catch(Exception e) {
 
         }
+
+        if (mService != null) {
+            mService.stop();
+        }
+
+        mService = null;
     }
 
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//        XGPushClickedResult click = XGPushManager.onActivityStarted(this);
-//        if (click != null) {
-//            String customContent = click.getCustomContent();
-//            if (customContent != null && customContent.length() != 0) {
-//                try {
-//                    //获取信鸽推送结果
-//                    JSONObject json = new JSONObject(customContent);
-//
-//                    String type = json.getString("type");
-//
-//                    SysUtils.showSuccess("haha");
-//                } catch(Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }
-//    }
+    //开始打印
+    public void startPrint() {
+        if(!hasConnect) {
+            //还没有连接，先尝试连接
+            if( mService.isBTopen() == false) {
+                Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                startActivityForResult(enableIntent, REQUEST_ENABLE_BT);
+            } else {
+                //尝试连接
+                try {
+                    if(mService != null) {
+                        BluetoothDevice printDev = mService.getDevByMac(KsApplication.getString("printer_mac", ""));
 
+                        if(printDev == null) {
+                            SysUtils.showError("连接打印机失败，请重新选择打印机");
+
+                            //跳到设置界面
+                            SysUtils.startAct(OrderDetailActivity.this, new PrintActivity());
+                        } else {
+                            mService.connect(printDev);
+                        }
+                    } else {
+                        SysUtils.showError("请开启蓝牙并且靠近打印机");
+                    }
+
+                } catch(Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        } else {
+            //已经连接了，直接打印
+            doPrint();
+        }
+    }
+
+    public void doPrint() {
+        //连接成功，开始打印，同时提交订单更新到服务器
+        try {
+            String index = "1";
+            String shippingStr = order.getShippingStr2();
+            String shopName = order.getSellerName();
+            String shopTel = order.getSellerTel();
+            String orderDate = order.getOrderTime();
+            boolean hasPay = order.getPayStatus() == 1;
+            double payed = order.getPayed();
+            String orderRemark = order.getMemo();
+            boolean hasAddress = order.hasShippingAddr();
+            String consignee = order.getShipName();
+            String mobile = order.getShipMobile();
+            String address = order.getShipAddr();
+
+            String tmp = PrintUtil.getPrinterMsg(index,
+                    shippingStr,
+                    shopName,
+                    shopTel,
+                    order_id,
+                    orderDate,
+                    goodsList,
+                    hasPay,
+                    payed,
+                    orderRemark,
+                    hasAddress,
+                    consignee,
+                    mobile,
+                    address);
+            String printMsg = "";
+            printMsg += tmp + "\n\n";
+
+//                Log.v("print", printMsg);
+            mService.sendMessage(printMsg, "GBK");
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+    }
 
     @Override
     public void onBackPressed() {
@@ -617,4 +801,6 @@ public class OrderDetailActivity extends BaseActivity {
             super.onBackPressed();
         }
     }
+
+
 }

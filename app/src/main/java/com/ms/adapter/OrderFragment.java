@@ -7,6 +7,7 @@ import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -305,7 +306,6 @@ public class OrderFragment extends BaseLazyLoadFragment implements SwipeRefreshL
                     holder.linearLayout5 = (LinearLayout) convertView.findViewById(R.id.linearLayout5);
                     holder.editText1 = (TextView) convertView.findViewById(R.id.editText1);
                     holder.editText2 = (TextView) convertView.findViewById(R.id.editText2);
-                    holder.linearlayout01 = (LinearLayout) convertView.findViewById(R.id.linearlayout01);
 
                     convertView.setTag(holder);
                 } catch (Exception e) {
@@ -325,13 +325,14 @@ public class OrderFragment extends BaseLazyLoadFragment implements SwipeRefreshL
 //                }
 
                 holder.textView3.setText(data.getOrderTime());
-                holder.textView10.setText(data.getPayStatusStr());
-
-                if (data.getPayStatus() == 1) {
-                    holder.textView10.setTextColor(textColor);
-                } else {
-                    holder.textView10.setTextColor(redColor);
-                }
+                holder.textView10.setText(Html.fromHtml(data.getStatusStr()));
+//                holder.textView10.setText(data.getPayStatusStr());
+//
+//                if (data.getPayStatus() == 1) {
+//                    holder.textView10.setTextColor(textColor);
+//                } else {
+//                    holder.textView10.setTextColor(redColor);
+//                }
 
                 if (data.hasShippingAddr()) {
                     holder.textView2.setText("配送地址：" + data.getShipAddr());
@@ -495,7 +496,6 @@ public class OrderFragment extends BaseLazyLoadFragment implements SwipeRefreshL
         public RelativeLayout relativeLayout1;
         public LinearLayout linearLayout5;
         public TextView editText1, editText2;
-        public LinearLayout linearlayout01;
     }
 
     private void setView() {

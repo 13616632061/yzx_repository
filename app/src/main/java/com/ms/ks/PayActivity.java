@@ -18,6 +18,7 @@ import com.android.volley.VolleyError;
 import com.ms.entity.PayResult;
 import com.ms.global.Global;
 import com.ms.util.CustomRequest;
+import com.ms.util.LoginUtils;
 import com.ms.util.SysUtils;
 import com.tencent.mm.sdk.modelpay.PayReq;
 import com.tencent.mm.sdk.openapi.IWXAPI;
@@ -224,7 +225,9 @@ public class PayActivity extends ShareBaseActivity {
         Map<String,String> map = new HashMap<String,String>();
         map.put("money", String.valueOf(pay_money));
 
-        CustomRequest r = new CustomRequest(Request.Method.POST, SysUtils.getMemberServiceUrl("create_ali_order"), map, new Response.Listener<JSONObject>() {
+        String uri = LoginUtils.isSeller() ? SysUtils.getSellerServiceUrl("create_ali_order") : SysUtils.getMemberServiceUrl("create_ali_order");
+
+        CustomRequest r = new CustomRequest(Request.Method.POST, uri, map, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject jsonObject) {
                 isLoading = false;

@@ -18,6 +18,8 @@ public class Order implements Parcelable {
 	private int shipmentsNo;
 
 	private String shipAddr;
+	private String shipName;
+	private String shipMobile;
 
 	private double payed;
 	private double shipped;
@@ -28,6 +30,30 @@ public class Order implements Parcelable {
 
 	private String sellerName;
 	private String sellerTel;
+
+	String memo;
+
+	int distribution;
+
+	String status;
+
+	double cost_item, pmt_order, finalPayed;
+
+	public String getMemo() {
+		return memo;
+	}
+
+	public void setMemo(String memo) {
+		this.memo = memo;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 
 	public String getOrderSn() {
 		return orderSn;
@@ -117,6 +143,23 @@ public class Order implements Parcelable {
 		this.shipAddr = shipAddr;
 	}
 
+	public String getShipName() {
+		return shipName;
+	}
+
+	public void setShipName(String shipName) {
+		this.shipName = shipName;
+	}
+
+
+	public String getShipMobile() {
+		return shipMobile;
+	}
+
+	public void setShipMobile(String shipMobile) {
+		this.shipMobile = shipMobile;
+	}
+
 	public double getPayed() {
 		return payed;
 	}
@@ -125,12 +168,36 @@ public class Order implements Parcelable {
 		this.payed = payed;
 	}
 
+	public double getCost_item() {
+		return cost_item;
+	}
+
+	public void setCost_item(double cost_item) {
+		this.cost_item = cost_item;
+	}
+
+	public double getPmt_order() {
+		return pmt_order;
+	}
+
+	public void setPmt_order(double pmt_order) {
+		this.pmt_order = pmt_order;
+	}
+
 	public double getShipped() {
 		return shipped;
 	}
 
 	public void setShipped(double shipped) {
 		this.shipped = shipped;
+	}
+
+	public double getFinalPayed() {
+		return finalPayed;
+	}
+
+	public void setFinalPayed(double finalPayed) {
+		this.finalPayed = finalPayed;
 	}
 
 	public int getDeliveryExpress() {
@@ -172,6 +239,15 @@ public class Order implements Parcelable {
 		this.sellerTel = sellerTel;
 	}
 
+
+	public int getDistribution() {
+		return distribution;
+	}
+
+	public void setDistribution(int distribution) {
+		this.distribution = distribution;
+	}
+
 	public String getPayStatusStr() {
 		if (payStatus == 1) {
 			return "已支付";
@@ -181,7 +257,7 @@ public class Order implements Parcelable {
 	}
 
 	public String getShippingStr() {
-		if (shippingId == 11) {
+		if (distribution == 1) {
 			return "到店付";
 		} else {
 			return "配送单";
@@ -189,7 +265,7 @@ public class Order implements Parcelable {
 	}
 
 	public String getShippingStr2() {
-		if (shippingId == 11) {
+		if (distribution == 1) {
 			return "到店";
 		} else {
 			return "配送";
@@ -197,7 +273,7 @@ public class Order implements Parcelable {
 	}
 
 	public boolean hasShippingAddr() {
-		if (shippingId == 11) {
+		if (distribution == 1) {
 			return false;
 		} else {
 			return true;
@@ -235,8 +311,10 @@ public class Order implements Parcelable {
 
 	public Order(String orderSn, String orderTime, String name, int payStatus, int shippingId, int shipStatus,
 				 int buttonAffirm, int buttonOff, int shipmentsYes, int shipmentsNo,
-				 String shipAddr, double payed, double shipped, int deliveryExpress, int deliverySeller, int deliverySellerDtId,
-				 String sellerName, String sellerTel){
+				 String shipAddr, String shipName, String shipMobile,
+				 double payed, double shipped, int deliveryExpress, int deliverySeller, int deliverySellerDtId,
+				 String sellerName, String sellerTel, String memo, int distribution, String status,
+				 double cost_item, double pmt_order, double finalPayed){
 		this.orderSn = orderSn;
 		this.orderTime = orderTime;
 		this.name = name;
@@ -248,6 +326,8 @@ public class Order implements Parcelable {
 		this.shipmentsYes = shipmentsYes;
 		this.shipmentsNo = shipmentsNo;
 		this.shipAddr = shipAddr;
+		this.shipName = shipName;
+		this.shipMobile = shipMobile;
 		this.payed = payed;
 		this.shipped = shipped;
 		this.deliveryExpress = deliveryExpress;
@@ -255,6 +335,12 @@ public class Order implements Parcelable {
 		this.deliverySellerDtId = deliverySellerDtId;
 		this.sellerName = sellerName;
 		this.sellerTel = sellerTel;
+		this.memo = memo;
+		this.distribution = distribution;
+		this.status = status;
+		this.cost_item = cost_item;
+		this.pmt_order = pmt_order;
+		this.finalPayed = finalPayed;
 	}
 
 	public Order(Parcel in){
@@ -269,6 +355,8 @@ public class Order implements Parcelable {
 		this.shipmentsYes = in.readInt();
 		this.shipmentsNo = in.readInt();
 		this.shipAddr = in.readString();
+		this.shipName = in.readString();
+		this.shipMobile = in.readString();
 		this.payed = in.readDouble();
 		this.shipped = in.readDouble();
 		this.deliveryExpress = in.readInt();
@@ -276,6 +364,12 @@ public class Order implements Parcelable {
 		this.deliverySellerDtId = in.readInt();
 		this.sellerName = in.readString();
 		this.sellerTel = in.readString();
+		this.memo = in.readString();
+		this.distribution = in.readInt();
+		this.status = in.readString();
+		this.cost_item = in.readDouble();
+		this.pmt_order = in.readDouble();
+		this.finalPayed = in.readDouble();
 	}
 
 	@Override
@@ -296,6 +390,8 @@ public class Order implements Parcelable {
 		dest.writeInt(this.getShipmentsYes());
 		dest.writeInt(this.getShipmentsNo());
 		dest.writeString(this.getShipAddr());
+		dest.writeString(this.getShipName());
+		dest.writeString(this.getShipMobile());
 		dest.writeDouble(this.getPayed());
 		dest.writeDouble(this.getShipped());
 		dest.writeInt(this.getDeliveryExpress());
@@ -303,7 +399,27 @@ public class Order implements Parcelable {
 		dest.writeInt(this.getDeliverySellerDtId());
 		dest.writeString(this.getSellerName());
 		dest.writeString(this.getSellerTel());
+		dest.writeString(this.getMemo());
+		dest.writeInt(this.getDistribution());
+		dest.writeString(this.getStatus());
+		dest.writeDouble(this.getCost_item());
+		dest.writeDouble(this.getPmt_order());
+		dest.writeDouble(this.getFinalPayed());
 	}
 
+	public String getStatusStr() {
+		if (status.equals("dead")) {
+			return "<font color='red'>已作废</font>";
+		} else if (status.equals("finish")) {
+			return "<font color='blue'>已完成</font>";
+		} else {
+			//活动订单显示支付状态
+			if (payStatus == 1) {
+				return "已支付";
+			} else {
+				return "<font color='red'>未支付</font>";
+			}
+		}
+	}
 }
 
