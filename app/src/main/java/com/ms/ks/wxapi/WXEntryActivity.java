@@ -3,10 +3,12 @@ package com.ms.ks.wxapi;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.ms.global.Global;
 import com.ms.ks.R;
+import com.ms.util.SysUtils;
 import com.tencent.mm.sdk.modelbase.BaseReq;
 import com.tencent.mm.sdk.modelbase.BaseResp;
 import com.tencent.mm.sdk.modelmsg.SendAuth;
@@ -61,6 +63,8 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler
 //            result = R.string.errcode_unknown;
             break;
         }
+
+//        Log.v("ks", resp.toString());
  
 //        Toast.makeText(this, result, Toast.LENGTH_LONG).show();
         finish();

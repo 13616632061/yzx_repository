@@ -1,0 +1,26 @@
+[
+    {
+        "outputFile": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/release/values-ldrtl-v17/values-ldrtl-v17.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 45,
+                    "endOffset": 96
+                },
+                "from": {
+                    "file": "/Users/eddie/workspace/android/ks/finestwebview/src/main/res/values-ldrtl/bools.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 55,
+                        "endColumn": 45,
+                        "endOffset": 96
+                    }
+                }
+            }
+        ]
+    }
+]

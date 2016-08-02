@@ -1,5 +1,7 @@
 package com.ms.ks;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -14,6 +16,8 @@ import com.ms.adapter.DisposeFragment;
 import com.ms.adapter.MainFragment;
 import com.ms.adapter.ProfileFragment;
 import com.ms.adapter.ReportFragment;
+import com.ms.global.Global;
+import com.ms.util.LoginUtils;
 import com.ms.util.SysUtils;
 import com.ms.view.FragmentTabHost;
 
@@ -31,10 +35,21 @@ public class ShopActivity extends BaseActivity implements OnTabChangeListener {
 
     //定义数组来存放按钮图片
     private int mImageViewArray[] = {R.drawable.selector_btn_main,R.drawable.selector_btn_main2,R.drawable.selector_btn_report,R.drawable.selector_btn_profile};
-
     //Tab选项卡的文字
     private String mTextviewArray[] = {"新订单", "已处理", "营业统计", "商户中心"};
+
+
+    //定义数组来存放Fragment界面
+    private Class fragmentArray2[] = {MainFragment.class,DisposeFragment.class,ProfileFragment.class};
+    //定义数组来存放按钮图片
+    private int mImageViewArray2[] = {R.drawable.selector_btn_main,R.drawable.selector_btn_main2,R.drawable.selector_btn_profile};
+    //Tab选项卡的文字
+    private String mTextviewArray2[] = {"新订单", "已处理", "商户中心"};
+
+
     private String current_tab = "";
+
+    private boolean jurisdiction = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +59,8 @@ public class ShopActivity extends BaseActivity implements OnTabChangeListener {
         initToolbar(this);
         setTitle(null);
         setToolbarTitle("新订单");
+
+        jurisdiction = LoginUtils.jurisdiction();
 
         Bundle bundle = this.getIntent().getExtras();
         if (bundle != null) {
@@ -68,13 +85,16 @@ public class ShopActivity extends BaseActivity implements OnTabChangeListener {
         mTabHost.setOnTabChangedListener(this);
 
         //得到fragment的个数
-        int count = fragmentArray.length;
+        int count = jurisdiction ? fragmentArray2.length : fragmentArray.length;
 
         for(int i = 0; i < count; i++){
-            //为每一个Tab按钮设置图标、文字和内容
-            TabSpec tabSpec = mTabHost.newTabSpec(mTextviewArray[i]).setIndicator(getTabItemView(i));
-            //将Tab按钮添加进Tab选项卡中
-            mTabHost.addTab(tabSpec, fragmentArray[i], null);
+            if (jurisdiction) {
+                TabSpec tabSpec = mTabHost.newTabSpec(mTextviewArray2[i]).setIndicator(getTabItemView(i));
+                mTabHost.addTab(tabSpec, fragmentArray2[i], null);
+            } else {
+                TabSpec tabSpec = mTabHost.newTabSpec(mTextviewArray[i]).setIndicator(getTabItemView(i));
+                mTabHost.addTab(tabSpec, fragmentArray[i], null);
+            }
             //设置Tab按钮的背景
 //            mTabHost.getTabWidget().getChildAt(i).setBackgroundResource(R.drawable.selector_tab_background);
         }
@@ -92,10 +112,15 @@ public class ShopActivity extends BaseActivity implements OnTabChangeListener {
         View view = layoutInflater.inflate(R.layout.tab_item_view, null);
 
         ImageView imageView = (ImageView) view.findViewById(R.id.iv_home_image);
-        imageView.setImageResource(mImageViewArray[index]);
-
         TextView textView = (TextView) view.findViewById(R.id.iv_home_text);
-        textView.setText(mTextviewArray[index]);
+
+        if (jurisdiction) {
+            imageView.setImageResource(mImageViewArray2[index]);
+            textView.setText(mTextviewArray2[index]);
+        } else {
+            imageView.setImageResource(mImageViewArray[index]);
+            textView.setText(mTextviewArray[index]);
+        }
 
         return view;
     }
@@ -149,5 +174,17 @@ public class ShopActivity extends BaseActivity implements OnTabChangeListener {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK) {
+            Bundle b = data.getExtras();
+            //城市定位
+            if(b != null && b.containsKey("refreshReport")) {
+                sendBroadcast(new Intent(Global.BROADCAST_REFRESH_SHOP_REPORT_ACTION));
+            }
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

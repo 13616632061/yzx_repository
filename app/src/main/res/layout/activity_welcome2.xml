@@ -5,7 +5,7 @@
     android:background="#ff67a8e2"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <com.ms.util.StretchyImageView
-        android:src="@drawable/entrance"
+        android:src="@drawable/welcome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"/>

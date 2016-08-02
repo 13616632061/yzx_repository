@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/drawable-anydpi-v21/more_vector.xml",
+        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/bundles/debug/res/drawable-anydpi-v21/more_vector.xml"
+    },
+    {
+        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/drawable-anydpi-v21/back_vector.xml",
+        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/bundles/debug/res/drawable-anydpi-v21/back_vector.xml"
+    },
+    {
+        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/drawable-anydpi-v21/close_vector.xml",
+        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/bundles/debug/res/drawable-anydpi-v21/close_vector.xml"
+    },
+    {
+        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/drawable-anydpi-v21/forward_vector.xml",
+        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/bundles/debug/res/drawable-anydpi-v21/forward_vector.xml"
+    }
+]

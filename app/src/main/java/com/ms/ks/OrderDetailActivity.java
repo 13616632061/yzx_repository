@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -58,10 +59,11 @@ public class OrderDetailActivity extends BaseActivity {
     private Order order;
 
 
-    public TextView textView3, textView10, textView2, textView4, textView5, textView6, textView7;
-    public RelativeLayout relativeLayout1;
+    public TextView textView3, textView10, textView5, textView6, textView7;
     public LinearLayout linearLayout5;
     public TextView editText1, editText2;
+
+    public ImageView imageView1;
 
     public TextView shipKuaidi, shipWaimai;
 
@@ -247,10 +249,8 @@ public class OrderDetailActivity extends BaseActivity {
 
         textView3 = (TextView) firstView.findViewById(R.id.textView3);
         textView10 = (TextView) firstView.findViewById(R.id.textView10);
-        textView2 = (TextView) firstView.findViewById(R.id.textView2);
-        textView4 = (TextView) firstView.findViewById(R.id.textView4);
+        imageView1 = (ImageView) firstView.findViewById(R.id.imageView1);
         textView5 = (TextView) firstView.findViewById(R.id.textView5);
-        relativeLayout1 = (RelativeLayout) firstView.findViewById(R.id.relativeLayout1);
         textView6 = (TextView) firstView.findViewById(R.id.textView6);
         textView7 = (TextView) firstView.findViewById(R.id.textView7);
 
@@ -348,7 +348,6 @@ public class OrderDetailActivity extends BaseActivity {
 
                         textView10.setText(Html.fromHtml(order.getStatusStr()));
 
-                        textView2.setVisibility(View.GONE);
                         if (order.hasShippingAddr()) {
 //                            textView2.setText("配送地址：" + order.getShipAddr());
                             textView15.setText(order.getShipName());
@@ -376,27 +375,21 @@ public class OrderDetailActivity extends BaseActivity {
 
                         tv_print.setVisibility(View.VISIBLE);
 
-                        textView4.setText(order.getShippingStr());
+                        imageView1.setImageResource(order.getShippingRes());
                         textView5.setText("订单号：" + order.getOrderSn());
+                        if (order.getCost_item() > 0) {
+                            textView7.setText(SysUtils.getMoneyFormat(order.getCost_item()));
+                        } else {
+                            textView7.setText("");
+                        }
 
-                        if (order.getPayed() > 0 || !StringUtils.isEmpty(order.getName())) {
+                        if (order.canClose() || order.canComplete() || !StringUtils.isEmpty(order.getName())) {
                             if (!StringUtils.isEmpty(order.getName())) {
-                                textView6.setText("下单用户：" + order.getName());
+                                textView6.setText(order.getName());
                             } else {
                                 textView6.setText("");
                             }
 
-                            if (order.getPayed() > 0) {
-                                textView7.setText(SysUtils.getMoneyFormat(order.getPayed()));
-                            } else {
-                                textView7.setText("");
-                            }
-                            relativeLayout1.setVisibility(View.VISIBLE);
-                        } else {
-                            relativeLayout1.setVisibility(View.GONE);
-                        }
-
-                        if (order.canClose() || order.canComplete()) {
                             if (order.canComplete()) {
                                 editText1.setVisibility(View.VISIBLE);
                             } else {
@@ -548,32 +541,32 @@ public class OrderDetailActivity extends BaseActivity {
                         b.setFormatPrice(SysUtils.getMoneyFormat(order.getCost_item()));
                         cat_list.add(b);
 
-                        b = new OrderGoods();
-                        b.setName("运费");
-                        b.setQuantity(0);
-                        b.setPrice(order.getShipped());
-                        b.setFormatPrice("+ " + SysUtils.getMoneyFormat(order.getShipped()));
-                        cat_list.add(b);
+//                        b = new OrderGoods();
+//                        b.setName("运费");
+//                        b.setQuantity(0);
+//                        b.setPrice(order.getShipped());
+//                        b.setFormatPrice("+ " + SysUtils.getMoneyFormat(order.getShipped()));
+//                        cat_list.add(b);
 
                         b = new OrderGoods();
                         b.setName("已优惠");
                         b.setQuantity(0);
                         b.setPrice(order.getPmt_order());
-                        b.setFormatPrice("- " + SysUtils.getMoneyFormat(order.getPmt_order()));
+                        b.setFormatPrice(SysUtils.getMoneyFormat(order.getPmt_order()));
                         cat_list.add(b);
 
                         b = new OrderGoods();
-                        b.setName("订单总价");
+                        b.setName("已支付");
                         b.setQuantity(0);
                         b.setPrice(order.getPayed());
-                        b.setFormatPrice("= " + SysUtils.getMoneyFormat(order.getPayed()));
+                        b.setFormatPrice(SysUtils.getMoneyFormat(order.getPayed()));
                         cat_list.add(b);
 
                         b = new OrderGoods();
-                        b.setName("付款总额");
+                        b.setName("可提现");
                         b.setQuantity(0);
-                        b.setPrice(order.getFinalPayed());
-                        b.setFormatPrice(SysUtils.getMoneyFormat(order.getFinalPayed()));
+                        b.setPrice(order.getApay());
+                        b.setFormatPrice(SysUtils.getMoneyFormat(order.getApay()));
                         cat_list.add(b);
 
                         adapter.notifyDataSetChanged();
@@ -752,12 +745,12 @@ public class OrderDetailActivity extends BaseActivity {
     public void doPrint() {
         //连接成功，开始打印，同时提交订单更新到服务器
         try {
-            String index = "1";
+            String index = order.getPrint_number();
             String shippingStr = order.getShippingStr2();
             String shopName = order.getSellerName();
             String shopTel = order.getSellerTel();
             String orderDate = order.getOrderTime();
-            boolean hasPay = order.getPayStatus() == 1;
+            boolean hasPay = order.getPayStatus() > 0;
             double payed = order.getPayed();
             String orderRemark = order.getMemo();
             boolean hasAddress = order.hasShippingAddr();
@@ -801,6 +794,4 @@ public class OrderDetailActivity extends BaseActivity {
             super.onBackPressed();
         }
     }
-
-
 }

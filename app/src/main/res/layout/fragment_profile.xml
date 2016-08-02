@@ -34,7 +34,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:minWidth="94.0dip"
-                    android:text="余额" />
+                    android:text="可提现余额" />
                 <TextView
                     android:textSize="@dimen/text_size_list"
                     android:textColor="@color/text_hint_color"
@@ -243,6 +243,7 @@
 
             <!--修改密码-->
             <LinearLayout
+                android:visibility="gone"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:id="@id/linearLayout8"
@@ -280,7 +281,45 @@
 
             <include layout="@layout/set_line_spacer" />
 
-            <!--联系客服-->
+
+            <include layout="@layout/set_line" android:id="@+id/set_about_item" />
+            <include layout="@layout/set_line" android:id="@+id/set_kefu_item" />
+
+            <!--
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:id="@+id/about_us"
+                android:background="@drawable/selector_cell_left_blank"
+                android:paddingLeft="16.0dip"
+                android:clickable="true"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/s_component_height">
+                <TextView
+                    android:textSize="@dimen/text_size_list"
+                    android:textColor="@color/text_color"
+                    android:gravity="left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="94.0dip"
+                    android:text="关于我们" />
+                <TextView
+                    android:textSize="@dimen/text_size_list"
+                    android:textColor="@color/text_hint_color"
+                    android:textColorHint="@color/text_hint_color"
+                    android:gravity="right"
+                    android:background="@null"
+                    android:layout_width="0.0dip"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:layout_weight="1.0" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16.0dip"
+                    android:layout_marginRight="16.0dip"
+                    android:src="@drawable/ic_right_grey" />
+            </LinearLayout>
             <LinearLayout
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
@@ -316,7 +355,7 @@
                     android:layout_marginRight="16.0dip"
                     android:src="@drawable/ic_right_grey" />
             </LinearLayout>
-
+            -->
             <!--退出登录-->
             <com.material.widget.PaperButton
                 android:id="@id/button1"

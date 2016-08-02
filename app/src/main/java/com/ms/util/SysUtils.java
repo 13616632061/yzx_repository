@@ -1081,12 +1081,8 @@ public class SysUtils {
         return result;
     }
 
-    public static String getHelpUri() {
-        return Global.webUrl + "help";
-    }
-
-    public static String getAboutUri() {
-        return Global.webUrl + "about";
+    public static String getCopyUri() {
+        return "http://www.yzx6868.com/apk/copyright.html";
     }
 
     /**
@@ -1186,7 +1182,10 @@ public class SysUtils {
                     SysUtils.getFinalString("status", data),
                     data.optDouble("cost_item"),
                     data.optDouble("pmt_order"),
-                    data.optDouble("payed"));
+                    data.optDouble("payed"),
+                    SysUtils.getFinalString("order_status", data),
+                    SysUtils.getFinalString("print_number", data),
+                    data.optDouble("apay"));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -1200,6 +1199,20 @@ public class SysUtils {
         try {
             if (!data.isNull(key)) {
                 ret = data.getString(key);
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        return ret;
+    }
+
+    public static int getFinalInt(String key, JSONObject data) {
+        int ret = 0;
+
+        try {
+            if (!data.isNull(key)) {
+                ret = data.getInt(key);
             }
         } catch(Exception e) {
             e.printStackTrace();

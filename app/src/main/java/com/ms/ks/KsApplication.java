@@ -74,7 +74,8 @@ public class KsApplication extends Application {
         mExamApplication = this;
 
         //bugly初始化
-        CrashReport.initCrashReport(getApplicationContext(), "900026905", false);
+        CrashReport.initCrashReport(getApplicationContext(), "900036835", false);
+//        CrashReport.testJavaCrash();
     }
 
     public static KsApplication getApp() {

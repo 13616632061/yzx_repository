@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -12,9 +14,12 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.material.widget.PaperButton;
+import com.material.widget.Switch;
 import com.ms.global.Global;
+import com.ms.ks.AboutActivity;
 import com.ms.ks.AddressActivity;
 import com.ms.ks.BaseFragment;
+import com.ms.ks.KsApplication;
 import com.ms.ks.MoneyActivity;
 import com.ms.ks.MsgActivity;
 import com.ms.ks.PrintActivity;
@@ -52,16 +57,6 @@ public class ProfileFragment extends BaseFragment{
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
         textView2 = (TextView) view.findViewById(R.id.textView2);
-
-        TextView textView7 = (TextView) view.findViewById(R.id.textView7);
-        textView7.setText(Global.SERVICE_PHONE);
-        LinearLayout linearLayout7 = (LinearLayout) view.findViewById(R.id.linearLayout7);
-        linearLayout7.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SysUtils.callTel(getActivity(), Global.SERVICE_PHONE);
-            }
-        });
 
         //余额中心
         LinearLayout linearLayout2 = (LinearLayout) view.findViewById(R.id.linearLayout2);
@@ -125,6 +120,26 @@ public class ProfileFragment extends BaseFragment{
             }
         });
 
+        //关于我们
+        View set_about = (View) view.findViewById(R.id.set_about_item);
+        SysUtils.setLine(set_about, Global.SET_CELLUP, "关于我们", 0, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SysUtils.startAct(getActivity(), new AboutActivity());
+            }
+        });
+
+        //联系客服
+        View set_kefu = (View) view.findViewById(R.id.set_kefu_item);
+        TextView set_kefu_text = (TextView) set_kefu.findViewById(R.id.ll_set_hint_text);
+        set_kefu_text.setText(Global.SERVICE_PHONE);
+        SysUtils.setLine(set_kefu, Global.SET_SINGLE_LINE, "联系客服", 0, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SysUtils.callTel(getActivity(), Global.SERVICE_PHONE);
+            }
+        });
+
 
         PaperButton button1 = (PaperButton) view.findViewById(R.id.button1);
         button1.setOnClickListener(new View.OnClickListener() {
@@ -148,7 +163,22 @@ public class ProfileFragment extends BaseFragment{
             }
         });
 
-        getData();
+
+
+        if (LoginUtils.jurisdiction()) {
+            //受限
+            linearLayout2.setVisibility(View.GONE);
+            linearLayout3.setVisibility(View.GONE);
+            linearLayout5.setVisibility(View.GONE);
+            linearLayout6.setVisibility(View.GONE);
+            linearLayout6.setVisibility(View.GONE);
+            linearLayout8.setVisibility(View.GONE);
+
+            linearLayout1.setBackgroundResource(R.drawable.selector_cell_left_blank);
+//            linearlayout01.setBackgroundResource(R.drawable.selector_cell_single_line);
+        } else {
+            getData();
+        }
 
         return view;
     }

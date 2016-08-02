@@ -3,6 +3,8 @@ package com.ms.entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.ms.ks.R;
+
 public class Order implements Parcelable {
 	private String orderSn;
 	private String orderTime;
@@ -23,6 +25,7 @@ public class Order implements Parcelable {
 
 	private double payed;
 	private double shipped;
+	private double apay;
 
 	private int deliveryExpress;
 	private int deliverySeller;
@@ -38,6 +41,25 @@ public class Order implements Parcelable {
 	String status;
 
 	double cost_item, pmt_order, finalPayed;
+
+	String payment_status;
+	String print_number;
+
+	public String getPayment_status() {
+		return payment_status;
+	}
+
+	public void setPayment_status(String payment_status) {
+		this.payment_status = payment_status;
+	}
+
+	public String getPrint_number() {
+		return print_number;
+	}
+
+	public void setPrint_number(String print_number) {
+		this.print_number = print_number;
+	}
 
 	public String getMemo() {
 		return memo;
@@ -264,6 +286,14 @@ public class Order implements Parcelable {
 		}
 	}
 
+	public int getShippingRes() {
+		if (distribution == 1) {
+			return R.drawable.ic_dd;
+		} else {
+			return R.drawable.ic_ps;
+		}
+	}
+
 	public String getShippingStr2() {
 		if (distribution == 1) {
 			return "到店";
@@ -314,7 +344,8 @@ public class Order implements Parcelable {
 				 String shipAddr, String shipName, String shipMobile,
 				 double payed, double shipped, int deliveryExpress, int deliverySeller, int deliverySellerDtId,
 				 String sellerName, String sellerTel, String memo, int distribution, String status,
-				 double cost_item, double pmt_order, double finalPayed){
+				 double cost_item, double pmt_order, double finalPayed, String payment_status, String print_number,
+				 double apay){
 		this.orderSn = orderSn;
 		this.orderTime = orderTime;
 		this.name = name;
@@ -341,6 +372,9 @@ public class Order implements Parcelable {
 		this.cost_item = cost_item;
 		this.pmt_order = pmt_order;
 		this.finalPayed = finalPayed;
+		this.payment_status = payment_status;
+		this.print_number = print_number;
+		this.apay = apay;
 	}
 
 	public Order(Parcel in){
@@ -370,6 +404,9 @@ public class Order implements Parcelable {
 		this.cost_item = in.readDouble();
 		this.pmt_order = in.readDouble();
 		this.finalPayed = in.readDouble();
+		this.payment_status = in.readString();
+		this.print_number = in.readString();
+		this.apay = in.readDouble();
 	}
 
 	@Override
@@ -405,21 +442,34 @@ public class Order implements Parcelable {
 		dest.writeDouble(this.getCost_item());
 		dest.writeDouble(this.getPmt_order());
 		dest.writeDouble(this.getFinalPayed());
+		dest.writeString(this.getPayment_status());
+		dest.writeString(this.getPrint_number());
+		dest.writeDouble(this.getApay());
 	}
 
 	public String getStatusStr() {
-		if (status.equals("dead")) {
-			return "<font color='red'>已作废</font>";
-		} else if (status.equals("finish")) {
-			return "<font color='blue'>已完成</font>";
-		} else {
-			//活动订单显示支付状态
-			if (payStatus == 1) {
-				return "已支付";
-			} else {
-				return "<font color='red'>未支付</font>";
-			}
-		}
+		return getPayment_status();
+//		if (status.equals("dead")) {
+//			return "<font color='red'>已作废</font>";
+//		} else if (status.equals("finish")) {
+//			return "<font color='blue'>已完成</font>";
+//		} else {
+//			//活动订单显示支付状态
+//			if (payStatus == 1) {
+//				return "已支付";
+//			} else {
+//				return "<font color='red'>未支付</font>";
+//			}
+//		}
+	}
+
+
+	public double getApay() {
+		return apay;
+	}
+
+	public void setApay(double apay) {
+		this.apay = apay;
 	}
 }
 

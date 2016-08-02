@@ -3,6 +3,7 @@ package com.ms.ks.wxapi;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.ms.global.Global;
 import com.ms.util.StringUtils;
@@ -41,7 +42,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler{
 
 	@Override
 	public void onResp(BaseResp resp) {
-//		Log.d("huigu", "onPayFinish, errCode = " + resp.errCode);
+		Log.v("ks", "onPayFinish, errCode = " + resp.errCode + "-" + resp.errStr);
 
 		if (resp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
 			int code = resp.errCode;

@@ -84,6 +84,11 @@ public class LoginUtils {
         return isMember;
     }
 
+    //是否受限
+    public static boolean jurisdiction() {
+        return KsApplication.getInt("jurisdiction", 0) == 1;
+    }
+
     public static String ssoTypeStr() {
         int sso_type = KsApplication.getInt("sso_type", 0);
 
@@ -114,7 +119,8 @@ public class LoginUtils {
                 KsApplication.putString("token", jsonObject.getString("token"));
                 if (loginType == 1) {
                     //店铺
-                    KsApplication.putInt("seller_id", jsonObject.getInt("id"));
+                    KsApplication.putInt("seller_id", SysUtils.getFinalInt("id", jsonObject));
+                    KsApplication.putInt("jurisdiction", jsonObject.optInt("jurisdiction"));
                 }
             }
 

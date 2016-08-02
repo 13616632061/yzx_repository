@@ -32,10 +32,12 @@ public class Global {
 
 
 	public static final String QQ_APP_ID      = "1104761658";
-	public static final String WX_DEBUG_APP_ID      = "wx813cccac665b26b1";
-	public static final String WX_DEBUG_APP_SECRET      = "5317d60eb615c0b938a8b592c9122e8f";
-	public static final String WX_APP_ID      = "wxf80dc295392af86c";
-	public static final String WX_APP_SECRET      = "50c362bc6956f81a681fdaaa32ebbf8b";
+
+	public static final String WX_DEBUG_APP_ID      = "wxe435f8a003c2e90a";
+	public static final String WX_DEBUG_APP_SECRET      = "4fd80886cf00a6324785086cd93eea65";
+
+	public static final String WX_APP_ID      = "wxc04c737e911e415e";
+	public static final String WX_APP_SECRET      = "e8b8ca3fee8ff71ef36d6fac341580ec";
 
 	public static final String IP_URI = "http://ip.taobao.com/service/getIpInfo2.php?ip=myip";
 	public static final String UA = "ksAndroid";
@@ -45,6 +47,7 @@ public class Global {
 	public static final String BROADCAST_REGISTER_ACTION = "com.ms.ks.receiver.register";
 	public static final String BROADCAST_FORGET_PASSWORD_ACTION = "com.ms.ks.receiver.forget_password";
 	public static final String BROADCAST_REFRESH_NEWS_ACTION = "com.ms.ks.receiver.refresh_news";
+	public static final String BROADCAST_REFRESH_SHOP_REPORT_ACTION = "com.ms.ks.receiver.refresh_shop_report";
 	public static final String BROADCAST_REFRESH_NEWS_HITS_ACTION = "com.ms.ks.receiver.refresh_news_hits";
 	public static final String BROADCAST_REFRESH_NEWS_UPS_ACTION = "com.ms.ks.receiver.refresh_news_ups";
 	public static final String BROADCAST_REFRESH_NEWS_COLLECT_ACTION = "com.ms.ks.receiver.refresh_news_collect";
@@ -82,4 +85,6 @@ public class Global {
 	public static final String SERVICE_PHONE = "4008386755";
 
 	public static final String LOGIN_KEY = "12324567889";
+
+	public static final String ABOUT_TEXT = "<p>&nbsp;&nbsp;&nbsp;&nbsp;易之星是中国领先的本地生活服务平台，由易之星（深圳）科技有限公司创立，于2015年10月18日正式上线，通过线上营销整合线下消费和就近配送的（A2O）模式，为各类商家提供精准营销的解决方案，为海量用户提供优惠优质的消费体验。</p><p>&nbsp;&nbsp;&nbsp;&nbsp;易之星秉承“诚信、服务、创新”的企业价值观：以诚信运营带动行业发展，以优质服务完善消费体验，以创新精神提升企业效能，积极履行企业责任和社会责任，与众多合作伙伴共享商业价值。同时，易之星倾力保障消费者的权益，在多个重点城市开通“易星到家”绿色通道，率先构建“安全、便捷、高效”等服务体系，深受各级政府与机构的赞誉，赢得千万消费者的口碑与认可。<p>";
 }

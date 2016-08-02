@@ -27,7 +27,7 @@
             android:layout_height="wrap_content">
             <TextView
                 android:id="@+id/order_memo_label"
-                android:text="买家备注"
+                android:text="订单备注"
                 android:textSize="14.0sp"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"

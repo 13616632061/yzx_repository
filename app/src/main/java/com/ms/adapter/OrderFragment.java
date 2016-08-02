@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -296,10 +297,8 @@ public class OrderFragment extends BaseLazyLoadFragment implements SwipeRefreshL
 
                     holder.textView3 = (TextView) convertView.findViewById(R.id.textView3);
                     holder.textView10 = (TextView) convertView.findViewById(R.id.textView10);
-                    holder.textView2 = (TextView) convertView.findViewById(R.id.textView2);
-                    holder.textView4 = (TextView) convertView.findViewById(R.id.textView4);
+                    holder.imageView1 = (ImageView) convertView.findViewById(R.id.imageView1);
                     holder.textView5 = (TextView) convertView.findViewById(R.id.textView5);
-                    holder.relativeLayout1 = (RelativeLayout) convertView.findViewById(R.id.relativeLayout1);
                     holder.textView6 = (TextView) convertView.findViewById(R.id.textView6);
                     holder.textView7 = (TextView) convertView.findViewById(R.id.textView7);
 
@@ -334,49 +333,40 @@ public class OrderFragment extends BaseLazyLoadFragment implements SwipeRefreshL
 //                    holder.textView10.setTextColor(redColor);
 //                }
 
-                if (data.hasShippingAddr()) {
-                    holder.textView2.setText("配送地址：" + data.getShipAddr());
-                    holder.textView2.setVisibility(View.VISIBLE);
-                } else {
-                    holder.textView2.setVisibility(View.GONE);
-                }
-                holder.textView4.setText(data.getShippingStr());
+//                if (data.hasShippingAddr()) {
+//                    holder.textView2.setText("配送地址：" + data.getShipAddr());
+//                    holder.textView2.setVisibility(View.VISIBLE);
+//                } else {
+//                    holder.textView2.setVisibility(View.GONE);
+//                }
+                holder.imageView1.setImageResource(data.getShippingRes());
+//                holder.textView4.setText(data.getShippingStr());
                 holder.textView5.setText("订单号：" + data.getOrderSn());
 
-                if (data.getPayed() > 0 || !StringUtils.isEmpty(data.getName())) {
-                    if (!StringUtils.isEmpty(data.getName())) {
-                        holder.textView6.setText("下单用户：" + data.getName());
-                    } else {
-                        holder.textView6.setText("");
-                    }
-
-                    if (data.getPayed() > 0) {
-                        holder.textView7.setText(SysUtils.getMoneyFormat(data.getPayed()));
-                    } else {
-                        holder.textView7.setText("");
-                    }
-                    holder.relativeLayout1.setVisibility(View.VISIBLE);
+                if (data.getCost_item() > 0) {
+                    holder.textView7.setText(SysUtils.getMoneyFormat(data.getCost_item()));
                 } else {
-                    holder.relativeLayout1.setVisibility(View.GONE);
+                    holder.textView7.setText("");
                 }
 
-                if (data.canClose() || data.canComplete()) {
-                    if (data.canComplete()) {
-                        holder.editText1.setVisibility(View.VISIBLE);
-                    } else {
-                        holder.editText1.setVisibility(View.GONE);
-                    }
-
-                    if (data.canClose()) {
-                        holder.editText2.setVisibility(View.VISIBLE);
-                    } else {
-                        holder.editText2.setVisibility(View.GONE);
-                    }
-
-                    holder.linearLayout5.setVisibility(View.VISIBLE);
-                } else {
-                    holder.linearLayout5.setVisibility(View.GONE);
-                }
+//                if (data.canClose() || data.canComplete()) {
+//                    if (data.canComplete()) {
+//                        holder.editText1.setVisibility(View.VISIBLE);
+//                    } else {
+//                        holder.editText1.setVisibility(View.GONE);
+//                    }
+//
+//                    if (data.canClose()) {
+//                        holder.editText2.setVisibility(View.VISIBLE);
+//                    } else {
+//                        holder.editText2.setVisibility(View.GONE);
+//                    }
+//
+//                    holder.linearLayout5.setVisibility(View.VISIBLE);
+//                } else {
+//                    holder.linearLayout5.setVisibility(View.GONE);
+//                }
+                holder.linearLayout5.setVisibility(View.GONE);
 
                 //点击确认
                 holder.editText1.setOnClickListener(new View.OnClickListener() {
@@ -492,10 +482,10 @@ public class OrderFragment extends BaseLazyLoadFragment implements SwipeRefreshL
     }
 
     static class ViewHolder {
-        public TextView textView3, textView10, textView2, textView4, textView5, textView6, textView7;
-        public RelativeLayout relativeLayout1;
+        public TextView textView3, textView10, textView5, textView6, textView7;
         public LinearLayout linearLayout5;
         public TextView editText1, editText2;
+        public ImageView imageView1;
     }
 
     private void setView() {

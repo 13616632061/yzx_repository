@@ -7,6 +7,7 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -41,8 +42,7 @@ public class OrderDeliveryActivity extends BaseActivity {
     private Order order;
 
 
-    public TextView textView3, textView10, textView2, textView4, textView5, textView6, textView7;
-    public RelativeLayout relativeLayout1;
+    public TextView textView3, textView10, textView5, textView6, textView7;
     public LinearLayout linearLayout5;
     public TextView editText1, editText2;
 
@@ -62,6 +62,7 @@ public class OrderDeliveryActivity extends BaseActivity {
 
     public View remarkView;
     public TextView order_memo;
+    public ImageView imageView1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,10 +134,8 @@ public class OrderDeliveryActivity extends BaseActivity {
 
         textView3 = (TextView) firstView.findViewById(R.id.textView3);
         textView10 = (TextView) firstView.findViewById(R.id.textView10);
-        textView2 = (TextView) firstView.findViewById(R.id.textView2);
-        textView4 = (TextView) firstView.findViewById(R.id.textView4);
+        imageView1 = (ImageView) firstView.findViewById(R.id.imageView1);
         textView5 = (TextView) firstView.findViewById(R.id.textView5);
-        relativeLayout1 = (RelativeLayout) firstView.findViewById(R.id.relativeLayout1);
         textView6 = (TextView) firstView.findViewById(R.id.textView6);
         textView7 = (TextView) firstView.findViewById(R.id.textView7);
 
@@ -241,8 +240,6 @@ public class OrderDeliveryActivity extends BaseActivity {
 //            textView10.setTextColor(redColor);
 //        }
         textView10.setText(Html.fromHtml(order.getStatusStr()));
-
-        textView2.setVisibility(View.GONE);
         if (order.hasShippingAddr()) {
 //                            textView2.setText("配送地址：" + order.getShipAddr());
             textView15.setText(order.getShipName());
@@ -267,24 +264,13 @@ public class OrderDeliveryActivity extends BaseActivity {
             remarkView.setVisibility(View.GONE);
             lv_content.removeHeaderView(remarkView);
         }
-        textView4.setText(order.getShippingStr());
+        imageView1.setImageResource(order.getShippingRes());
         textView5.setText("订单号：" + order.getOrderSn());
 
-        if (order.getPayed() > 0 || !StringUtils.isEmpty(order.getName())) {
-            if (!StringUtils.isEmpty(order.getName())) {
-                textView6.setText("下单用户：" + order.getName());
-            } else {
-                textView6.setText("");
-            }
-
-            if (order.getPayed() > 0) {
-                textView7.setText(SysUtils.getMoneyFormat(order.getPayed()));
-            } else {
-                textView7.setText("");
-            }
-            relativeLayout1.setVisibility(View.VISIBLE);
+        if (order.getPayed() > 0) {
+            textView7.setText(SysUtils.getMoneyFormat(order.getPayed()));
         } else {
-            relativeLayout1.setVisibility(View.GONE);
+            textView7.setText("");
         }
 
         linearLayout5.setVisibility(View.GONE);

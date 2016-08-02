@@ -1,27 +1,25 @@
 package com.ms.ks;
 
-import android.app.DownloadManager;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.net.Uri;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.material.widget.Switch;
+import com.ms.db.DBHelper;
 import com.ms.global.Global;
 import com.ms.update.UpdateAsyncTask;
 import com.ms.util.SysUtils;
+import com.nostra13.universalimageloader.utils.StorageUtils;
+
+import java.io.File;
 
 
 public class SetActivity extends BaseUpdateActivity {
     private TextView cache_btn;
-    private TextView setVersion;
-    private String versionName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,14 +58,25 @@ public class SetActivity extends BaseUpdateActivity {
 
         SysUtils.setLine(set_net, Global.SET_SINGLE_LINE, "振动开关", 0, null);
 
-        //系统升级
-        versionName = SysUtils.getAppVersionName(this);
-        View set_update = (View) findViewById(R.id.set_cache_item);
-        setVersion = (TextView) set_update.findViewById(R.id.ll_set_hint_text);
-        SysUtils.setLine(set_update, Global.SET_TWO_LINE, "系统升级", 0, new View.OnClickListener() {
+        //清除缓存
+        View set_cache = (View) findViewById(R.id.set_cache_item);
+        cache_btn = (TextView) set_cache.findViewById(R.id.ll_set_hint_text);
+        cache_btn.setText(formatSize());
+        SysUtils.setLine(set_cache, Global.SET_TWO_LINE, "清除缓存", 0, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                checkVersion();
+                new MaterialDialog.Builder(SetActivity.this)
+                        .content("确定清理缓存？")
+                        .theme(SysUtils.getDialogTheme())
+                        .positiveText("确定")
+                        .negativeText("取消")
+                        .callback(new MaterialDialog.ButtonCallback() {
+                            @Override
+                            public void onPositive(MaterialDialog dialog) {
+                                clearCache();
+                            }
+                        })
+                        .show();
             }
         });
     }
@@ -78,47 +87,74 @@ public class SetActivity extends BaseUpdateActivity {
         myAsyncTask.execute();
     }
 
-    //文件下载完成，尝试打开提醒用户安装
-    BroadcastReceiver onDownloadComplete = new BroadcastReceiver() {
-        public void onReceive(Context ctx, Intent intent) {
-            //获取下载的文件id
-            long downId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
-
-            if(downId > 0) {
-                DownloadManager manager = (DownloadManager) ctx.getSystemService(Context.DOWNLOAD_SERVICE);
-                Uri apk = manager.getUriForDownloadedFile(downId);
-
-                Intent promptInstall = new Intent(Intent.ACTION_VIEW);
-                promptInstall.setDataAndType(apk, "application/vnd.android.package-archive");
-                promptInstall.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(promptInstall);
-            }
-        }
-    };
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        if (KsApplication.hasNewVersion) {
-            setVersion.setText("发现有新版本 V" + KsApplication.newVersionName);
-        } else {
-            setVersion.setText("V" + versionName);
-        }
-
-        //注册监听器
-        registerReceiver(onDownloadComplete, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
+    private long getWebviewSize() {
+        long size = 0;
 
         try {
-            //反注册监听器
-            unregisterReceiver(onDownloadComplete);
+            size += new File(getDatabasePath("webview.db").getAbsolutePath()).length();
+            size += new File(getDatabasePath("webviewCache.db").getAbsolutePath()).length();
         } catch(Exception e) {
 
         }
+
+        return size;
+    }
+
+    private long getDbSize() {
+        long dbSize = 0;
+        DBHelper dbHelper = DBHelper.getInstance(SetActivity.this);
+        SQLiteDatabase sqlite = null;
+
+        try {
+            sqlite = dbHelper.getReadableDatabase();
+            dbSize = new File(sqlite.getPath()).length();
+        } catch(Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (sqlite != null && sqlite.isOpen()) {
+                sqlite.close();
+            }
+        }
+
+        return dbSize;
+    }
+
+    private String formatSize() {
+        long dbSize = getDbSize();
+
+        long cacheSize = SysUtils.getCacheSize(this);
+        long uilDiskCacheSize = SysUtils.getCacheSizeByDir(StorageUtils.getCacheDirectory(this));   //uil缓存大小
+        long totalSize = dbSize + cacheSize + uilDiskCacheSize;
+
+        String size = SysUtils.humanReadableByteCount(totalSize, false);
+
+        return size;
+    }
+
+    private void deleteDb(String name) {
+        try {
+            this.deleteDatabase(name);
+        } catch(Exception e) {
+
+        }
+    }
+
+    private void clearCache() {
+        deleteDb("ks.db");
+        try {
+            SysUtils.clearCache(this);
+        } catch(Exception e) {
+
+        }
+
+        try {
+            //清空uil缓存
+            imageLoader.clearMemoryCache();
+            imageLoader.clearDiskCache();
+        } catch(Exception e) {
+
+        }
+        String formatSize = "0 KiB";
+        cache_btn.setText(formatSize);
     }
 }

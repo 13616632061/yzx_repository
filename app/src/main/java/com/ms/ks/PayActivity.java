@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -135,28 +136,41 @@ public class PayActivity extends ShareBaseActivity {
 
         isLoading = true;
         Map<String,String> map = new HashMap<String,String>();
-        CustomRequest r = new CustomRequest(Request.Method.POST, SysUtils.getServiceUrl("create_wechat_order"), map, new Response.Listener<JSONObject>() {
+        map.put("money", String.valueOf(pay_money));
+        map.put("type", LoginUtils.isSeller() ? "seller" : "member");
+
+        String uri = SysUtils.getSellerServiceUrl("create_wechat_order");
+
+        CustomRequest r = new CustomRequest(Request.Method.POST, uri, map, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject jsonObject) {
                 isLoading = false;
                 hideLoading();
 
                 try {
-                    int error = jsonObject.getInt("error");
-                    if(error > 0) {
-                        String errstr = jsonObject.getString("errstr");
-                        SysUtils.showError(errstr);
+                    JSONObject ret = SysUtils.didResponse(jsonObject);
+                    String status = ret.getString("status");
+                    String message = ret.getString("message");
+                    JSONObject dataObject = ret.getJSONObject("data");
+
+                    if (!status.equals("200")) {
+                        SysUtils.showError(message);
                     } else {
+                        JSONObject orderObject = dataObject.getJSONObject("data");
+
+                        Log.v("ks", orderObject.toString());
+
                         //使用服务器返回的二次交易签名数据发起交易
-                        req.appId = jsonObject.getString("appid");
-                        req.partnerId = jsonObject.getString("partnerid");
-                        req.prepayId = jsonObject.getString("prepayid");
-                        req.packageValue = jsonObject.getString("package");
-                        req.nonceStr = jsonObject.getString("noncestr");
-                        req.timeStamp = jsonObject.getString("timestamp");
-                        req.sign = jsonObject.getString("sign");
+                        req.appId = orderObject.getString("appid");
+                        req.partnerId = orderObject.getString("partnerid");
+                        req.prepayId = orderObject.getString("prepayid");
+                        req.packageValue = orderObject.getString("package");
+                        req.nonceStr = orderObject.getString("noncestr");
+                        req.timeStamp = orderObject.getString("timestamp");
+                        req.sign = orderObject.getString("sign");
 
                         msgApi.sendReq(req);
+
                     }
                 } catch(Exception e) {
                     e.printStackTrace();
