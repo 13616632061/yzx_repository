@@ -61,6 +61,7 @@ public class Global {
 	public static final String BROADCAST_REFRESH_PARTY_MY_ACTION = "com.ms.ks.receiver.refresh_party_my";
 	public static final String BROADCAST_REFRESH_ORDER_ACTION = "com.ms.ks.receiver.refresh_order";
 	public static final String BROADCAST_REFRESH_ORDER_DETAIL_ACTION = "com.ms.ks.receiver.refresh_order_detail";
+	public static final String BROADCAST_REFRESH_PROFILE_ACTION = "com.ms.ks.receiver.refresh_profile";
 	public static final String BROADCAST_CANCEL_ORDER_ACTION = "com.ms.ks.receiver.cancel_order";
 	public static final String BROADCAST_AFFIRM_ORDER_ACTION = "com.ms.ks.receiver.affirm_order";
 	public static final String BROADCAST_REFRESH_SHOP_ACTION = "com.ms.ks.receiver.refresh_shop";

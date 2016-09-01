@@ -122,11 +122,11 @@ public class ReportDetailActivity extends BaseActivity {
 
 
     private void loadData() {
-        Map<String,Object> finalMap = new HashMap<String,Object>();
-        finalMap.put("page", PAGE);
-        finalMap.put("pagelimit", NUM_PER_PAGE);
+        Map<String,String> finalMap = new HashMap<String,String>();
+        finalMap.put("page", String.valueOf(PAGE));
+        finalMap.put("pagelimit", String.valueOf(NUM_PER_PAGE));
 
-        CustomRequest r = new CustomRequest(Request.Method.POST, SysUtils.getMemberServiceUrl("welcome_detail"), null, new Response.Listener<JSONObject>() {
+        CustomRequest r = new CustomRequest(Request.Method.POST, SysUtils.getMemberServiceUrl("welcome_detail"), finalMap, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject jsonObject) {
                 setRefreshing(false);

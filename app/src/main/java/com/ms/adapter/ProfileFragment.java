@@ -1,11 +1,15 @@
 package com.ms.adapter;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -14,12 +18,10 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.material.widget.PaperButton;
-import com.material.widget.Switch;
 import com.ms.global.Global;
 import com.ms.ks.AboutActivity;
 import com.ms.ks.AddressActivity;
 import com.ms.ks.BaseFragment;
-import com.ms.ks.KsApplication;
 import com.ms.ks.MoneyActivity;
 import com.ms.ks.MsgActivity;
 import com.ms.ks.PrintActivity;
@@ -34,9 +36,13 @@ import com.ms.util.SysUtils;
 
 import org.json.JSONObject;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class ProfileFragment extends BaseFragment{
     private ShopActivity mainAct;
     private TextView textView2;
+    private boolean isLoading = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -171,23 +177,31 @@ public class ProfileFragment extends BaseFragment{
             linearLayout3.setVisibility(View.GONE);
             linearLayout5.setVisibility(View.GONE);
             linearLayout6.setVisibility(View.GONE);
-            linearLayout6.setVisibility(View.GONE);
             linearLayout8.setVisibility(View.GONE);
 
             linearLayout1.setBackgroundResource(R.drawable.selector_cell_left_blank);
 //            linearlayout01.setBackgroundResource(R.drawable.selector_cell_single_line);
         } else {
             getData();
+//            myTimerTask timerTask = new myTimerTask();
+//            Timer timer = new Timer(true);
+//            timer.schedule(timerTask, 0, 1000 * 30);//每30秒执行一次
         }
 
         return view;
     }
 
-    private void getData() {
+    public void getData() {
+        if (isLoading) {
+            return;
+        }
+
+        isLoading = true;
         CustomRequest r = new CustomRequest(Request.Method.POST, SysUtils.getSellerServiceUrl("center"), null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject jsonObject) {
                 hideLoading();
+                isLoading = false;
 
                 try {
                     JSONObject ret = SysUtils.didResponse(jsonObject);
@@ -208,6 +222,7 @@ public class ProfileFragment extends BaseFragment{
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
+                isLoading = false;
                 hideLoading();
                 SysUtils.showNetworkError();
             }
@@ -217,5 +232,55 @@ public class ProfileFragment extends BaseFragment{
 
         showLoading(getActivity());
     }
+
+
+    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            getData();
+        }
+    };
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        getActivity().registerReceiver(broadcastReceiver, new IntentFilter(Global.BROADCAST_REFRESH_PROFILE_ACTION));
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        try {
+            getActivity().unregisterReceiver(broadcastReceiver);
+        } catch(Exception e) {
+
+        }
+    }
+
+    private class myTimerTask extends TimerTask {
+        @Override
+        public void run() {
+            Message message = new Message();
+            message.what = 2;
+            myHandler.sendMessage(message);  //发送message
+        }
+    }
+
+    Handler myHandler = new Handler() {
+        // 接收到消息后处理
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 1:
+                    //UI操作
+                    break;
+                case 2:
+                    //UI操作
+                    getData();
+                    break;
+            }
+            super.handleMessage(msg);
+        }
+    };
 }
 

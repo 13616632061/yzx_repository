@@ -1161,8 +1161,8 @@ public class SysUtils {
                     data.getString("createtime"),
                     SysUtils.getFinalString("name", data),
                     data.optInt("pay_status"),
-                    data.optInt("pay_status"),
-                    data.optInt("pay_status"),
+                    data.optInt("shipping_id"),
+                    data.optInt("ship_status"),
                     data.optInt("button_affirm"),
                     data.optInt("button_off"),
                     data.optInt("shipments_yes"),
@@ -1185,7 +1185,7 @@ public class SysUtils {
                     data.optDouble("payed"),
                     SysUtils.getFinalString("order_status", data),
                     SysUtils.getFinalString("print_number", data),
-                    data.optDouble("apay"));
+                    data.optDouble("apay_order"));
         } catch (Exception e) {
             e.printStackTrace();
         }

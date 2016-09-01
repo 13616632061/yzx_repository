@@ -243,7 +243,6 @@
 
             <!--修改密码-->
             <LinearLayout
-                android:visibility="gone"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:id="@id/linearLayout8"

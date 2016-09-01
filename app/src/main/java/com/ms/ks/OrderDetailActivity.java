@@ -527,6 +527,8 @@ public class OrderDetailActivity extends BaseActivity {
                                 b.setName(data.getString("name"));
                                 b.setQuantity(data.getInt("quantity"));
                                 double price = data.getDouble("price");
+                                b.setAttr(data.optString("product_attr"));
+//                                b.setAttr("颜色123");
                                 b.setPrice(price);
                                 b.setFormatPrice(SysUtils.getMoneyFormat(price));
 
@@ -559,7 +561,7 @@ public class OrderDetailActivity extends BaseActivity {
                         b.setName("已支付");
                         b.setQuantity(0);
                         b.setPrice(order.getPayed());
-                        b.setFormatPrice(SysUtils.getMoneyFormat(order.getPayed()));
+                        b.setFormatPrice(SysUtils.getMoneyFormat(order.getFinalPayed()));
                         cat_list.add(b);
 
                         b = new OrderGoods();
@@ -621,6 +623,7 @@ public class OrderDetailActivity extends BaseActivity {
                     holder.textView2 = (TextView) convertView.findViewById(R.id.textView2);
                     holder.textView3 = (TextView) convertView.findViewById(R.id.textView3);
                     holder.line = (TextView) convertView.findViewById(R.id.line);
+                    holder.textView11 = (TextView) convertView.findViewById(R.id.textView11);
 
                     convertView.setTag(holder);
                 } catch (Exception e) {
@@ -640,7 +643,14 @@ public class OrderDetailActivity extends BaseActivity {
                 }
                 holder.textView3.setText(data.getFormatPrice());
 
-                if (cat_list.size() > 5 && position == (cat_list.size() - 6)) {
+                if (!StringUtils.isEmpty(data.getAttr())) {
+                    holder.textView11.setText(data.getAttr());
+                    holder.textView11.setVisibility(View.VISIBLE);
+                } else {
+                    holder.textView11.setVisibility(View.GONE);
+                }
+
+                if (cat_list.size() > 4 && position == (cat_list.size() - 5)) {
                     holder.line.setVisibility(View.VISIBLE);
                 } else {
                     holder.line.setVisibility(View.GONE);
@@ -652,7 +662,7 @@ public class OrderDetailActivity extends BaseActivity {
     }
 
     static class ViewHolder {
-        public TextView textView1, textView2, textView3, line;
+        public TextView textView1, textView2, textView3, line, textView11;
     }
 
     @Override

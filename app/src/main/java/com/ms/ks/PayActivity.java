@@ -263,6 +263,8 @@ public class PayActivity extends ShareBaseActivity {
 
                         // 完整的符合支付宝参数规范的订单信息
                         final String payInfo = orderInfo + "&sign=\"" + sign + "\"&sign_type=\"RSA\"";
+
+                        Log.v("ks", payInfo);
                         Runnable payRunnable = new Runnable() {
 
                             @Override

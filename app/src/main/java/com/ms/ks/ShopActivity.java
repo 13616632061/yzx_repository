@@ -158,6 +158,8 @@ public class ShopActivity extends BaseActivity implements OnTabChangeListener {
     public boolean onCreateOptionsMenu(Menu menu) {
         if(current_tab.equals("main") || current_tab.equals("main2")) {
             getMenuInflater().inflate(R.menu.menu_search, menu);
+        } else if(current_tab.equals("profile")) {
+            getMenuInflater().inflate(R.menu.menu_refresh, menu);
         }
         return true;
     }
@@ -169,6 +171,13 @@ public class ShopActivity extends BaseActivity implements OnTabChangeListener {
         if(current_tab.equals("main") || current_tab.equals("main2")) {
             if (id == R.id.menu_search) {
                 SysUtils.startAct(ShopActivity.this, new SearchActivity());
+                return true;
+            }
+        } else if(current_tab.equals("profile")) {
+            if (id == R.id.menu_refresh) {
+                sendBroadcast(new Intent(Global.BROADCAST_REFRESH_PROFILE_ACTION)
+                        .putExtra("type", 2));
+//                SysUtils.startAct(ShopActivity.this, new SearchActivity());
                 return true;
             }
         }

@@ -87,6 +87,7 @@ public class LoginUtils {
     //是否受限
     public static boolean jurisdiction() {
         return KsApplication.getInt("jurisdiction", 0) == 1;
+//        return true;
     }
 
     public static String ssoTypeStr() {
