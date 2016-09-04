@@ -159,7 +159,7 @@ public class MsgActivity extends BaseActivity {
                         }
 
                         int total = dataObject.getInt("total");
-                        int totalPage = (int)Math.ceil(total / NUM_PER_PAGE);
+                        int totalPage = (int)Math.ceil((float)total / NUM_PER_PAGE);
                         loadingMore = totalPage > PAGE;
 
                         if (loadingMore) {

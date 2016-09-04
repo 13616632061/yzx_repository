@@ -2,6 +2,7 @@ package com.ms.ks;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -167,7 +168,8 @@ public class ReportDetailActivity extends BaseActivity {
                         }
 
                         int total = dataObject.getInt("total");
-                        int totalPage = (int)Math.ceil(total / NUM_PER_PAGE);
+                        int totalPage = (int)Math.ceil((float)total / NUM_PER_PAGE);
+
                         loadingMore = totalPage > PAGE;
 
                         if (loadingMore) {
