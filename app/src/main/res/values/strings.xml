@@ -34,10 +34,15 @@
     <string name="title_activity_order_delivery_code">快递单号</string>
     <string name="title_activity_print">打印设置</string>
     <string name="title_activity_notice">店铺公告</string>
+    <string name="title_activity_profile_entry">输入登录密码</string>
 
     <string-array name="sex_list">
         <item>男</item>
         <item>女</item>
+    </string-array>
+    <string-array name="env_list">
+        <item>线上环境</item>
+        <item>测试环境</item>
     </string-array>
 
     <string name="title_activity_profile_email">修改邮箱</string>

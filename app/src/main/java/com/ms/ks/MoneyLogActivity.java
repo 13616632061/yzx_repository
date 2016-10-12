@@ -2,6 +2,7 @@ package com.ms.ks;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import com.ms.entity.Money;
 import com.ms.listview.PagingListView;
 import com.ms.util.CustomRequest;
 import com.ms.util.LoginUtils;
+import com.ms.util.StringUtils;
 import com.ms.util.SysUtils;
 
 import org.json.JSONArray;
@@ -153,6 +155,16 @@ public class MoneyLogActivity extends BaseActivity {
                                 bean.setMtime(data.getString("mtime"));
                                 bean.setMoney(data.getDouble("money"));
 
+                                String bank_id = "", bank_name = "";
+                                if(!TextUtils.isEmpty(data.optString("bank_id"))) {
+                                    bank_id = data.optString("bank_id");
+                                }
+                                if(!TextUtils.isEmpty(data.optString("bank_name"))) {
+                                    bank_name = data.optString("bank_name");
+                                }
+                                bean.setBank_id(bank_id);
+                                bean.setBank_name(bank_name);
+
                                 cat_list.add(bean);
                             }
                         }
@@ -228,6 +240,7 @@ public class MoneyLogActivity extends BaseActivity {
                     holder.textView1 = (TextView) convertView.findViewById(R.id.textView1);
                     holder.textView2 = (TextView) convertView.findViewById(R.id.textView2);
                     holder.textView3 = (TextView) convertView.findViewById(R.id.textView3);
+                    holder.textView4 = (TextView) convertView.findViewById(R.id.textView4);
                     convertView.setTag(holder);
                 } catch (Exception e) {
                 }
@@ -248,6 +261,14 @@ public class MoneyLogActivity extends BaseActivity {
                 }
                 holder.textView2.setText("类型：" + (data.getType().equals("withdraw") ? "提现" : "充值"));
                 holder.textView3.setText(SysUtils.getMoneyFormat(data.getMoney()));
+
+                if(data.getType().equals("withdraw") && !TextUtils.isEmpty(data.getBank_id())) {
+                    //提现
+                    holder.textView4.setText(data.getBank_name() + "(" + data.getBank_id() + ")");
+                    holder.textView4.setVisibility(View.VISIBLE);
+                } else {
+                    holder.textView4.setVisibility(View.GONE);
+                }
             }
 
             return convertView;
@@ -255,7 +276,7 @@ public class MoneyLogActivity extends BaseActivity {
     }
 
     static class ViewHolder {
-        public TextView tv_content, textView1, textView2, textView3;
+        public TextView tv_content, textView1, textView2, textView3, textView4;
     }
 
     private void setView() {

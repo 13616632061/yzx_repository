@@ -55,6 +55,14 @@
                 />
         </LinearLayout>
 
+        <com.jayfang.dropdownmenu.DropDownMenu
+            android:visibility="gone"
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:id="@+id/dropdown_menu"
+            android:background="?attr/colorPrimary"
+            android:layout_height="?attr/actionBarSize"/>
+
         <TextView
             android:id="@id/btn_set"
             android:layout_width="wrap_content"
@@ -71,4 +79,5 @@
             android:layout_marginRight="15dp"
             />
     </android.support.v7.widget.Toolbar>
+
 </RelativeLayout>

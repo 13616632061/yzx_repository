@@ -6,29 +6,44 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android">
-    <RelativeLayout
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
+    <LinearLayout
+        android:orientation="horizontal"
+        android:padding="16dp"
         android:layout_width="fill_parent"
-        android:layout_height="@dimen/s_component_height">
-        <TextView
-            android:id="@id/textView3"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:textColor="@color/text_color"
-            android:textSize="14sp"
-            android:text=""/>
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_marginRight="20dp"
+                android:visibility="gone"
+                android:id="@id/textView11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_color"
+                android:textSize="14sp"
+                android:text=""/>
+            <TextView
+                android:id="@id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_color"
+                android:textSize="14sp"
+                android:text=""/>
+        </LinearLayout>
+
         <TextView
+            android:gravity="right"
+            android:layout_weight="1"
+            android:singleLine="false"
             android:textColor="@color/text_hint_color"
             android:id="@id/textView10"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textSize="14sp"
-            android:text=""/>
-    </RelativeLayout>
+            android:text="ss"/>
+    </LinearLayout>
     <TextView
         android:background="@color/divider_color"
         android:layout_width="fill_parent"

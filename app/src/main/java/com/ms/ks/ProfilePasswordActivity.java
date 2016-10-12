@@ -21,7 +21,6 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-
 public class ProfilePasswordActivity extends BaseActivity {
     //原始密码
     TextView textView1;

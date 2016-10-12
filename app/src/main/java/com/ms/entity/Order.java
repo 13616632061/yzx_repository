@@ -44,6 +44,7 @@ public class Order implements Parcelable {
 
 	String payment_status;
 	String print_number;
+	private String order_num;
 
 	public String getPayment_status() {
 		return payment_status;
@@ -345,7 +346,7 @@ public class Order implements Parcelable {
 				 double payed, double shipped, int deliveryExpress, int deliverySeller, int deliverySellerDtId,
 				 String sellerName, String sellerTel, String memo, int distribution, String status,
 				 double cost_item, double pmt_order, double finalPayed, String payment_status, String print_number,
-				 double apay){
+				 double apay, String order_num){
 		this.orderSn = orderSn;
 		this.orderTime = orderTime;
 		this.name = name;
@@ -375,6 +376,7 @@ public class Order implements Parcelable {
 		this.payment_status = payment_status;
 		this.print_number = print_number;
 		this.apay = apay;
+		this.order_num = order_num;
 	}
 
 	public Order(Parcel in){
@@ -407,6 +409,7 @@ public class Order implements Parcelable {
 		this.payment_status = in.readString();
 		this.print_number = in.readString();
 		this.apay = in.readDouble();
+		this.order_num = in.readString();
 	}
 
 	@Override
@@ -445,6 +448,7 @@ public class Order implements Parcelable {
 		dest.writeString(this.getPayment_status());
 		dest.writeString(this.getPrint_number());
 		dest.writeDouble(this.getApay());
+		dest.writeString(this.getOrder_num());
 	}
 
 	public String getStatusStr() {
@@ -470,6 +474,14 @@ public class Order implements Parcelable {
 
 	public void setApay(double apay) {
 		this.apay = apay;
+	}
+
+	public String getOrder_num() {
+		return order_num;
+	}
+
+	public void setOrder_num(String order_num) {
+		this.order_num = order_num;
 	}
 }
 

@@ -43,9 +43,9 @@ public class MoneyActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 String depositNumStr = textView3.getText().toString();
-                int pay_money = 0;
+                double pay_money = 0;
                 if(!StringUtils.isEmpty(depositNumStr)) {
-                    pay_money = Integer.parseInt(depositNumStr);
+                    pay_money = Double.parseDouble(depositNumStr);
                 }
 
                 if(pay_money <= 0) {
@@ -63,9 +63,9 @@ public class MoneyActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 String depositNumStr = textView3.getText().toString();
-                int pay_money = 0;
+                double pay_money = 0;
                 if(!StringUtils.isEmpty(depositNumStr)) {
-                    pay_money = Integer.parseInt(depositNumStr);
+                    pay_money = Double.parseDouble(depositNumStr);
                 }
 
                 if(pay_money <= 0) {

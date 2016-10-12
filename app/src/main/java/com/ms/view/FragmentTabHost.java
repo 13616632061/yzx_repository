@@ -45,14 +45,14 @@ public class FragmentTabHost extends TabHost implements
     private FragmentManager mFragmentManager;
     private int mContainerId;
     private TabHost.OnTabChangeListener mOnTabChangeListener;
-    private TabInfo mLastTab;
+    public TabInfo mLastTab;
     private boolean mAttached;
 
-    static final class TabInfo {
+    public static final class TabInfo {
         private final String tag;
         private final Class<?> clss;
         private final Bundle args;
-        private Fragment fragment;
+        public Fragment fragment;
 
         TabInfo(String _tag, Class<?> _class, Bundle _args) {
             tag = _tag;

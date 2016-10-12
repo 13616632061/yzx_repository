@@ -1,0 +1,12 @@
+<RelativeLayout
+    android:background="?gray_bg"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:paddingTop="?actionBarSize"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView
+        android:layout_margin="16dp"
+        android:text="功能开发中"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</RelativeLayout>

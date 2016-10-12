@@ -27,7 +27,7 @@ public class BaseActivity extends ActionBarActivity {
     public Toolbar toolbar = null;
     private SystemBarTintManager tintManager = null;
     protected ImageLoader imageLoader = ImageLoader.getInstance();
-    private TextView toolbarTitle;
+    protected TextView toolbarTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

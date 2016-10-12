@@ -137,9 +137,9 @@ public class PayActivity extends ShareBaseActivity {
         isLoading = true;
         Map<String,String> map = new HashMap<String,String>();
         map.put("money", String.valueOf(pay_money));
-        map.put("type", LoginUtils.isSeller() ? "seller" : "member");
+//        map.put("type", LoginUtils.isSeller() ? "seller" : "member");
 
-        String uri = SysUtils.getSellerServiceUrl("create_wechat_order");
+        String uri = LoginUtils.isSeller() ? SysUtils.getSellerServiceUrl("create_wechat_order") : SysUtils.getMemberServiceUrl("create_wechat_order");
 
         CustomRequest r = new CustomRequest(Request.Method.POST, uri, map, new Response.Listener<JSONObject>() {
             @Override

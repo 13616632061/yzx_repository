@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -39,6 +41,7 @@ Boolean isExit = false;
     RelativeLayout relativeLayout2, relativeLayout1, relativeLayout3;
     private static final int REQUEST_PERMISSION = 0;
     public IWXAPI api;
+    long[] mHits = new long[3];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +49,33 @@ Boolean isExit = false;
         View view = getLayoutInflater().from(this).inflate(R.layout.activity_welcome, null);
 
         setContentView(view);
+
+        RelativeLayout relativeLayout5 = (RelativeLayout) findViewById(R.id.relativeLayout5);
+        relativeLayout5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.arraycopy(mHits, 1, mHits, 0, mHits.length - 1);
+                //实现左移，然后最后一个位置更新距离开机的时间，如果最后一个时间和最开始时间小于500，即双击
+                mHits[mHits.length - 1] = SystemClock.uptimeMillis();
+                if (mHits[0] >= (SystemClock.uptimeMillis() - 500)) {
+                    int isTest = KsApplication.getInt("isTest", 0);
+                    new MaterialDialog.Builder(WelcomeActivity.this)
+                            .title("选择环境")
+                            .items(R.array.env_list)
+                            .theme(SysUtils.getDialogTheme())
+                            .itemsCallbackSingleChoice(isTest, new MaterialDialog.ListCallbackSingleChoice() {
+                                @Override
+                                public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                                    okModifyEnv(which);
+                                    return true;
+                                }
+                            })
+                            .positiveText("确定")
+                            .negativeText("取消")
+                            .show();
+                }
+            }
+        });
 
         tExit = new Timer();
         task = new TimerTask() {
@@ -89,6 +119,18 @@ Boolean isExit = false;
 
         //检测版本更新
         checkVersion();
+    }
+    private void okModifyEnv(int env) {
+        KsApplication.putInt("isTest", env);
+
+        //退出登录
+        LoginUtils.logout(this, 0);
+
+        if(env == 1) {
+            SysUtils.showSuccess("已切换为测试环境");
+        } else {
+            SysUtils.showSuccess("已切换为线上环境");
+        }
     }
 
     @Override

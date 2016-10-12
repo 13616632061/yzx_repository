@@ -28,6 +28,7 @@ import com.ms.global.Global;
 import com.ms.ks.AdActivity;
 import com.ms.ks.BaseFragment;
 import com.ms.ks.NoticeActivity;
+import com.ms.ks.OpenActivity;
 import com.ms.ks.R;
 import com.ms.ks.ShopActivity;
 import com.ms.util.CustomRequest;
@@ -44,7 +45,7 @@ public class ReportFragment extends BaseFragment {
     private TextView id_text_1, id_text_2, id_text_3, id_text_5;
     private SwipeRefreshLayout refresh_header;
     private ListView lv_content;
-    private TextView textView1, textView2, textView3;
+    private TextView textView1, textView2;
     private String intro = "";
     public ArrayList<News> ad_list;
     private View adView = null;
@@ -84,52 +85,63 @@ public class ReportFragment extends BaseFragment {
         View firstView = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.report_seller, lv_content, false);
         lv_content.addHeaderView(firstView);
         lv_content.setAdapter(null);
+        RelativeLayout relativeLayout3 = (RelativeLayout) firstView.findViewById(R.id.relativeLayout3);
+        relativeLayout3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toOpenList(1);
+            }
+        });
 
-        //今日无效订单
+        //今日全部订单
         View set_item_1 = (View) firstView.findViewById(R.id.set_item_1);
         ImageView idx_1 = (ImageView) set_item_1.findViewById(R.id.ll_set_idx);
-        idx_1.setVisibility(View.INVISIBLE);
+        idx_1.setVisibility(View.VISIBLE);
 
         id_text_1 = (TextView) set_item_1.findViewById(R.id.ll_set_hint_text);
-        SysUtils.setLine(set_item_1, Global.SET_CELLUP, "今日无效订单", R.drawable.icon_item_1, new View.OnClickListener() {
+        SysUtils.setLine(set_item_1, Global.SET_CELLUP, "今日全部订单", R.drawable.icon_item_1, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                toOpenList(2);
             }
         });
 
         //昨日营业额
         View set_item_2 = (View) firstView.findViewById(R.id.set_item_2);
         ImageView idx_2 = (ImageView) set_item_2.findViewById(R.id.ll_set_idx);
-        idx_2.setVisibility(View.INVISIBLE);
+        idx_2.setVisibility(View.VISIBLE);
 
         id_text_2 = (TextView) set_item_2.findViewById(R.id.ll_set_hint_text);
         SysUtils.setLine(set_item_2, Global.SET_CELLWHITE, "昨日营业额", R.drawable.icon_item_2, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                toOpenList(3);
             }
         });
 
         //本月营业额
         View set_item_3 = (View) firstView.findViewById(R.id.set_item_3);
         ImageView idx_3 = (ImageView) set_item_3.findViewById(R.id.ll_set_idx);
-        idx_3.setVisibility(View.INVISIBLE);
+        idx_3.setVisibility(View.VISIBLE);
 
         id_text_3 = (TextView) set_item_3.findViewById(R.id.ll_set_hint_text);
         SysUtils.setLine(set_item_3, Global.SET_CELLWHITE, "本月营业额", R.drawable.icon_item_3, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                toOpenList(4);
             }
         });
 
         //上月营业额
         View set_item_5 = (View) firstView.findViewById(R.id.set_item_5);
         ImageView idx_5 = (ImageView) set_item_5.findViewById(R.id.ll_set_idx);
-        idx_5.setVisibility(View.INVISIBLE);
+        idx_5.setVisibility(View.VISIBLE);
 
         id_text_5 = (TextView) set_item_5.findViewById(R.id.ll_set_hint_text);
         SysUtils.setLine(set_item_5, Global.SET_SINGLE_LINE, "上月营业额", R.drawable.icon_item_3, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                toOpenList(5);
             }
         });
 
@@ -154,7 +166,7 @@ public class ReportFragment extends BaseFragment {
 
         textView1 = (TextView) firstView.findViewById(R.id.textView1);
         textView2 = (TextView) firstView.findViewById(R.id.textView2);
-        textView3 = (TextView) firstView.findViewById(R.id.textView3);
+//        textView3 = (TextView) firstView.findViewById(R.id.textView3);
 
         refresh_header.post(new Runnable() {
             @Override
@@ -187,7 +199,7 @@ public class ReportFragment extends BaseFragment {
                     } else {
                         textView1.setText(dataObject.getString("num"));
                         textView2.setText(SysUtils.getMoneyFormat(dataObject.getDouble("amount")));
-                        textView3.setText(SysUtils.getMoneyFormat(dataObject.getDouble("favorable")));
+//                        textView3.setText(SysUtils.getMoneyFormat(dataObject.getDouble("favorable")));
 
                         id_text_1.setText(dataObject.getString("today_dead_num"));
                         id_text_2.setText(SysUtils.getMoneyFormat(dataObject.getDouble("yesterday_amount")));
@@ -343,6 +355,13 @@ public class ReportFragment extends BaseFragment {
         } catch(Exception e) {
 
         }
+    }
+
+    private void toOpenList(int type) {
+        Bundle b = new Bundle();
+        b.putInt("type", type);
+
+        SysUtils.startAct(getActivity(), new OpenActivity(), b);
     }
 }
 

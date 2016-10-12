@@ -36,7 +36,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="今日订单量"
+                    android:text="今日付款量"
                     android:textColor="@color/text_secondary_color"
                     android:textSize="16sp" />
 
@@ -82,28 +82,28 @@
                     android:textColor="@color/text_secondary_color"
                     android:textSize="16sp"/>
             </RelativeLayout>
-            <LinearLayout
-                android:layout_marginTop="3dp"
-                android:layout_centerHorizontal="true"
-                android:orientation="horizontal"
-                android:layout_below="@+id/right_rl"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:layout_centerHorizontal="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="已优惠 "
-                    android:textColor="@color/text_hint_color"
-                    android:textSize="12sp"/>
-                <TextView
-                    android:id="@id/textView3"
-                    android:text="￥ 0.00"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/text_hint_color"
-                    android:textSize="12sp"/>
-            </LinearLayout>
+            <!--<LinearLayout-->
+                <!--android:layout_marginTop="3dp"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:layout_below="@+id/right_rl"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content">-->
+                <!--<TextView-->
+                    <!--android:layout_centerHorizontal="true"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="已优惠 "-->
+                    <!--android:textColor="@color/text_hint_color"-->
+                    <!--android:textSize="12sp"/>-->
+                <!--<TextView-->
+                    <!--android:id="@id/textView3"-->
+                    <!--android:text="￥ 0.00"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:textColor="@color/text_hint_color"-->
+                    <!--android:textSize="12sp"/>-->
+            <!--</LinearLayout>-->
         </RelativeLayout>
     </LinearLayout>
 

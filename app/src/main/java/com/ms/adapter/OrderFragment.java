@@ -8,6 +8,8 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.Html;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +18,6 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -59,7 +60,7 @@ public class OrderFragment extends BaseLazyLoadFragment implements SwipeRefreshL
     private String type = "";
 
     private String orderId = "";
-    private int textColor, redColor;
+    private int pay = 1;    //默认已支付
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -82,10 +83,6 @@ public class OrderFragment extends BaseLazyLoadFragment implements SwipeRefreshL
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_order, container, false);
-
-
-        textColor = getResources().getColor(R.color.text_color);
-        redColor = getResources().getColor(R.color.red_color);
 
         layout_err = (View) view.findViewById(R.id.layout_err);
         include_noresult = layout_err.findViewById(R.id.include_noresult);
@@ -186,6 +183,7 @@ public class OrderFragment extends BaseLazyLoadFragment implements SwipeRefreshL
         map.put("page", String.valueOf(PAGE));
         map.put("pagelimit", String.valueOf(NUM_PER_PAGE));
         map.put("type", String.valueOf(my_position));
+        map.put("pay", String.valueOf(pay));
 
         String uri = type.equals("1") ? SysUtils.getSellerServiceUrl("orders") : SysUtils.getSellerServiceUrl("dispose");
 
@@ -228,15 +226,14 @@ public class OrderFragment extends BaseLazyLoadFragment implements SwipeRefreshL
                     int totalPage = (int)Math.ceil((float)total / NUM_PER_PAGE);
                     loadingMore = totalPage > PAGE;
 
+                    setView();
+
                     if (loadingMore) {
                         PAGE++;
-//                            SysUtils.showSuccess("more");
                     }
                 } catch(Exception e) {
                     e.printStackTrace();
                 } finally {
-                    setView();
-
                     updateAdapter();
                 }
             }
@@ -305,6 +302,7 @@ public class OrderFragment extends BaseLazyLoadFragment implements SwipeRefreshL
                     holder.linearLayout5 = (LinearLayout) convertView.findViewById(R.id.linearLayout5);
                     holder.editText1 = (TextView) convertView.findViewById(R.id.editText1);
                     holder.editText2 = (TextView) convertView.findViewById(R.id.editText2);
+                    holder.textView11 = (TextView) convertView.findViewById(R.id.textView11);
 
                     convertView.setTag(holder);
                 } catch (Exception e) {
@@ -347,6 +345,13 @@ public class OrderFragment extends BaseLazyLoadFragment implements SwipeRefreshL
                     holder.textView7.setText(SysUtils.getMoneyFormat(data.getCost_item()));
                 } else {
                     holder.textView7.setText("");
+                }
+
+                if(!TextUtils.isEmpty(data.getOrder_num())) {
+                    holder.textView11.setText("#" + data.getOrder_num());
+                    holder.textView11.setVisibility(View.VISIBLE);
+                } else {
+                    holder.textView11.setVisibility(View.GONE);
                 }
 
 //                if (data.canClose() || data.canComplete()) {
@@ -482,7 +487,7 @@ public class OrderFragment extends BaseLazyLoadFragment implements SwipeRefreshL
     }
 
     static class ViewHolder {
-        public TextView textView3, textView10, textView5, textView6, textView7;
+        public TextView textView3, textView10, textView5, textView6, textView7, textView11;
         public LinearLayout linearLayout5;
         public TextView editText1, editText2;
         public ImageView imageView1;
@@ -490,6 +495,7 @@ public class OrderFragment extends BaseLazyLoadFragment implements SwipeRefreshL
 
     private void setView() {
         if(PAGE <= 1) {
+//            Log.v("ks", "size: " + cat_list.size());
             if(cat_list.size() < 1) {
                 //没有结果
                 lv_content.setVisibility(View.GONE);
@@ -613,6 +619,21 @@ public class OrderFragment extends BaseLazyLoadFragment implements SwipeRefreshL
             }
         } catch(Exception e) {
 
+        }
+    }
+
+    public void setPay(int pay) {
+        this.pay = pay;
+
+        if(isPrepared) {
+//            Log.v("ks", "pay: " + pay);
+            refresh_header.post(new Runnable() {
+                @Override
+                public void run() {
+                    setRefreshing(true);
+                    loadFirst();
+                }
+            });
         }
     }
 }

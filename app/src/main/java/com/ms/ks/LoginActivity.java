@@ -181,6 +181,16 @@ public class LoginActivity extends BaseActivity {
                 }
             }
         });
+
+        //忘记密码
+        TextView textView11 = (TextView) findViewById(R.id.textView11);
+        textView11.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SysUtils.startAct(LoginActivity.this, new ForgetPasswordActivity());
+                finish();
+            }
+        });
     }
 
     private void doLogin(final String username, String password, String sign) {

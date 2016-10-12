@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -42,7 +43,7 @@ public class OrderDeliveryActivity extends BaseActivity {
     private Order order;
 
 
-    public TextView textView3, textView10, textView5, textView6, textView7;
+    public TextView textView3, textView10, textView5, textView6, textView7, textView11;
     public LinearLayout linearLayout5;
     public TextView editText1, editText2;
 
@@ -138,6 +139,7 @@ public class OrderDeliveryActivity extends BaseActivity {
         textView5 = (TextView) firstView.findViewById(R.id.textView5);
         textView6 = (TextView) firstView.findViewById(R.id.textView6);
         textView7 = (TextView) firstView.findViewById(R.id.textView7);
+        textView11 = (TextView) firstView.findViewById(R.id.textView11);
 
         linearLayout5 = (LinearLayout) firstView.findViewById(R.id.linearLayout5);
         editText1 = (TextView) firstView.findViewById(R.id.editText1);
@@ -271,6 +273,13 @@ public class OrderDeliveryActivity extends BaseActivity {
             textView7.setText(SysUtils.getMoneyFormat(order.getPayed()));
         } else {
             textView7.setText("");
+        }
+
+        if(!TextUtils.isEmpty(order.getOrder_num())) {
+            textView11.setText("#" + order.getOrder_num());
+            textView11.setVisibility(View.VISIBLE);
+        } else {
+            textView11.setVisibility(View.GONE);
         }
 
         linearLayout5.setVisibility(View.GONE);

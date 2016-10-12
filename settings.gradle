@@ -1,1 +1,1 @@
-include ':app', ':volley', ':viewpagerindicator', ':finestwebview', ':jsbridge'
+include ':app', ':volley', ':viewpagerindicator', ':finestwebview', ':jsbridge', ':DropDownMenu'

@@ -83,7 +83,7 @@ public class Global {
 
 	public static final String API_VERSION = "v1";
 
-	public static final String SERVICE_PHONE = "4008386755";
+	public static final String SERVICE_PHONE = "4007885588";
 
 	public static final String LOGIN_KEY = "12324567889";
 

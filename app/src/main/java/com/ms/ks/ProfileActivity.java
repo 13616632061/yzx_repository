@@ -2,8 +2,10 @@ package com.ms.ks;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -15,6 +17,7 @@ import com.ms.util.CustomRequest;
 import com.ms.util.DeleteEditText;
 import com.ms.util.StringUtils;
 import com.ms.util.SysUtils;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 
 import org.json.JSONObject;
 
@@ -53,6 +56,18 @@ public class ProfileActivity extends BaseActivity {
     private int provinceId = 0, cityId = 0, areaId=  0;
     private String area = "";
 
+    private boolean hasPass = false;
+
+    private TextView khr, yh, kh;
+    private ImageView logo, yyzz, wsxkz, qtzp;
+    private DisplayImageOptions options;
+    private RelativeLayout logo_rl, yyzz_rl, wsxkz_rl, qt_rl;
+
+    private String logoV = "";
+    private String businessV = "";
+    private String healthV = "";
+    private String otherV = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,10 +77,23 @@ public class ProfileActivity extends BaseActivity {
 
         initToolbar(this);
 
+        Bundle bundle = this.getIntent().getExtras();
+        if (bundle != null) {
+            if (bundle.containsKey("hasPass")) {
+                hasPass = bundle.getBoolean("hasPass");
+            }
+        }
+
+        if(!hasPass) {
+            SysUtils.startAct(this, new ProfileEntryActivity());
+            finish();
+        }
+
         imageView1 = (TextView) findViewById(R.id.imageView1);
         textView2 = (EditText) findViewById(R.id.textView2);    //姓名
         new DeleteEditText(textView2, imageView1);
 
+        options = SysUtils.imageOption(false);
 
         textView3 = (TextView) findViewById(R.id.textView3);
         textView4 = (EditText) findViewById(R.id.textView4);    //手机号
@@ -74,6 +102,76 @@ public class ProfileActivity extends BaseActivity {
         textView5 = (TextView) findViewById(R.id.textView5);
         textView6 = (EditText) findViewById(R.id.textView6);    //固定电话
         new DeleteEditText(textView6, textView5);
+
+        khr = (TextView)findViewById(R.id.khr);
+        yh = (TextView)findViewById(R.id.yh);
+        kh = (TextView)findViewById(R.id.kh);
+
+
+        logo = (ImageView)findViewById(R.id.logo);
+        yyzz = (ImageView)findViewById(R.id.yyzz);
+        wsxkz = (ImageView)findViewById(R.id.wsxkz);
+        qtzp = (ImageView)findViewById(R.id.qtzp);
+
+        logo_rl = (RelativeLayout) findViewById(R.id.logo_rl);
+        logo_rl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!TextUtils.isEmpty(logoV)) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("pic_list", logoV);
+                    bundle.putInt("offset", 0);
+
+                    SysUtils.startAct(ProfileActivity.this, new PicViewActivity(), bundle);
+                    ((BaseActivity) ProfileActivity.this).overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                }
+            }
+        });
+
+        yyzz_rl = (RelativeLayout) findViewById(R.id.yyzz_rl);
+        yyzz_rl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!TextUtils.isEmpty(businessV)) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("pic_list", businessV);
+                    bundle.putInt("offset", 0);
+
+                    SysUtils.startAct(ProfileActivity.this, new PicViewActivity(), bundle);
+                    ((BaseActivity) ProfileActivity.this).overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                }
+            }
+        });
+
+        wsxkz_rl = (RelativeLayout) findViewById(R.id.wsxkz_rl);
+        wsxkz_rl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!TextUtils.isEmpty(healthV)) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("pic_list", healthV);
+                    bundle.putInt("offset", 0);
+
+                    SysUtils.startAct(ProfileActivity.this, new PicViewActivity(), bundle);
+                    ((BaseActivity) ProfileActivity.this).overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                }
+            }
+        });
+
+        qt_rl = (RelativeLayout) findViewById(R.id.qt_rl);
+        qt_rl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!TextUtils.isEmpty(otherV)) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("pic_list", otherV);
+                    bundle.putInt("offset", 0);
+
+                    SysUtils.startAct(ProfileActivity.this, new PicViewActivity(), bundle);
+                    ((BaseActivity) ProfileActivity.this).overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                }
+            }
+        });
 
 //        areaPicker = new AreaPicker(this, new MaterialDialog.ButtonCallback() {
 //            @Override
@@ -223,6 +321,27 @@ public class ProfileActivity extends BaseActivity {
 
                         getAreaId(areaObject.getString("area_id"));
                         textView10.setText(sellerObject.getString("addr"));
+
+                        khr.setText(sellerObject.optString("khr"));
+                        yh.setText(sellerObject.optString("acbank"));
+                        kh.setText(sellerObject.optString("bankcard"));
+
+                        logoV = sellerObject.optString("logo");
+                        if(!TextUtils.isEmpty(logoV)) {
+                            imageLoader.displayImage(logoV, logo, options);
+                        }
+                        businessV = sellerObject.optString("business");
+                        if(!TextUtils.isEmpty(businessV)) {
+                            imageLoader.displayImage(businessV, yyzz, options);
+                        }
+                        healthV = sellerObject.optString("health");
+                        if(!TextUtils.isEmpty(healthV)) {
+                            imageLoader.displayImage(healthV, wsxkz, options);
+                        }
+                        otherV = sellerObject.optString("other");
+                        if(!TextUtils.isEmpty(otherV)) {
+                            imageLoader.displayImage(otherV, qtzp, options);
+                        }
                     }
                 } catch(Exception e) {
                     e.printStackTrace();

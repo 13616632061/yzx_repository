@@ -2,6 +2,7 @@ package com.ms.adapter;
 
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,12 @@ import com.ms.ks.ShopActivity;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Hashtable;
+import java.util.List;
 
 public class MainFragment extends BaseFragment{
     private ShopActivity mainAct;
@@ -47,11 +54,28 @@ public class MainFragment extends BaseFragment{
 
 
     public class MyPagerAdapter extends FragmentPagerAdapter {
+        private final ArrayList<Fragment> mFragments;
 
         private final String[] TITLES = { "全部订单", "到店付款", "待配送" };
 
         public MyPagerAdapter(FragmentManager fm) {
             super(fm);
+            mFragments = new ArrayList<>(getCount());
+        }
+
+        @Override public Object instantiateItem(ViewGroup container, int position) {
+            Object object = super.instantiateItem(container, position);
+            mFragments.add((Fragment) object);
+            return object;
+        }
+
+        @Override public void destroyItem(ViewGroup container, int position, Object object) {
+            mFragments.remove(object);
+            super.destroyItem(container, position, object);
+        }
+
+        public List<Fragment> getFragments() {
+            return Collections.unmodifiableList(mFragments);
         }
 
         @Override
@@ -66,7 +90,9 @@ public class MainFragment extends BaseFragment{
 
         @Override
         public Fragment getItem(int position) {
-            return OrderFragment.newInstance(position + 1, "1");
+            Fragment frag = OrderFragment.newInstance(position + 1, "1");
+//            fragmentReferences.put(position, new WeakReference<Fragment>(frag));
+            return frag;
         }
     }
 
@@ -75,6 +101,14 @@ public class MainFragment extends BaseFragment{
         pager.setAdapter(adapter);
         tabs.setViewPager(pager);
         pager.setOffscreenPageLimit(3);
+    }
+
+    public void setPay(int pay) {
+//        Log.v("ks", "pay main: " + pay + ", count: " + adapter.getCount());
+        for(int i = 0; i < adapter.getFragments().size(); i++) {
+            OrderFragment frag = (OrderFragment) adapter.getFragments().get(i);
+            frag.setPay(pay);
+        }
     }
 }
 

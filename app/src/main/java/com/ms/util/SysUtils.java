@@ -424,22 +424,27 @@ public class SysUtils {
     }
 
     public static String getWebUri() {
-        return Global.webUrl;
+        int isTest = KsApplication.getInt("isTest", 0);
+
+        if(isTest == 1) {
+            return "http://www.czxshop.net/";
+        } else {
+            return "http://www.yzx6868.com/";
+        }
     }
 
     public static String getServiceUrl(String method) {
-        String ret = "http://www.yzx6868.com/rpc/service/?method=ks.seller." + method + "&vsn=1.0&format=json";
-        return ret;
+        return SysUtils.getWebUri() + "rpc/service/?method=ks.seller." + method + "&vsn=1.0&format=json";
     }
 
     public static String getMemberServiceUrl(String method) {
-        String ret = "http://www.yzx6868.com/rpc/service/?method=ks.member." + method + "&vsn=1.0&format=json";
+        String ret = SysUtils.getWebUri() + "rpc/service/?method=ks.member." + method + "&vsn=1.0&format=json";
         ret += "&member_token=" + KsApplication.getString("token", "");
         return ret;
     }
 
     public static String getSellerServiceUrl(String method) {
-        String ret = "http://www.yzx6868.com/rpc/service/?method=ks.seller." + method + "&vsn=1.0&format=json";
+        String ret = SysUtils.getWebUri() + "rpc/service/?method=ks.seller." + method + "&vsn=1.0&format=json";
         ret += "&seller_token=" + KsApplication.getString("token", "");
         return ret;
     }
@@ -1185,7 +1190,8 @@ public class SysUtils {
                     data.optDouble("payed"),
                     SysUtils.getFinalString("order_status", data),
                     SysUtils.getFinalString("print_number", data),
-                    data.optDouble("apay_order"));
+                    data.optDouble("apay_order"),
+                    data.optString("order_num"));
         } catch (Exception e) {
             e.printStackTrace();
         }

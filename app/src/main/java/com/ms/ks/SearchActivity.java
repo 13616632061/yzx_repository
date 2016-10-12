@@ -347,6 +347,7 @@ public class SearchActivity extends BaseActivity implements SwipeRefreshLayout.O
                     holder.linearLayout5 = (LinearLayout) convertView.findViewById(R.id.linearLayout5);
                     holder.editText1 = (TextView) convertView.findViewById(R.id.editText1);
                     holder.editText2 = (TextView) convertView.findViewById(R.id.editText2);
+                    holder.textView11 = (TextView) convertView.findViewById(R.id.textView11);
 
                     convertView.setTag(holder);
                 } catch (Exception e) {
@@ -370,6 +371,13 @@ public class SearchActivity extends BaseActivity implements SwipeRefreshLayout.O
                     holder.textView7.setText("");
                 }
 
+                if(!TextUtils.isEmpty(data.getOrder_num())) {
+                    holder.textView11.setText("#" + data.getOrder_num());
+                    holder.textView11.setVisibility(View.VISIBLE);
+                } else {
+                    holder.textView11.setVisibility(View.GONE);
+                }
+
                 holder.linearLayout5.setVisibility(View.GONE);
             }
 
@@ -378,7 +386,7 @@ public class SearchActivity extends BaseActivity implements SwipeRefreshLayout.O
     }
 
     static class ViewHolder {
-        public TextView textView3, textView10, textView5, textView6, textView7;
+        public TextView textView3, textView10, textView5, textView6, textView7, textView11;
         public LinearLayout linearLayout5;
         public TextView editText1, editText2;
         public ImageView imageView1;

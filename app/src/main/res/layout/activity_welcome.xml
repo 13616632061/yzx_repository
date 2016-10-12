@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <RelativeLayout
+    android:id="@id/relativeLayout5"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ff67a8e2"
