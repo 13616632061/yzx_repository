@@ -58,10 +58,11 @@
         <com.jayfang.dropdownmenu.DropDownMenu
             android:visibility="gone"
             android:orientation="horizontal"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:id="@+id/dropdown_menu"
             android:background="?attr/colorPrimary"
             android:layout_height="?attr/actionBarSize"/>
+
 
         <TextView
             android:id="@id/btn_set"

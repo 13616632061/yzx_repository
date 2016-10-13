@@ -32,12 +32,12 @@
         "source": "/Users/eddie/workspace/android/ks/DropDownMenu/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.3.0/res/drawable-xxhdpi-v4/abc_btn_check_to_on_mtrl_000.png"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/DropDownMenu/build/intermediates/res/merged/release/drawable-xxhdpi-v4/abc_list_longpressed_holo.9.png",
-        "source": "/Users/eddie/workspace/android/ks/DropDownMenu/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.3.0/res/drawable-xxhdpi-v4/abc_list_longpressed_holo.9.png"
-    },
-    {
         "merged": "/Users/eddie/workspace/android/ks/DropDownMenu/build/intermediates/res/merged/release/drawable-xxhdpi-v4/abc_btn_check_to_on_mtrl_015.png",
         "source": "/Users/eddie/workspace/android/ks/DropDownMenu/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.3.0/res/drawable-xxhdpi-v4/abc_btn_check_to_on_mtrl_015.png"
+    },
+    {
+        "merged": "/Users/eddie/workspace/android/ks/DropDownMenu/build/intermediates/res/merged/release/drawable-xxhdpi-v4/abc_list_longpressed_holo.9.png",
+        "source": "/Users/eddie/workspace/android/ks/DropDownMenu/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.3.0/res/drawable-xxhdpi-v4/abc_list_longpressed_holo.9.png"
     },
     {
         "merged": "/Users/eddie/workspace/android/ks/DropDownMenu/build/intermediates/res/merged/release/drawable-xxhdpi-v4/abc_list_selector_disabled_holo_light.9.png",

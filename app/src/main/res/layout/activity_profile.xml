@@ -204,7 +204,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:minWidth="94.0dip"
-                    android:text="其他照片"
+                    android:text="其他证件照片"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true" />
                 <ImageView
