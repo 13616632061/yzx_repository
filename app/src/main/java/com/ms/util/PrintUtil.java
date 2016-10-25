@@ -1,6 +1,10 @@
 package com.ms.util;
 
+import android.text.TextUtils;
+
 import com.ms.entity.OrderGoods;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -25,6 +29,7 @@ public class PrintUtil {
     public static String getPrinterMsg(String index,
                                        String shippingStr,
                                        String shopName,
+                                       String deskNo,
                                        String shopTel,
                                        String orderSn,
                                        String orderDate,
@@ -51,6 +56,10 @@ public class PrintUtil {
         ret += "\r\n";
         shopName = getPrintCenter(shopName);
         ret += shopName;
+        if(!TextUtils.isEmpty(deskNo)) {
+            ret += "\r\n";
+            ret += getPrintCenter("桌号：" + deskNo);
+        }
         ret += "\r\n";
         ret += "\r\n";
 
@@ -83,12 +92,17 @@ public class PrintUtil {
 
             int nn = bean.getQuantity();
             double pp = bean.getPrice();
-            double su = nn * pp;
+            String su = SysUtils.priceFormat(nn * pp, false);
             //数量
             ret += getPrintRight(String.valueOf(bean.getQuantity()), 4);
 
             //小计
-            ret += getPrintRight(String.valueOf(su), 8);
+            ret += getPrintRight(su, 8);
+
+            if(!TextUtils.isEmpty(bean.getAttr())) {
+                //属性
+                ret += getPrintLeft(bean.getAttr(), length);
+            }
         }
         ret += getPrintChar("-", length);
 
@@ -122,6 +136,7 @@ public class PrintUtil {
         String index = "1";
         String shippingStr = "配送";
         String shopName ="xx餐厅";
+        String deskNo = "B11";
         String shopTel ="13000000000";
         String orderSn = "0026001";
         String orderDate = "2015-02-13 11:11";
@@ -152,6 +167,7 @@ public class PrintUtil {
         a.setName("多春鱼");
         a.setQuantity(1);
         a.setPrice(28);
+        a.setAttr("大小: 大份, 味道: 不辣");
         goodsList.add(a);
 
         boolean hasPay = true;
@@ -167,6 +183,7 @@ public class PrintUtil {
         return getPrinterMsg(index,
                             shippingStr,
                             shopName,
+                            deskNo,
                             shopTel,
                             orderSn,
                             orderDate,

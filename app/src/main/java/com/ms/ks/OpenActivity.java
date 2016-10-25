@@ -292,7 +292,7 @@ public class OpenActivity extends BaseActivity implements SwipeRefreshLayout.OnR
             final Order data = cat_list.get(position);
             if(data != null) {
                 holder.textView3.setText(data.getOrderTime());
-                holder.textView10.setText(Html.fromHtml(data.getPayStatusStr()));
+                holder.textView10.setText(Html.fromHtml(data.getStatusStr()));
 
                 holder.imageView1.setImageResource(data.getShippingRes());
                 holder.textView5.setText("订单号：" + data.getOrderSn());

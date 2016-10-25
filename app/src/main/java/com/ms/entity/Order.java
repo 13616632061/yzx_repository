@@ -2,6 +2,7 @@ package com.ms.entity;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.TextUtils;
 
 import com.ms.ks.R;
 
@@ -45,6 +46,8 @@ public class Order implements Parcelable {
 	String payment_status;
 	String print_number;
 	private String order_num;
+	private String qrcode_url;
+	private String desk_num;
 
 	public String getPayment_status() {
 		return payment_status;
@@ -346,7 +349,7 @@ public class Order implements Parcelable {
 				 double payed, double shipped, int deliveryExpress, int deliverySeller, int deliverySellerDtId,
 				 String sellerName, String sellerTel, String memo, int distribution, String status,
 				 double cost_item, double pmt_order, double finalPayed, String payment_status, String print_number,
-				 double apay, String order_num){
+				 double apay, String order_num, String qrcode_url, String desk_num){
 		this.orderSn = orderSn;
 		this.orderTime = orderTime;
 		this.name = name;
@@ -377,6 +380,8 @@ public class Order implements Parcelable {
 		this.print_number = print_number;
 		this.apay = apay;
 		this.order_num = order_num;
+		this.qrcode_url = qrcode_url;
+		this.desk_num = desk_num;
 	}
 
 	public Order(Parcel in){
@@ -410,6 +415,8 @@ public class Order implements Parcelable {
 		this.print_number = in.readString();
 		this.apay = in.readDouble();
 		this.order_num = in.readString();
+		this.qrcode_url = in.readString();
+		this.desk_num = in.readString();
 	}
 
 	@Override
@@ -449,6 +456,8 @@ public class Order implements Parcelable {
 		dest.writeString(this.getPrint_number());
 		dest.writeDouble(this.getApay());
 		dest.writeString(this.getOrder_num());
+		dest.writeString(this.getQrcode_url());
+		dest.writeString(this.getDesk_num());
 	}
 
 	public String getStatusStr() {
@@ -482,6 +491,33 @@ public class Order implements Parcelable {
 
 	public void setOrder_num(String order_num) {
 		this.order_num = order_num;
+	}
+
+	public String getQrcode_url() {
+		return qrcode_url;
+	}
+
+	public void setQrcode_url(String qrcode_url) {
+		this.qrcode_url = qrcode_url;
+	}
+
+	public String getDesk_num() {
+		return desk_num;
+	}
+
+	public void setDesk_num(String desk_num) {
+		this.desk_num = desk_num;
+	}
+
+	public boolean hasQrCode() {
+		if(payStatus == 0) {
+			//未付款
+			if(!TextUtils.isEmpty(qrcode_url)) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 }
 

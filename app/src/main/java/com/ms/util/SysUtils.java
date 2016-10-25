@@ -1161,6 +1161,10 @@ public class SysUtils {
         Order b = null;
 
         try {
+            String desk_num = SysUtils.getFinalString("desk_num", data);
+            if(desk_num.equals("0")) {
+                desk_num = "";
+            }
             b = new Order(
                     data.getString("order_id"),
                     data.getString("createtime"),
@@ -1191,7 +1195,9 @@ public class SysUtils {
                     SysUtils.getFinalString("order_status", data),
                     SysUtils.getFinalString("print_number", data),
                     data.optDouble("apay_order"),
-                    data.optString("order_num"));
+                    data.optString("order_num"),
+                    SysUtils.getFinalString("qrcode_url", data),
+                    desk_num);
         } catch (Exception e) {
             e.printStackTrace();
         }

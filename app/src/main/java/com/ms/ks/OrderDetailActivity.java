@@ -6,6 +6,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -21,7 +23,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -32,15 +33,19 @@ import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.ms.entity.Order;
 import com.ms.entity.OrderGoods;
 import com.ms.global.Global;
+import com.ms.util.BluetoothService;
 import com.ms.util.CustomRequest;
+import com.ms.util.PicFromPrintUtils;
 import com.ms.util.PrintUtil;
+import com.ms.util.QRCodeUtil;
 import com.ms.util.StringUtils;
 import com.ms.util.SysUtils;
-import com.zj.btsdk.BluetoothService;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -52,7 +57,6 @@ public class OrderDetailActivity extends BaseActivity {
     private View layout_err, include_nowifi, include_noresult;
     private Button load_btn_refresh_net, load_btn_retry;
     private TextView load_tv_noresult;
-    private int textColor, redColor;
     public ArrayList<OrderGoods> goodsList;
     public ArrayList<OrderGoods> cat_list;
     private PartyAdapter adapter;
@@ -60,8 +64,8 @@ public class OrderDetailActivity extends BaseActivity {
     private Order order;
 
     public TextView textView3, textView10, textView5, textView6, textView7, textView11;
-    public LinearLayout linearLayout5;
-    public TextView editText1, editText2;
+    public LinearLayout linearLayout5, linearLayout6, qrcode_rl;
+    public TextView editText1, editText2, desk_num;
 
     public ImageView imageView1;
 
@@ -84,6 +88,7 @@ public class OrderDetailActivity extends BaseActivity {
     private static final int REQUEST_ENABLE_BT = 2;
 
     public FloatingActionButton tv_print;
+    private BluetoothAdapter mBluetoothAdapter = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,15 +108,13 @@ public class OrderDetailActivity extends BaseActivity {
             finish();
         }
 
-
         mService = new BluetoothService(this, mHandler);
 
-        if( mService.isAvailable() == false ){
-//            SysUtils.showError(OrderDetailActivity.this, "蓝牙不可用，将无法进行打印");
+        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        if (mBluetoothAdapter == null) {
+            SysUtils.showError("蓝牙不可用，无法设置打印机参数");
+            finish();
         }
-
-        textColor = getResources().getColor(R.color.text_color);
-        redColor = getResources().getColor(R.color.red_color);
 
         layout_err = (View) findViewById(R.id.layout_err);
         include_noresult = layout_err.findViewById(R.id.include_noresult);
@@ -171,6 +174,7 @@ public class OrderDetailActivity extends BaseActivity {
                 SysUtils.startAct(OrderDetailActivity.this, new OrderDeliveryActivity(), b);
             }
         });
+
         shipWaimai = (TextView) shipView.findViewById(R.id.editText2);
         shipWaimai.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -256,9 +260,11 @@ public class OrderDetailActivity extends BaseActivity {
         textView11 = (TextView) firstView.findViewById(R.id.textView11);
 
         linearLayout5 = (LinearLayout) firstView.findViewById(R.id.linearLayout5);
+        linearLayout6 = (LinearLayout) firstView.findViewById(R.id.linearLayout6);
+        qrcode_rl = (LinearLayout) firstView.findViewById(R.id.qrcode_rl);
         editText1 = (TextView) firstView.findViewById(R.id.editText1);
         editText2 = (TextView) firstView.findViewById(R.id.editText2);
-
+        desk_num = (TextView) firstView.findViewById(R.id.desk_num);
 
         adapter = new PartyAdapter();
         lv_content.setAdapter(adapter);
@@ -284,13 +290,32 @@ public class OrderDetailActivity extends BaseActivity {
                             break;
                     }
                     break;
-                case BluetoothService.MESSAGE_CONNECTION_LOST:
-                    hasConnect = false;
+                case BluetoothService.MESSAGE_WRITE:
+                    //byte[] writeBuf = (byte[]) msg.obj;
+                    // construct a string from the buffer
+                    //String writeMessage = new String(writeBuf);
                     break;
-                case BluetoothService.MESSAGE_UNABLE_CONNECT:
-                    hasConnect = false;
-                    SysUtils.showError("无法连接到配对的蓝牙打印机，请先通过打印机测试再进行收银小票打印");
+                case BluetoothService.MESSAGE_READ:
+                    //byte[] readBuf = (byte[]) msg.obj;
+                    // construct a string from the valid bytes in the buffer
+                    //String readMessage = new String(readBuf, 0, msg.arg1);
                     break;
+                case BluetoothService.MESSAGE_DEVICE_NAME:
+                    // save the connected device's name
+//                    mConnectedDeviceName = msg.getData().getString(DEVICE_NAME);
+//                    Toast.makeText(getApplicationContext(), "连接至"
+//                            + mConnectedDeviceName, Toast.LENGTH_SHORT).show();
+                    break;
+                case BluetoothService.MESSAGE_TOAST:
+                    SysUtils.showError(msg.getData().getString(BluetoothService.TOAST));
+                    break;
+//                case BluetoothService.MESSAGE_CONNECTION_LOST:
+//                    hasConnect = false;
+//                    break;
+//                case BluetoothService.MESSAGE_UNABLE_CONNECT:
+//                    hasConnect = false;
+//                    SysUtils.showError("无法连接到配对的蓝牙打印机，请先通过打印机测试再进行收银小票打印");
+//                    break;
             }
         }
 
@@ -412,6 +437,37 @@ public class OrderDetailActivity extends BaseActivity {
                             linearLayout5.setVisibility(View.VISIBLE);
                         } else {
                             linearLayout5.setVisibility(View.GONE);
+                        }
+
+                        if(order.hasQrCode() || !TextUtils.isEmpty(order.getDesk_num())) {
+                            if(order.hasQrCode()) {
+                                qrcode_rl.setVisibility(View.VISIBLE);
+                                qrcode_rl.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        if(!TextUtils.isEmpty(order.getQrcode_url())) {
+                                            Bundle bundle = new Bundle();
+                                            bundle.putString("pic_list", order.getQrcode_url());
+                                            bundle.putInt("offset", 0);
+
+                                            SysUtils.startAct(OrderDetailActivity.this, new PicViewActivity(), bundle);
+                                            ((BaseActivity) OrderDetailActivity.this).overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                                        }
+                                    }
+                                });
+                            } else {
+                                qrcode_rl.setVisibility(View.GONE);
+                            }
+
+                            if(!TextUtils.isEmpty(order.getDesk_num())) {
+                                desk_num.setText("桌号: " + order.getDesk_num());
+                                desk_num.setVisibility(View.VISIBLE);
+                            } else {
+                                desk_num.setVisibility(View.GONE);
+                            }
+                            linearLayout6.setVisibility(View.VISIBLE);
+                        } else {
+                            linearLayout6.setVisibility(View.GONE);
                         }
 
                         //点击确认
@@ -728,14 +784,15 @@ public class OrderDetailActivity extends BaseActivity {
     public void startPrint() {
         if(!hasConnect) {
             //还没有连接，先尝试连接
-            if( mService.isBTopen() == false) {
+            if (!mBluetoothAdapter.isEnabled()) {
                 Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
                 startActivityForResult(enableIntent, REQUEST_ENABLE_BT);
             } else {
                 //尝试连接
                 try {
                     if(mService != null) {
-                        BluetoothDevice printDev = mService.getDevByMac(KsApplication.getString("printer_mac", ""));
+//                        BluetoothDevice printDev = mService.getDevByMac(KsApplication.getString("printer_mac", ""));
+                        BluetoothDevice printDev = mBluetoothAdapter.getRemoteDevice(KsApplication.getString("printer_mac", ""));
 
                         if(printDev == null) {
                             SysUtils.showError("连接打印机失败，请重新选择打印机");
@@ -765,6 +822,7 @@ public class OrderDetailActivity extends BaseActivity {
             String index = order.getPrint_number();
             String shippingStr = order.getShippingStr2();
             String shopName = order.getSellerName();
+            String deskNo = order.getDesk_num();
             String shopTel = order.getSellerTel();
             String orderDate = order.getOrderTime();
             boolean hasPay = order.getPayStatus() > 0;
@@ -778,6 +836,7 @@ public class OrderDetailActivity extends BaseActivity {
             String tmp = PrintUtil.getPrinterMsg(index,
                     shippingStr,
                     shopName,
+                    deskNo,
                     shopTel,
                     order_id,
                     orderDate,
@@ -792,12 +851,82 @@ public class OrderDetailActivity extends BaseActivity {
             String printMsg = "";
             printMsg += tmp + "\n\n";
 
-//                Log.v("print", printMsg);
-            mService.sendMessage(printMsg, "GBK");
+            sendMessage(printMsg);
+
+            if(order.hasQrCode()) {
+                addQrCode(order.getQrcode_url());
+            }
         } catch(Exception e) {
             e.printStackTrace();
         }
+    }
 
+
+
+    private void addQrCode(final String uri) {
+        final String filePath = QRCodeUtil.getFileRoot(OrderDetailActivity.this) + File.separator
+                + "qr_" + System.currentTimeMillis() + ".jpg";
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                boolean success = QRCodeUtil.createQRImage(uri, 360, 360, null, filePath);
+
+                if (success) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+//                            imageView.setImageBitmap(BitmapFactory.decodeFile(filePath));
+
+                            mService.printCenter();
+                            sendMessage("扫码付款\n");
+                            sendMessage(BitmapFactory.decodeFile(filePath));
+                            sendMessage("\n\n\n");
+                        }
+                    });
+                }
+            }
+        }).start();
+    }
+
+    private void sendMessage(Bitmap bitmap) {
+        // Check that we're actually connected before trying anything
+        if (mService.getState() != BluetoothService.STATE_CONNECTED) {
+            SysUtils.showError("蓝牙没有连接");
+            return;
+        }
+        // 发送打印图片前导指令
+//        byte[] start = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x1B,
+//                0x40, 0x1B, 0x33, 0x00 };
+//        mService.write(start);
+
+        /**获取打印图片的数据**/
+//		byte[] send = getReadBitMapBytes(bitmap);
+
+        mService.printCenter();
+        byte[] draw2PxPoint = PicFromPrintUtils.draw2PxPoint(bitmap);
+
+        mService.write(draw2PxPoint);
+        // 发送结束指令
+//        byte[] end = { 0x1d, 0x4c, 0x1f, 0x00 };
+//        mService.write(end);
+    }
+
+    private void sendMessage(String message) {
+        if (mService.getState() != BluetoothService.STATE_CONNECTED) {
+            SysUtils.showError("蓝牙没有连接");
+            return;
+        }
+        if (message.length() > 0) {
+            // Get the message bytes and tell the BluetoothService to write
+            byte[] send;
+            try {
+                send = message.getBytes("GB2312");
+            } catch (UnsupportedEncodingException e) {
+                send = message.getBytes();
+            }
+
+            mService.write(send);
+        }
     }
 
     @Override

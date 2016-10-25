@@ -6,8 +6,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.support.v4.app.ActivityCompat;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -142,9 +140,10 @@ Boolean isExit = false;
                 if(!hasTask){
                     tExit.schedule(task, 2000);
                 }
-            }else{
-                finish();
-                System.exit(0);
+            } else{
+                moveTaskToBack(false);  //进入后台
+//                finish();
+//                System.exit(0);
             }
         }
 
@@ -290,7 +289,7 @@ Boolean isExit = false;
 
     private void toSite() {
 //        SysUtils.openUrl(WelcomeActivity.this, "http://www.smgypt.com/webview.php");
-        SysUtils.openUrl(WelcomeActivity.this, "http://www.yzx6868.com/wap/seller-seller_page-56.html");
+        SysUtils.openUrl(WelcomeActivity.this, SysUtils.getWebUri() + "wap/seller-seller_page-56.html");
     }
 
     private void toSellerSite() {

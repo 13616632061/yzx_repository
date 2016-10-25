@@ -5,29 +5,33 @@ import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
+import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.material.widget.PaperButton;
 import com.ms.adapter.Printer;
+import com.ms.util.BluetoothService;
+import com.ms.util.PicFromPrintUtils;
 import com.ms.util.PrintUtil;
+import com.ms.util.QRCodeUtil;
 import com.ms.util.SysUtils;
 import com.rengwuxian.materialedittext.MaterialEditText;
-import com.zj.btsdk.BluetoothService;
 
+import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Set;
 
@@ -45,28 +49,41 @@ public class PrintActivity extends BaseActivity {
     private static final int REQUEST_ENABLE_BT = 2;
     private boolean hasConnect = false;
 
+    private BluetoothAdapter mBluetoothAdapter = null;
+    private CheckBox auto_print;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_print);
 
         initToolbar(this);
-
-        mService = new BluetoothService(this, mHandler);
-
-        if( mService.isAvailable() == false ){
+        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        if (mBluetoothAdapter == null) {
             SysUtils.showError("蓝牙不可用，无法设置打印机参数");
             finish();
         }
 
+        auto_print = (CheckBox)findViewById(R.id.auto_print);
+        auto_print.setChecked(KsApplication.getInt("auto_print", 0) == 1);
+        auto_print.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                KsApplication.putInt("auto_print", isChecked ? 1 : 0);
+            }
+        });
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        if( mService.isBTopen() == false) {
+        if (!mBluetoothAdapter.isEnabled()) {
+            //打开蓝牙
             Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableIntent, REQUEST_ENABLE_BT);
+        }
+        if (mService==null) {
+            mService = new BluetoothService(this, mHandler);
         }
 
         try {
@@ -90,20 +107,17 @@ public class PrintActivity extends BaseActivity {
 
                     if(mac_str.length() < 1) {
                         SysUtils.showError("请输入打印机的mac地址");
-                        return;
                     } else {
                         //初始化打印机
                         if(hasConnect) {
                             //已连接
-                            String printMsg = PrintUtil.getTestMsg();
-
-//                            Log.v("ks", printMsg);
-                            mService.sendMessage(printMsg, "GBK");
+                            sendMessage();
                         } else {
                             //未连接，尝试连接
                             try {
                                 if(mService != null) {
-                                    BluetoothDevice printDev = mService.getDevByMac(mac_str);
+//                                    BluetoothDevice printDev = mService.getDevByMac(mac_str);
+                                    BluetoothDevice printDev = mBluetoothAdapter.getRemoteDevice(mac_str);
 
                                     if(printDev == null) {
                                         SysUtils.showError("连接打印机失败，请重新选择打印机");
@@ -140,6 +154,49 @@ public class PrintActivity extends BaseActivity {
 
     }
 
+    private final Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case BluetoothService.MESSAGE_STATE_CHANGE:
+                    switch (msg.arg1) {
+                        case BluetoothService.STATE_CONNECTED:
+                            doConnectState(true);
+                            SysUtils.showSuccess("打印机连接成功");
+                            break;
+                        case BluetoothService.STATE_CONNECTING:
+//                            print_connect_btn.setText("正在连接...");
+                            break;
+                        case BluetoothService.STATE_LISTEN:
+                        case BluetoothService.STATE_NONE:
+//                            print_connect_btn.setText("无连接");
+                            break;
+                    }
+                    break;
+                case BluetoothService.MESSAGE_WRITE:
+                    //byte[] writeBuf = (byte[]) msg.obj;
+                    // construct a string from the buffer
+                    //String writeMessage = new String(writeBuf);
+                    break;
+                case BluetoothService.MESSAGE_READ:
+                    //byte[] readBuf = (byte[]) msg.obj;
+                    // construct a string from the valid bytes in the buffer
+                    //String readMessage = new String(readBuf, 0, msg.arg1);
+                    break;
+                case BluetoothService.MESSAGE_DEVICE_NAME:
+                    // save the connected device's name
+//                    mConnectedDeviceName = msg.getData().getString(DEVICE_NAME);
+//                    Toast.makeText(getApplicationContext(), "连接至"
+//                            + mConnectedDeviceName, Toast.LENGTH_SHORT).show();
+                    break;
+                case BluetoothService.MESSAGE_TOAST:
+                    SysUtils.showError(msg.getData().getString(BluetoothService.TOAST));
+                    break;
+            }
+        }
+    };
+
+    /*
     private final  Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -169,12 +226,13 @@ public class PrintActivity extends BaseActivity {
         }
 
     };
+    */
 
     private void doConnectState(boolean hasConnect) {
         this.hasConnect = hasConnect;
 
         if(hasConnect) {
-            btn_test.setText("打印机测试");
+            btn_test.setText("打印测试");
         } else {
             btn_test.setText("连接打印机");
         }
@@ -293,7 +351,7 @@ public class PrintActivity extends BaseActivity {
 
     //得到配对的蓝牙列表
     public void getPairedDeviceList() {
-        Set<BluetoothDevice> pairedDevices = mService.getPairedDev();
+        Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
 
         if(pairedDevices.size() > 0) {
             for (BluetoothDevice device : pairedDevices) {
@@ -362,5 +420,80 @@ public class PrintActivity extends BaseActivity {
             default:
                 break;
         }
+    }
+
+    private void sendMessage() {
+        String printMsg = PrintUtil.getTestMsg();
+        sendMessage(printMsg);
+        sendMessage("\n");
+
+        //添加二维码
+        addQrCode("http://www.baidu.com");
+    }
+
+    private void sendMessage(String message) {
+        if (mService.getState() != BluetoothService.STATE_CONNECTED) {
+            SysUtils.showError("蓝牙没有连接");
+            return;
+        }
+        if (message.length() > 0) {
+            // Get the message bytes and tell the BluetoothService to write
+            byte[] send;
+            try {
+                send = message.getBytes("GB2312");
+            } catch (UnsupportedEncodingException e) {
+                send = message.getBytes();
+            }
+
+            mService.write(send);
+        }
+    }
+
+    private void sendMessage(Bitmap bitmap) {
+        // Check that we're actually connected before trying anything
+        if (mService.getState() != BluetoothService.STATE_CONNECTED) {
+            SysUtils.showError("蓝牙没有连接");
+            return;
+        }
+        // 发送打印图片前导指令
+//        byte[] start = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x1B,
+//                0x40, 0x1B, 0x33, 0x00 };
+//        mService.write(start);
+
+        /**获取打印图片的数据**/
+//		byte[] send = getReadBitMapBytes(bitmap);
+
+        mService.printCenter();
+        byte[] draw2PxPoint = PicFromPrintUtils.draw2PxPoint(bitmap);
+
+        mService.write(draw2PxPoint);
+        // 发送结束指令
+//        byte[] end = { 0x1d, 0x4c, 0x1f, 0x00 };
+//        mService.write(end);
+    }
+
+    private void addQrCode(final String uri) {
+        final String filePath = QRCodeUtil.getFileRoot(PrintActivity.this) + File.separator
+                + "qr_" + System.currentTimeMillis() + ".jpg";
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                boolean success = QRCodeUtil.createQRImage(uri, 360, 360, null, filePath);
+
+                if (success) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+//                            imageView.setImageBitmap(BitmapFactory.decodeFile(filePath));
+
+                            mService.printCenter();
+                            sendMessage("扫码付款\n");
+                            sendMessage(BitmapFactory.decodeFile(filePath));
+                            sendMessage("\n\n\n");
+                        }
+                    });
+                }
+            }
+        }).start();
     }
 }
