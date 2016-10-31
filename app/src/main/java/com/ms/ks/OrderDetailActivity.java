@@ -690,11 +690,11 @@ public class OrderDetailActivity extends BaseActivity {
 
                     convertView.setTag(holder);
                 } catch (Exception e) {
+
                 }
             }else{
                 holder = (ViewHolder) convertView.getTag();
             }
-
 
             final OrderGoods data = cat_list.get(position);
             if(data != null) {
@@ -745,8 +745,6 @@ public class OrderDetailActivity extends BaseActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-
 
     //更新广播
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
@@ -819,7 +817,7 @@ public class OrderDetailActivity extends BaseActivity {
     public void doPrint() {
         //连接成功，开始打印，同时提交订单更新到服务器
         try {
-            String index = order.getPrint_number();
+            String index = order.getOrder_num();
             String shippingStr = order.getShippingStr2();
             String shopName = order.getSellerName();
             String deskNo = order.getDesk_num();
@@ -854,14 +852,12 @@ public class OrderDetailActivity extends BaseActivity {
             sendMessage(printMsg);
 
             if(order.hasQrCode()) {
-                addQrCode(order.getQrcode_url());
+                addQrCode(order.getQr_uri());
             }
         } catch(Exception e) {
             e.printStackTrace();
         }
     }
-
-
 
     private void addQrCode(final String uri) {
         final String filePath = QRCodeUtil.getFileRoot(OrderDetailActivity.this) + File.separator

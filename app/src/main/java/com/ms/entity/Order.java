@@ -48,6 +48,7 @@ public class Order implements Parcelable {
 	private String order_num;
 	private String qrcode_url;
 	private String desk_num;
+	private String qr_uri;
 
 	public String getPayment_status() {
 		return payment_status;
@@ -349,7 +350,7 @@ public class Order implements Parcelable {
 				 double payed, double shipped, int deliveryExpress, int deliverySeller, int deliverySellerDtId,
 				 String sellerName, String sellerTel, String memo, int distribution, String status,
 				 double cost_item, double pmt_order, double finalPayed, String payment_status, String print_number,
-				 double apay, String order_num, String qrcode_url, String desk_num){
+				 double apay, String order_num, String qrcode_url, String desk_num, String qr_uri){
 		this.orderSn = orderSn;
 		this.orderTime = orderTime;
 		this.name = name;
@@ -382,6 +383,7 @@ public class Order implements Parcelable {
 		this.order_num = order_num;
 		this.qrcode_url = qrcode_url;
 		this.desk_num = desk_num;
+		this.qr_uri = qr_uri;
 	}
 
 	public Order(Parcel in){
@@ -417,6 +419,7 @@ public class Order implements Parcelable {
 		this.order_num = in.readString();
 		this.qrcode_url = in.readString();
 		this.desk_num = in.readString();
+		this.qr_uri = in.readString();
 	}
 
 	@Override
@@ -458,6 +461,7 @@ public class Order implements Parcelable {
 		dest.writeString(this.getOrder_num());
 		dest.writeString(this.getQrcode_url());
 		dest.writeString(this.getDesk_num());
+		dest.writeString(this.getQr_uri());
 	}
 
 	public String getStatusStr() {
@@ -518,6 +522,14 @@ public class Order implements Parcelable {
 		}
 
 		return false;
+	}
+
+	public String getQr_uri() {
+		return qr_uri;
+	}
+
+	public void setQr_uri(String qr_uri) {
+		this.qr_uri = qr_uri;
 	}
 }
 

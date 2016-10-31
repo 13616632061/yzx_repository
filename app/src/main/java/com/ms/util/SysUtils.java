@@ -1197,7 +1197,8 @@ public class SysUtils {
                     data.optDouble("apay_order"),
                     data.optString("order_num"),
                     SysUtils.getFinalString("qrcode_url", data),
-                    desk_num);
+                    desk_num,
+                    SysUtils.getFinalString("qr_uri", data));
         } catch (Exception e) {
             e.printStackTrace();
         }
