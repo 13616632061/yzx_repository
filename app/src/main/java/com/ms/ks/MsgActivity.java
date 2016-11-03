@@ -1,5 +1,6 @@
 package com.ms.ks;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
@@ -352,6 +353,18 @@ public class MsgActivity extends BaseActivity {
                 adapter.notifyDataSetChanged();
                 break;
             }
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(isTaskRoot()) {
+            finish();
+            Intent intent = new Intent(this, WelcomeActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        } else {
+            super.onBackPressed();
         }
     }
 }

@@ -129,9 +129,21 @@ public class KsMessageReceiver extends PushMessageReceiver {
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             context.startActivity(intent);
 
-                            Log.v("ks", "order id: " + order_id);
+//                            Log.v("ks", "order id: " + order_id);
                         }
                     }
+                } else if(type.equals("new_queue")) {
+                    //消息
+                    if(LoginUtils.hasLogin()) {
+                        Intent intent = new Intent(context, MsgActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        context.startActivity(intent);
+                    }
+                } else {
+                    //打开app
+                    Intent intent = new Intent(context, WelcomeActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
