@@ -74,7 +74,7 @@ public class KsApplication extends Application {
         mExamApplication = this;
 
         //bugly初始化
-        CrashReport.initCrashReport(getApplicationContext(), "900036835", false);
+        CrashReport.initCrashReport(getApplicationContext(), "d8348de79c", false);
 //        CrashReport.testJavaCrash();
     }
 
@@ -190,7 +190,6 @@ public class KsApplication extends Application {
 
         super.onTerminate();
     }
-
 
     private boolean shouldInit() {
         ActivityManager am = ((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE));

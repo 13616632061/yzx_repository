@@ -7,9 +7,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.android.volley.Request;
@@ -91,6 +95,8 @@ public class KsMessageReceiver extends PushMessageReceiver {
     private Context context;
     public ArrayList<OrderGoods> goodsList;
 
+    private MediaPlayer mediaPlayer;
+
     @Override
     public void onReceivePassThroughMessage(Context context, MiPushMessage message) {
 //        Log.v("ks",
@@ -170,6 +176,8 @@ public class KsMessageReceiver extends PushMessageReceiver {
         this.context = context;
         goodsList = new ArrayList<OrderGoods>();
         String content = message.getContent();
+//        Log.v("ks", "mesage: " + message.getDescription());
+
         if (content != null && content.length() > 0) {
             try {
                 JSONObject a = new JSONObject(content);
@@ -179,6 +187,30 @@ public class KsMessageReceiver extends PushMessageReceiver {
                     order_id = a.getString("order_id");
 
                     if (!StringUtils.isEmpty(order_id)) {
+                        //播放语音
+                        final String mp3_uri = a.optString("mp3_uri");
+                        Log.v("ks", "mp3: " + mp3_uri);
+                        if(!TextUtils.isEmpty(mp3_uri)) {
+                            Handler mHandler = new Handler(Looper.getMainLooper());
+                            mHandler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    try {
+                                        playAudio(mp3_uri);
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+//                                    playMp3(mp3_uri);
+                                }
+                            });
+                        }
+//                        initialEnv();
+//                        initialTts();
+//                        int result = this.mSpeechSynthesizer.speak(message.getDescription());
+//                        if (result < 0) {
+//                            toPrint("error,please look up error code in doc or URL:http://yuyin.baidu.com/docs/tts/122 ");
+//                        }
+
                         if (LoginUtils.isSeller()) {
                             //消息到达时处理
                             doOrder();
@@ -545,6 +577,59 @@ public class KsMessageReceiver extends PushMessageReceiver {
             }
 
             mService.write(send);
+        }
+    }
+
+    public void playMp3(String url){
+        try {
+            MediaPlayer mediaPlayer = new MediaPlayer();
+            mediaPlayer.reset();
+            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            mediaPlayer.setDataSource(url);
+            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mp) {
+                    //播放
+                    mp.start();
+                }
+            });
+            mediaPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+                public boolean onError(MediaPlayer mp, int what, int extra) {
+                    // dissmiss progress bar here. It will come here when
+                    // MediaPlayer
+                    // is not able to play file. You can show error message to user
+                    return false;
+                }
+            });
+//            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+//                @Override
+//                public void onCompletion(MediaPlayer mp) {
+//                    mp.release();//释放音频资源
+//                }
+//            });
+            mediaPlayer.prepareAsync();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void playAudio(String url) throws Exception {
+        killMediaPlayer();
+
+        mediaPlayer = new MediaPlayer();
+        mediaPlayer.setDataSource(url);
+        mediaPlayer.prepare();
+        mediaPlayer.start();
+    }
+
+    private void killMediaPlayer() {
+        if(mediaPlayer!=null) {
+            try {
+                mediaPlayer.release();
+            }
+            catch(Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 }
