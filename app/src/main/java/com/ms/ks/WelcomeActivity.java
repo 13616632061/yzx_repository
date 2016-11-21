@@ -16,7 +16,6 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.ms.global.Global;
-import com.ms.update.UpdateAsyncTask;
 import com.ms.util.CustomRequest;
 import com.ms.util.LoginUtils;
 import com.ms.util.StringUtils;
@@ -114,9 +113,6 @@ Boolean isExit = false;
                 }
             }
         });
-
-        //检测版本更新
-        checkVersion();
     }
     private void okModifyEnv(int env) {
         KsApplication.putInt("isTest", env);
@@ -148,11 +144,6 @@ Boolean isExit = false;
         }
 
         return false;
-    }
-
-    public void checkVersion() {
-        UpdateAsyncTask myAsyncTask = new UpdateAsyncTask(WelcomeActivity.this, false);
-        myAsyncTask.execute();
     }
 
 

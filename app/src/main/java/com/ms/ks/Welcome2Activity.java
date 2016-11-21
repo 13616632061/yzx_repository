@@ -8,7 +8,7 @@ import android.view.View;
 public class Welcome2Activity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState, 0, true, false);
         View view = getLayoutInflater().from(this).inflate(R.layout.activity_welcome2, null);
 
         setContentView(view);

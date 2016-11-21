@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.ms.update.UpdateAsyncTask;
 import com.ms.util.DialogUtils;
 import com.ms.util.LoginUtils;
 import com.ms.util.RequestManager;
@@ -39,10 +40,10 @@ public class BaseActivity extends ActionBarActivity {
     }
 
     protected  void onCreate(Bundle savedInstanceState, int loginType, boolean setTheme) {
-        onCreate(savedInstanceState, loginType, setTheme, "");
+        onCreate(savedInstanceState, loginType, setTheme, true);
     }
 
-    protected  void onCreate(Bundle savedInstanceState, int loginType, boolean setTheme, String login_mod) {
+    protected  void onCreate(Bundle savedInstanceState, int loginType, boolean setTheme, boolean checkUpdate) {
         super.onCreate(savedInstanceState);
 
         setTitle(null);
@@ -72,6 +73,16 @@ public class BaseActivity extends ActionBarActivity {
         if(setTheme) {
 //            Theme.onActivityCreate(this, savedInstanceState);
         }
+
+        if(checkUpdate) {
+            //检测版本更新
+            checkVersion();
+        }
+    }
+
+    public void checkVersion() {
+        UpdateAsyncTask myAsyncTask = new UpdateAsyncTask(this, false);
+        myAsyncTask.execute();
     }
 
     public void setToolbarTitle(String title) {

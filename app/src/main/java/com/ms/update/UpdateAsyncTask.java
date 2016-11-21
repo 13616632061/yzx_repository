@@ -64,10 +64,12 @@ public class UpdateAsyncTask {
                                             //新版本
                                             new MaterialDialog.Builder(context)
                                                     .title("有新版本：" + updateInfo.getVersionName())
+                                                    .cancelable(false)
+                                                    .autoDismiss(false)
 //                                                    .content(getUpdateTips(updateInfo))
                                                     .positiveText("立即更新")
                                                     .theme(SysUtils.getDialogTheme())
-                                                    .negativeText("取消")
+//                                                    .negativeText("取消")
                                                     .callback(new MaterialDialog.ButtonCallback() {
                                                         @Override
                                                         public void onPositive(MaterialDialog dialog) {
@@ -75,7 +77,7 @@ public class UpdateAsyncTask {
 
                                                             try {
                                                                 download(updateInfo.getApkUrl());
-                                                            } catch(Exception e) {
+                                                            } catch (Exception e) {
                                                                 e.printStackTrace();
                                                             }
                                                         }

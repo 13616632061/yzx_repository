@@ -4,6 +4,7 @@ import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.wifi.WifiManager;
 import android.os.Process;
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
@@ -15,7 +16,7 @@ import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
-import com.tencent.bugly.crashreport.CrashReport;
+//import com.tencent.bugly.crashreport.CrashReport;
 import com.xiaomi.channel.commonutils.logger.LoggerInterface;
 import com.xiaomi.mipush.sdk.Logger;
 import com.xiaomi.mipush.sdk.MiPushClient;
@@ -73,8 +74,11 @@ public class KsApplication extends Application {
         initImageLoader(sContext);
         mExamApplication = this;
 
+        WifiManager.WifiLock wifiLock = ((WifiManager) getSystemService(Context.WIFI_SERVICE)) .createWifiLock(WifiManager.WIFI_MODE_FULL, "mylock");
+        wifiLock.acquire();
+
         //bugly初始化
-        CrashReport.initCrashReport(getApplicationContext(), "d8348de79c", false);
+//        CrashReport.initCrashReport(getApplicationContext(), "d8348de79c", false);
 //        CrashReport.testJavaCrash();
     }
 

@@ -2,6 +2,8 @@ package com.ms.ks;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -37,6 +39,11 @@ public class MoneyActivity extends BaseActivity {
         initToolbar(this);
 
         textView3 = (EditText) findViewById(R.id.textView3);
+        try {
+            textView3.setFilters(new InputFilter[] { lengthFilter });
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
         //充值
         button1 = (PaperButton) findViewById(R.id.button1);
         button1.setOnClickListener(new View.OnClickListener() {
@@ -134,4 +141,36 @@ public class MoneyActivity extends BaseActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    private static final int DECIMAL_DIGITS = 1;
+
+    private InputFilter lengthFilter = new InputFilter() {
+
+        @Override
+        public CharSequence filter(CharSequence source, int start, int end,
+                                   Spanned dest, int dstart, int dend) {
+            // source:当前输入的字符
+            // start:输入字符的开始位置
+            // end:输入字符的结束位置
+            // dest：当前已显示的内容
+            // dstart:当前光标开始位置
+            // dent:当前光标结束位置
+//            Log.i("", "source=" + source + ",start=" + start + ",end=" + end
+//                    + ",dest=" + dest.toString() + ",dstart=" + dstart
+//                    + ",dend=" + dend);
+            if (dest.length() == 0 && source.equals(".")) {
+                return "0.";
+            }
+            String dValue = dest.toString();
+            String[] splitArray = dValue.split("\\.");
+            if (splitArray.length > 1) {
+                String dotValue = splitArray[1];
+                if (dotValue.length() == DECIMAL_DIGITS) {
+                    return "";
+                }
+            }
+            return null;
+        }
+
+    };
 }

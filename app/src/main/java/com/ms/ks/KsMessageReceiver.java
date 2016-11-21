@@ -7,13 +7,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
 import android.os.Message;
-import android.text.TextUtils;
 import android.util.Log;
 
 import com.android.volley.Request;
@@ -21,6 +18,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.ms.entity.Order;
 import com.ms.entity.OrderGoods;
+import com.ms.tts.TtsEngine;
+import com.ms.tts.TtsPlayer;
 import com.ms.util.BluetoothService;
 import com.ms.util.CustomRequest;
 import com.ms.util.LoginUtils;
@@ -28,8 +27,11 @@ import com.ms.util.PicFromPrintUtils;
 import com.ms.util.PrintUtil;
 import com.ms.util.QRCodeUtil;
 import com.ms.util.RequestManager;
+import com.ms.util.SpeechUtilOffline;
 import com.ms.util.StringUtils;
 import com.ms.util.SysUtils;
+import com.xiaomi.mipush.sdk.ErrorCode;
+import com.xiaomi.mipush.sdk.MiPushClient;
 import com.xiaomi.mipush.sdk.MiPushCommandMessage;
 import com.xiaomi.mipush.sdk.MiPushMessage;
 import com.xiaomi.mipush.sdk.PushMessageReceiver;
@@ -38,11 +40,14 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -187,29 +192,7 @@ public class KsMessageReceiver extends PushMessageReceiver {
                     order_id = a.getString("order_id");
 
                     if (!StringUtils.isEmpty(order_id)) {
-                        //播放语音
-                        final String mp3_uri = a.optString("mp3_uri");
-                        Log.v("ks", "mp3: " + mp3_uri);
-                        if(!TextUtils.isEmpty(mp3_uri)) {
-                            Handler mHandler = new Handler(Looper.getMainLooper());
-                            mHandler.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    try {
-                                        playAudio(mp3_uri);
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-//                                    playMp3(mp3_uri);
-                                }
-                            });
-                        }
-//                        initialEnv();
-//                        initialTts();
-//                        int result = this.mSpeechSynthesizer.speak(message.getDescription());
-//                        if (result < 0) {
-//                            toPrint("error,please look up error code in doc or URL:http://yuyin.baidu.com/docs/tts/122 ");
-//                        }
+                        playTts(message.getDescription());
 
                         if (LoginUtils.isSeller()) {
                             //消息到达时处理
@@ -222,24 +205,25 @@ public class KsMessageReceiver extends PushMessageReceiver {
                 e.printStackTrace();
             }
         }
-//        Log.v(DemoApplication.TAG,
-//                "onNotificationMessageArrived is called. " + message.toString());
-//        String log = context.getString(R.string.arrive_notification_message, message.getContent());
-//        MainActivity.logList.add(0, getSimpleDate() + " " + log);
-//
-//        if (!TextUtils.isEmpty(message.getTopic())) {
-//            mTopic = message.getTopic();
-//        } else if (!TextUtils.isEmpty(message.getAlias())) {
-//            mAlias = message.getAlias();
-//        }
-//
-//        Message msg = Message.obtain();
-//        msg.obj = log;
-//        DemoApplication.getHandler().sendMessage(msg);
     }
 
     @Override
     public void onCommandResult(Context context, MiPushCommandMessage message) {
+        Log.v("ks",
+                "onCommandResult is called. " + message.toString());
+        String command = message.getCommand();
+        List<String> arguments = message.getCommandArguments();
+        String cmdArg1 = ((arguments != null && arguments.size() > 0) ? arguments.get(0) : null);
+        String cmdArg2 = ((arguments != null && arguments.size() > 1) ? arguments.get(1) : null);
+        String log;
+        if (MiPushClient.COMMAND_REGISTER.equals(command)) {
+            if (message.getResultCode() == ErrorCode.SUCCESS) {
+                mRegId = cmdArg1;
+
+                Log.v("ks", "reg id: " + mRegId);
+            }
+        }
+
 //        Log.v(DemoApplication.TAG,
 //                "onCommandResult is called. " + message.toString());
 //        String command = message.getCommand();
@@ -580,56 +564,54 @@ public class KsMessageReceiver extends PushMessageReceiver {
         }
     }
 
-    public void playMp3(String url){
+    private void playTts(final String text) {
+        Handler mHandler = new Handler(context.getMainLooper());
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                SpeechUtilOffline tts = new SpeechUtilOffline(context);
+                tts.play(text);
+            }
+        });
+
+
+//        initTtsPlay();
+//        ///该license code将于2018年1月1日到期
+//        m_ttsPlayer.setGlobalParam("LicenseCode", "GH4V980IOG37H0ADU6IN7HO3");
+//        m_ttsPlayer.setParam("Encoding", TtsEngine.ENCODING_UTF8);///输入文本是"utf8"编码
+//        m_ttsPlayer.playText(text);
+    }
+
+    private Handler m_handler = new Handler()
+    {
+        @Override
+        public void handleMessage(Message msg)
+        {
+            ///合成线程会在播放完当前文本段后，会发一个播放完成的消息，这个函数负责接收处理
+            super.handleMessage(msg);
+            Bundle b = msg.getData();
+            String playState = b.getString("play_state");
+            if (playState == "idle")
+            {
+//                setState("idle");
+            }
+        }
+    };
+
+
+    private TtsPlayer m_ttsPlayer = new TtsPlayer(m_handler);
+
+    private boolean initTtsPlay()
+    {
+        byte[] ttsResBytes;
+        InputStream ttsResStream = context.getResources().openRawResource(R.raw.ttsres);
         try {
-            MediaPlayer mediaPlayer = new MediaPlayer();
-            mediaPlayer.reset();
-            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-            mediaPlayer.setDataSource(url);
-            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                @Override
-                public void onPrepared(MediaPlayer mp) {
-                    //播放
-                    mp.start();
-                }
-            });
-            mediaPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
-                public boolean onError(MediaPlayer mp, int what, int extra) {
-                    // dissmiss progress bar here. It will come here when
-                    // MediaPlayer
-                    // is not able to play file. You can show error message to user
-                    return false;
-                }
-            });
-//            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-//                @Override
-//                public void onCompletion(MediaPlayer mp) {
-//                    mp.release();//释放音频资源
-//                }
-//            });
-            mediaPlayer.prepareAsync();
-        } catch (Exception e) {
+            ttsResBytes = new byte[ttsResStream.available()];
+            ttsResStream.read(ttsResBytes);
+        } catch (IOException e) {
             e.printStackTrace();
+            return false;
         }
-    }
-
-    private void playAudio(String url) throws Exception {
-        killMediaPlayer();
-
-        mediaPlayer = new MediaPlayer();
-        mediaPlayer.setDataSource(url);
-        mediaPlayer.prepare();
-        mediaPlayer.start();
-    }
-
-    private void killMediaPlayer() {
-        if(mediaPlayer!=null) {
-            try {
-                mediaPlayer.release();
-            }
-            catch(Exception e) {
-                e.printStackTrace();
-            }
-        }
+        return m_ttsPlayer.initEngine(ttsResBytes);
     }
 }

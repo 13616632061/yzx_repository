@@ -99,7 +99,7 @@
                     android:paddingLeft="16.0dip"
                     android:hint="固定电话"
                     android:singleLine="true"
-                    android:maxLength="11"
+                    android:maxLength="20"
                     android:layout_toLeftOf="@id/textView5"
                     android:inputType="number" />
             </RelativeLayout>
