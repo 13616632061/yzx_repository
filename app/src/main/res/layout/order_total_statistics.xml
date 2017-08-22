@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout
+    android:id="@+id/order_total_statistics_layout"
+    android:layout_height="35dp"
+    android:layout_width="match_parent"
+    android:background="#d4d4d4"
+    android:visibility="gone"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView
+        android:id="@+id/tv_date"
+        android:text="今天"
+        android:layout_centerVertical="true"
+        android:textSize="@dimen/layout_x_20"
+        android:textColor="#adadad"
+        android:layout_marginLeft="@dimen/layout_x_15"
+        android:layout_alignParentLeft="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/tv_order_date"
+        android:text=""
+        android:textSize="@dimen/layout_x_20"
+        android:textColor="#adadad"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/tv_date"
+        android:layout_marginLeft="@dimen/layout_x_10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/tv_week"
+        android:text=""
+        android:textSize="@dimen/layout_x_20"
+        android:textColor="#adadad"
+        android:visibility="gone"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/tv_order_date"
+        android:layout_marginLeft="@dimen/layout_x_10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/tv_order_total_money"
+        android:text=""
+        android:textSize="@dimen/layout_x_20"
+        android:textColor="?attr/colorPrimary"
+        android:layout_marginRight="@dimen/layout_x_15"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/tv_order_bi"
+        android:text="笔"
+        android:textColor="#adadad"
+        android:textSize="@dimen/layout_x_20"
+        android:layout_marginRight="@dimen/layout_x_10"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@id/tv_order_total_money"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/tv_order_total_num"
+        android:text=""
+        android:textSize="@dimen/layout_x_20"
+        android:layout_marginLeft="@dimen/layout_x_3"
+        android:layout_marginRight="@dimen/layout_x_3"
+        android:textColor="?attr/colorPrimary"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@id/tv_order_bi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/tv_order_gong"
+        android:text="共"
+        android:textColor="#adadad"
+        android:textSize="@dimen/layout_x_20"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@id/tv_order_total_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

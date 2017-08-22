@@ -7,16 +7,25 @@
  */
 package com.ms.util;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.TimePicker;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Locale;
 import java.util.TimeZone;
 import java.text.ParseException;
 
@@ -138,9 +147,11 @@ public class DateUtils {
 		Date dt = new Date(sYear, sMoth - 1, sDay - 1);
 
 		if (sDay == currentDay && sMoth == currentMoth) {
-			res = "今天 / " + weekDays[getWeekOfDate(new Date())];
+//			res = "今天 / " + weekDays[getWeekOfDate(new Date())];
+			res = weekDays[getWeekOfDate(new Date())];
 		} else if (sDay == currentDay + 1 && sMoth == currentMoth) {
-			res = "昨天 / " + weekDays[(getWeekOfDate(new Date()) + 6) % 7];
+//			res = "昨天 / " + weekDays[(getWeekOfDate(new Date()) + 6) % 7];
+			res =  weekDays[(getWeekOfDate(new Date()) + 6) % 7];
 		} else {
 			if (sMoth < 10) {
 				res = "0";
@@ -149,7 +160,8 @@ public class DateUtils {
 			if (sDay < 10) {
 				res += "0";
 			}
-			res += sDay + " / " + weekDays[getWeekOfDate(dt)];
+//			res += sDay + " / " + weekDays[getWeekOfDate(dt)];
+			res= weekDays[getWeekOfDate(dt)];
 		}
 
 		return res;
@@ -297,6 +309,106 @@ public class DateUtils {
 		return curDate;
 	}
 
+	/**
+	 * 获取当前系统时间
+	 * @return
+     */
+	public  static String getCurDate(){
+		SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String date = sDateFormat.format(new java.util.Date());
+		return date;
+	}
+	public  static String getCurDateYMD(){
+		SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		String date = sDateFormat.format(new java.util.Date());
+		return date;
+	}
+
+	/**
+	 * 获取系统时间的10位的时间戳
+	 * @return
+     */
+	public static String getCurrentTime(){
+
+		long time=System.currentTimeMillis()/1000;//获取系统时间的10位的时间戳
+
+		String  str=String.valueOf(time);
+
+		return str;
+
+	}
+	/**
+	 * 日期间隔
+	 * @param date_begin
+	 * @param date_end
+     * @return
+     */
+	public  static long getDateSpan(String date_begin,String date_end,int type){
+		DateFormat df = null;
+		if(type==0){
+			 df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		}else if(type==1){
+			 df = new SimpleDateFormat("yyyy-MM-dd");
+		}
+		long days = 0;
+		try {
+			Date d1 = df.parse(date_begin);
+			Date d2 = df.parse(date_end);
+			long diff = d2.getTime() - d1.getTime();
+			 days = diff / (1000 * 60 * 60 * 24);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return days;
+	}
+	/**
+	 * 近多少天
+	 * @param date_end
+     * @return
+     */
+	public  static String getNearlyDate(String date_end,long dur){
+		DateFormat df = null;
+			 df = new SimpleDateFormat("yyyy-MM-dd");
+		long diff = 0;
+		try {
+			Date d2 = df.parse(date_end);
+			 diff = d2.getTime() - (dur*(1000 * 60 * 60 * 24));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return getDateTimeFromMillisecond(diff);
+	}
+	public  static String getNearlyDateYMD(String date_end,long dur){
+		DateFormat df = null;
+			 df = new SimpleDateFormat("yyyy-MM-dd");
+		long diff = 0;
+		try {
+			Date d2 = df.parse(date_end);
+			 diff = d2.getTime() - (dur*(1000 * 60 * 60 * 24));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return getDateTimeFromMillisecondYMD(diff);
+	}
+	/**
+	 * 时间间隔
+	 * @param date_begin
+	 * @param date_end
+	 * @return
+	 */
+	public  static long getTimeSpan(String date_begin,String date_end){
+		DateFormat df = new SimpleDateFormat("HH:mm");
+		long times = 0;
+		try {
+			Date d1 = df.parse(date_begin);
+			Date d2 = df.parse(date_end);
+			long diff = d2.getTime() - d1.getTime();
+			times = diff / (1000 * 60 * 60);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return times;
+	}
 	/***
 	 * 计算两个时间差，返回的是的秒s
 	 *
@@ -326,5 +438,123 @@ public class DateUtils {
 		}
 
 		return diff / 1000;
+	}
+
+	/**
+	 * 获取昨天日期
+	 * @return
+     */
+	public static String getYesterdayDate(){
+		Date date=new Date();//取时间
+		Calendar calendar = new GregorianCalendar();
+		calendar.setTime(date);
+		calendar.add(calendar.DATE,-1);//把日期往后增加一天.整数往后推,负数往前移动
+		date=calendar.getTime(); //这个时间就是日期往后推一天的结果
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		String dateString = formatter.format(date);
+		return dateString;
+
+	}
+
+	/**
+	 * 获取月份时间
+	 * 本月：i=0;
+	 * 上月：i=-1
+	 * @return
+     */
+	public static String getMonthDate(int i){
+		Date date=new Date();//取时间
+		Calendar calendar = new GregorianCalendar();
+		calendar.setTime(date);
+		calendar.add(calendar.MONTH,i);//把日期往后增加一天.整数往后推,负数往前移动
+		date=calendar.getTime(); //这个时间就是日期往后推一天的结果
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM");
+		String dateString = formatter.format(date);
+		return dateString;
+
+	}
+	/**
+	 * 获取当前时间标识码精确到毫秒
+	 * */
+	public static String getNowtimeKeyStr(){
+		SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmssSSS");// 设置日期格式
+		String nowdate = df.format(new Date());// new Date()为获取当前系统时间
+		return nowdate;
+	}
+	/**
+	 * 毫秒转固定时间格式，android是13位
+	 * @param millisecond
+	 * @return
+	 */
+	public static String getDateTimeFromMillisecond(Long millisecond){
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date date = new Date(millisecond);
+		String dateStr = simpleDateFormat.format(date);
+		return dateStr;
+	}
+	public static String getDateTimeFromMillisecondYMD(Long millisecond){
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = new Date(millisecond);
+		String dateStr = simpleDateFormat.format(date);
+		return dateStr;
+	}
+	/**
+	 * 调此方法输入所要转换的时间输入例如（"2014-06-14-16-09-00"）返回时间戳
+	 *
+	 * @param time
+	 * @return
+	 */
+	public static String dataOne(String time) {
+		SimpleDateFormat sdr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",
+				Locale.CHINA);
+		Date date;
+		String times = null;
+		try {
+			date = sdr.parse(time);
+			long l = date.getTime();
+			String stf = String.valueOf(l);
+			times = stf.substring(0, 10);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return times;
+	}
+	/**
+	 * 日期和时间一起的时间戳
+	 *
+	 */
+	private static Calendar dateAndTime=Calendar.getInstance(Locale.CHINA);
+	private static DateFormat fmtDate=new java.text.SimpleDateFormat("yyyy-MM-dd");
+	private static DateFormat fmtTime=new java.text.SimpleDateFormat("HH:mm:ss");
+	public static void runTime(Context context,final TextView mEditText) {
+		TimePickerDialog.OnTimeSetListener t=new TimePickerDialog.OnTimeSetListener() {
+
+			@Override
+			public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+				dateAndTime.set(Calendar.HOUR_OF_DAY,hourOfDay);
+				dateAndTime.set(Calendar.MINUTE, minute);
+				mEditText.setText(fmtDate.format(dateAndTime.getTime())+" "+fmtTime.format(dateAndTime.getTime()));
+			}
+		};
+
+		DatePickerDialog.OnDateSetListener d=new DatePickerDialog.OnDateSetListener() {
+
+			@Override
+			public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+				dateAndTime.set(Calendar.YEAR,year);
+				dateAndTime.set(Calendar.MONTH, monthOfYear);
+				dateAndTime.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+
+			}
+		};
+
+		TimePickerDialog mTimePickerDialog=new TimePickerDialog(context, t, dateAndTime.get(Calendar.HOUR_OF_DAY),
+				dateAndTime.get(Calendar.MINUTE), true);
+		mTimePickerDialog.show();
+
+		DatePickerDialog mDatePickerDialog=new DatePickerDialog(context, d, dateAndTime.get(Calendar.YEAR),
+				dateAndTime.get(Calendar.MONTH), dateAndTime.get(Calendar.DAY_OF_MONTH));
+		mDatePickerDialog.show();
 	}
 }

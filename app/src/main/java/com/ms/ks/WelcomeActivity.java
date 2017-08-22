@@ -38,7 +38,7 @@ Boolean isExit = false;
     RelativeLayout relativeLayout2, relativeLayout1, relativeLayout3;
     private static final int REQUEST_PERMISSION = 0;
     public IWXAPI api;
-    long[] mHits = new long[3];
+    long[] mHits = new long[3];//点击3下
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,9 +106,13 @@ Boolean isExit = false;
             public void onClick(View v) {
                 if (LoginUtils.isSeller()) {
                     SysUtils.startAct(WelcomeActivity.this, new ShopActivity());
-                } else if (LoginUtils.isMember()) {
+                } else if (LoginUtils.isShopper()) {
+                    SysUtils.startAct(WelcomeActivity.this, new ShopActivity());
+                }else if (LoginUtils.isMember()) {
                     SysUtils.startAct(WelcomeActivity.this, new ReportActivity());
-                } else {
+                } else if (LoginUtils.isMainStore()) {
+                    SysUtils.startAct(WelcomeActivity.this, new MainStoreActivity());
+                }else {
                     SysUtils.startAct(WelcomeActivity.this, new LoginActivity());
                 }
             }

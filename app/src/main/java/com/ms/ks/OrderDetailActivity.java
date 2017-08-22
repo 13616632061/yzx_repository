@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -40,6 +41,7 @@ import com.ms.util.PrintUtil;
 import com.ms.util.QRCodeUtil;
 import com.ms.util.StringUtils;
 import com.ms.util.SysUtils;
+import com.ms.util.SystemBarTintManager;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -89,11 +91,13 @@ public class OrderDetailActivity extends BaseActivity {
 
     public FloatingActionButton tv_print;
     private BluetoothAdapter mBluetoothAdapter = null;
+    private SystemBarTintManager    tintManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_detail);
+        setTintColor(1);
 
         initToolbar(this);
 
@@ -332,6 +336,7 @@ public class OrderDetailActivity extends BaseActivity {
 
                 try {
                     JSONObject ret = SysUtils.didResponse(jsonObject);
+                    System.out.println("订单详情："+ret);
                     String status = ret.getString("status");
                     String message = ret.getString("message");
                     JSONObject dataObject = ret.getJSONObject("data");
@@ -391,7 +396,11 @@ public class OrderDetailActivity extends BaseActivity {
                         }
 
                         if (!StringUtils.isEmpty(order.getMemo())) {
-                            order_memo.setText(Html.fromHtml(order.getMemo()));
+                            if(order.getMemo().indexOf("合并支付")!=-1){
+                                order_memo.setText(Html.fromHtml(order.getMemo().replace("合并支付","")));
+                            }else {
+                                order_memo.setText(Html.fromHtml(order.getMemo()));
+                            }
                             remarkView.setVisibility(View.VISIBLE);
                         } else {
                             remarkView.setVisibility(View.GONE);
@@ -603,7 +612,11 @@ public class OrderDetailActivity extends BaseActivity {
                         b.setName("商品总价");
                         b.setQuantity(0);
                         b.setPrice(order.getCost_item());
-                        b.setFormatPrice(SysUtils.getMoneyFormat(order.getCost_item()));
+                        if("cash".equals(order.getPayment())){
+                            b.setFormatPrice(SysUtils.getMoneyFormat(order.getPayed()));
+                        }else {
+                            b.setFormatPrice(SysUtils.getMoneyFormat(order.getCost_item()));
+                        }
                         cat_list.add(b);
 
 //                        b = new OrderGoods();
@@ -617,21 +630,29 @@ public class OrderDetailActivity extends BaseActivity {
                         b.setName("已优惠");
                         b.setQuantity(0);
                         b.setPrice(order.getPmt_order());
-                        b.setFormatPrice(SysUtils.getMoneyFormat(order.getPmt_order()));
+                        if("cash".equals(order.getPayment())){
+                            b.setFormatPrice(SysUtils.getMoneyFormat(0.00));
+                        }else {
+                            b.setFormatPrice(SysUtils.getMoneyFormat(order.getPmt_order()));
+                        }
                         cat_list.add(b);
 
                         b = new OrderGoods();
                         b.setName("已支付");
                         b.setQuantity(0);
                         b.setPrice(order.getPayed());
-                        b.setFormatPrice(SysUtils.getMoneyFormat(order.getFinalPayed()));
+                        b.setFormatPrice(SysUtils.getMoneyFormat(order.getPayed()));
                         cat_list.add(b);
 
                         b = new OrderGoods();
                         b.setName("可提现");
                         b.setQuantity(0);
                         b.setPrice(order.getApay());
-                        b.setFormatPrice(SysUtils.getMoneyFormat(order.getApay()));
+                        if("cash".equals(order.getPayment())){
+                            b.setFormatPrice(SysUtils.getMoneyFormat(0.00));
+                        }else {
+                            b.setFormatPrice(SysUtils.getMoneyFormat(order.getApay()));
+                        }
                         cat_list.add(b);
 
                         adapter.notifyDataSetChanged();
@@ -730,14 +751,13 @@ public class OrderDetailActivity extends BaseActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_search, menu);
+//        getMenuInflater().inflate(R.menu.menu_search, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
         if (id == R.id.menu_search) {
             SysUtils.startAct(OrderDetailActivity.this, new SearchActivity());
             return true;
@@ -816,6 +836,7 @@ public class OrderDetailActivity extends BaseActivity {
 
     public void doPrint() {
         //连接成功，开始打印，同时提交订单更新到服务器
+        System.out.println("开始打印");
         try {
             String index = order.getOrder_num();
             String shippingStr = order.getShippingStr2();
@@ -929,9 +950,6 @@ public class OrderDetailActivity extends BaseActivity {
     public void onBackPressed() {
         if(isTaskRoot()) {
             finish();
-            Intent intent = new Intent(this, WelcomeActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
         } else {
             super.onBackPressed();
         }

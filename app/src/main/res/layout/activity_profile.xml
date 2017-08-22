@@ -17,6 +17,7 @@
             android:layout_height="wrap_content">
 
             <LinearLayout
+                android:id="@+id/layout_khr"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:background="@drawable/selector_cell_left_blank"
@@ -47,6 +48,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/layout_yh"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:background="@drawable/selector_cell_left_blank"
@@ -74,8 +76,38 @@
                     android:singleLine="true"
                     android:layout_weight="1.0" />
             </LinearLayout>
+            <LinearLayout
+                android:id="@+id/layout_branchbank"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:background="@drawable/selector_cell_left_blank"
+                android:paddingLeft="16.0dip"
+                android:clickable="true"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/s_component_height">
+                <TextView
+                    android:textSize="@dimen/text_size_list"
+                    android:textColor="@color/text_color"
+                    android:gravity="left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="94.0dip"
+                    android:text="开户支行" />
+                <TextView
+                    android:layout_marginRight="16.0dip"
+                    android:textSize="@dimen/text_size_list"
+                    android:textColor="@color/text_hint_color"
+                    android:gravity="right"
+                    android:id="@+id/branchbank"
+                    android:background="@null"
+                    android:layout_width="0.0dip"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:layout_weight="1.0" />
+            </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/layout_bankcard"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:background="@drawable/selector_cell_left_blank"

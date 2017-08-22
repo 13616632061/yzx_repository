@@ -203,7 +203,7 @@
                 android:layout_marginTop="12dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:id="@id/linearLayout6"
+                android:id="@+id/linearLayout6"
                 android:background="@drawable/selector_cell_two_line"
                 android:paddingLeft="16.0dip"
                 android:clickable="true"

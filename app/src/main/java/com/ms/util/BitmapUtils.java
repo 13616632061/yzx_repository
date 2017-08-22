@@ -1,11 +1,15 @@
 package com.ms.util;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
+import android.net.Uri;
+import android.os.Environment;
 import android.util.Log;
+import android.view.View;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -162,6 +166,97 @@ public class BitmapUtils {
                 }
         );
         ((BaseActivity)ctx).executeRequest(f);
+    }
+    /**
+     * 将二维码图片截图保存到本地相册
+     * @throws Exception
+     */
+    public static void saveImage(Context mContext,View view) throws Exception {
+
+        // SD卡保存路径
+
+        String savePath = Environment.getExternalStorageDirectory()+"/"+String.valueOf(System.currentTimeMillis())+ "temp.png";
+
+
+        saveMyBitmap(mContext,getBitmapFromRootView(view), savePath);
+
+    }
+
+    // 获取view并转换成bitmap图片
+
+    private static Bitmap getBitmapFromRootView(View view) {
+
+
+
+        view.setDrawingCacheEnabled(true);
+
+        Bitmap bmp = Bitmap.createBitmap(view.getDrawingCache());
+
+        view.setDrawingCacheEnabled(false);
+
+        if (bmp != null) {
+            return bmp;
+
+        } else {
+
+            return null;
+
+        }
+
+    }
+
+
+    // 把bitmao图片保存到对应的SD卡路径中
+
+    private static void saveMyBitmap(Context mContext,Bitmap mBitmap, String path) throws Exception {
+
+        File f = new File(path);
+
+        f.createNewFile();
+
+        FileOutputStream fOut = null;
+
+        fOut = new FileOutputStream(f);
+
+        if (mBitmap != null) {
+
+            // 保存格式为PNG 质量为100
+
+            mBitmap.compress(Bitmap.CompressFormat.PNG, 100, fOut);
+            /**
+             * 通知相册及时更新显示新保存的图片
+             */
+            Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+            Uri uri = Uri.fromFile(f);
+            intent.setData(uri);
+            mContext.sendBroadcast(intent);
+
+        }
+        fOut.flush();
+        fOut.close();
+
+    }
+
+    /**
+     * dp转px
+     * @param context
+     * @param dp
+     * @return
+     */
+    public static int Dp2Px(Context context, float dp) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (dp * scale + 0.5f);
+    }
+
+    /**
+     * px转pd
+     * @param context
+     * @param px
+     * @return
+     */
+    public static int Px2Dp(Context context, float px) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (px / scale + 0.5f);
     }
 
 }

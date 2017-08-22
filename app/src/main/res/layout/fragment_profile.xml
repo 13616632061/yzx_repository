@@ -2,10 +2,41 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="?gray_bg"
-    android:paddingTop="?actionBarSize"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout
+        android:id="@+id/profilefragment_layout"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary">
+        <ImageView
+            android:id="@+id/iv_profilefragment_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/icon_back_white"/>
+        <TextView
+            android:singleLine="true"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:layout_width="250dp"
+            android:layout_height="33dp"
+            android:gravity="center_vertical|center_horizontal"
+            android:layout_centerInParent="true"
+            android:text="商户中心"/>
+        <ImageView
+            android:id="@+id/iv_profilefragment_refresh"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center_vertical"
+            android:layout_marginRight="15dp"
+            android:src="@drawable/i_refresh"/>
+
+    </RelativeLayout>
     <ScrollView
+        android:layout_below="@id/profilefragment_layout"
         android:scrollbars="none"
         android:fadingEdge="none"
         android:overScrollMode="always"
@@ -18,10 +49,10 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
             <!--余额-->
-            <LinearLayout
+             <LinearLayout
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:id="@id/linearLayout2"
+                android:id="@+id/linearLayout2"
                 android:background="@drawable/selector_cell_left_blank"
                 android:paddingLeft="16.0dip"
                 android:clickable="true"
@@ -58,7 +89,7 @@
             <LinearLayout
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:id="@id/linearLayout3"
+                android:id="@+id/linearLayout3"
                 android:background="@drawable/selector_cell_left_blank"
                 android:paddingLeft="16.0dip"
                 android:clickable="true"
@@ -71,7 +102,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:minWidth="94.0dip"
-                    android:text="账号信息" />
+                    android:text="商户资料" />
                 <TextView
                     android:textSize="@dimen/text_size_list"
                     android:textColor="@color/text_color"
@@ -97,7 +128,7 @@
             <LinearLayout
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:id="@id/linearLayout5"
+                android:id="@+id/linearLayout5"
                 android:background="@drawable/selector_cell_left_blank"
                 android:paddingLeft="16.0dip"
                 android:clickable="true"
@@ -134,7 +165,7 @@
             <LinearLayout
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:id="@id/linearLayout6"
+                android:id="@+id/linearLayout6"
                 android:background="@drawable/selector_cell_left_blank"
                 android:paddingLeft="16.0dip"
                 android:clickable="true"
@@ -246,7 +277,7 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:id="@id/linearLayout8"
-                android:background="@drawable/selector_cell_single_line"
+                android:background="@drawable/selector_cell_left_blank"
                 android:paddingLeft="16.0dip"
                 android:clickable="true"
                 android:layout_width="fill_parent"
@@ -259,6 +290,43 @@
                     android:layout_height="wrap_content"
                     android:minWidth="94.0dip"
                     android:text="修改密码" />
+                <TextView
+                    android:textSize="@dimen/text_size_list"
+                    android:textColor="@color/text_color"
+                    android:textColorHint="@color/text_hint_color"
+                    android:gravity="right"
+                    android:id="@id/textView8"
+                    android:background="@null"
+                    android:layout_width="0.0dip"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:layout_weight="1.0" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16.0dip"
+                    android:layout_marginRight="16.0dip"
+                    android:src="@drawable/ic_right_grey" />
+            </LinearLayout>
+
+            <!--修改银行卡-->
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:id="@+id/linearLayout_editcard"
+                android:background="@drawable/selector_cell_single_line"
+                android:paddingLeft="16.0dip"
+                android:clickable="true"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/s_component_height">
+                <TextView
+                    android:textSize="@dimen/text_size_list"
+                    android:textColor="@color/text_color"
+                    android:gravity="left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="94.0dip"
+                    android:text="修改银行卡" />
                 <TextView
                     android:textSize="@dimen/text_size_list"
                     android:textColor="@color/text_color"

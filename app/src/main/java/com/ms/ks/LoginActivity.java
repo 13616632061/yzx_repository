@@ -7,11 +7,14 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -40,7 +43,10 @@ public class LoginActivity extends BaseActivity {
     ImageView textView7;
     EditText textView9;
     private int fkType = 0;
-    CheckBox cb_left, cb_right;
+    CheckBox cb_left, cb_right,cb_mainstore;
+    private Spinner login_spinner;
+    private  String[] type_list={"商家","总店","营业员","业务员"};
+    private ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +59,41 @@ public class LoginActivity extends BaseActivity {
 
         textView1 = (TextView) findViewById(R.id.textView1);
         textView4 = (TextView) findViewById(R.id.textView4);
+        login_spinner = (Spinner) findViewById(R.id.login_spinner);
+        //将可选内容与ArrayAdapter连接起来
+        adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,type_list);
+
+        //设置下拉列表的风格
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        //将adapter 添加到spinner中
+        login_spinner.setAdapter(adapter);
+
+        //添加事件Spinner事件监听
+        login_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+               if(type_list[position].equals("商家")) {
+                   fkType=1;
+               }else if(type_list[position].equals("总店")){
+                   fkType=3;
+
+               } else if(type_list[position].equals("营业员")){
+                   fkType=4;
+
+               } else if(type_list[position].equals("业务员")){
+                   fkType=2;
+
+               }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
 
         textView3 = (EditText) findViewById(R.id.textView3);    //账号
         new DeleteEditText(textView3, textView1);
@@ -107,6 +148,13 @@ public class LoginActivity extends BaseActivity {
                 setFkType(1);
             }
         });
+        cb_mainstore = (CheckBox) findViewById(R.id.cb_mainstore);
+        cb_mainstore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setFkType(3);
+            }
+        });
 
         setFkType(fkType);
 
@@ -131,9 +179,10 @@ public class LoginActivity extends BaseActivity {
                         } else {
                             String realCode = Code.getInstance().getCode();
                             if(!captcha.equalsIgnoreCase(realCode)) {
+                                textView7.setImageBitmap(Code.getInstance().createBitmap());
                                 SysUtils.showError("验证码不正确");
                             } else {
-                                if (fkType != 1 && fkType != 2) {
+                                if (fkType != 1 && fkType != 2 && fkType != 3 && fkType != 4) {
                                     SysUtils.showError("请选择登录类型");
                                 } else {
                                     Map<String,String> map = new HashMap<String,String>();
@@ -147,8 +196,6 @@ public class LoginActivity extends BaseActivity {
                                                 String status = ret.getString("status");
                                                 String message = ret.getString("message");
                                                 String signs = ret.getString("data");
-
-//                                                Log.v("ks", ret.toString());
 
                                                 if (!status.equals("200")) {
                                                     hideLoading();
@@ -209,6 +256,7 @@ public class LoginActivity extends BaseActivity {
                     JSONObject ret = SysUtils.didResponse(jsonObject);
                     String status = ret.getString("status");
                     String message = ret.getString("message");
+                    System.out.println("登录ret:"+ret);
 
                     if (!status.equals("200")) {
                         SysUtils.showError(message);
@@ -244,13 +292,16 @@ public class LoginActivity extends BaseActivity {
     private void setFkType(int type) {
         if(type == 1) {
             cb_left.setChecked(false);
+            cb_mainstore.setChecked(false);
             cb_right.setChecked(true);
         } else if (type == 2){
             cb_left.setChecked(true);
             cb_right.setChecked(false);
-        } else {
+            cb_mainstore.setChecked(false);
+        }  else if (type == 3) {
             cb_left.setChecked(false);
             cb_right.setChecked(false);
+            cb_mainstore.setChecked(true);
         }
 
         this.fkType = type;
@@ -290,6 +341,12 @@ public class LoginActivity extends BaseActivity {
         } else if (LoginUtils.isMember()) {
             //业务员
             SysUtils.startAct(LoginActivity.this, new ReportActivity());
+        }else if (LoginUtils.isMainStore()) {
+            //总店
+            SysUtils.startAct(LoginActivity.this, new MainStoreActivity());
+        }else if (LoginUtils.isShopper()) {
+            //营业员
+            SysUtils.startAct(LoginActivity.this, new ShopActivity());
         }
     }
 }

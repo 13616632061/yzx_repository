@@ -11,6 +11,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.android.volley.Request;
@@ -18,12 +19,14 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.ms.entity.Order;
 import com.ms.entity.OrderGoods;
+import com.ms.global.Global;
 import com.ms.tts.TtsEngine;
 import com.ms.tts.TtsPlayer;
 import com.ms.util.BluetoothService;
 import com.ms.util.CustomRequest;
 import com.ms.util.LoginUtils;
 import com.ms.util.PicFromPrintUtils;
+import com.ms.util.PreferencesService;
 import com.ms.util.PrintUtil;
 import com.ms.util.QRCodeUtil;
 import com.ms.util.RequestManager;
@@ -88,6 +91,10 @@ public class KsMessageReceiver extends PushMessageReceiver {
     private String mAccount;
     private String mStartTime;
     private String mEndTime;
+    private PreferencesService service;
+    private String paycode_order_id;
+    private String old_id;
+    private long time;
 
 
     //蓝牙服务
@@ -101,6 +108,7 @@ public class KsMessageReceiver extends PushMessageReceiver {
     public ArrayList<OrderGoods> goodsList;
 
     private MediaPlayer mediaPlayer;
+    private  SpeechUtilOffline tts ;
 
     @Override
     public void onReceivePassThroughMessage(Context context, MiPushMessage message) {
@@ -127,12 +135,11 @@ public class KsMessageReceiver extends PushMessageReceiver {
             try {
                 JSONObject a = new JSONObject(content);
                 String type = a.getString("type");
-
                 if (type.equals("new_order")) {
                     String order_id = a.getString("order_id");
 
                     if (!StringUtils.isEmpty(order_id)) {
-                        if (LoginUtils.isSeller()) {
+                        if (LoginUtils.isSeller()||LoginUtils.isShopper()) {
                             Intent intent = new Intent(context, OrderDetailActivity.class);
                             Bundle b = new Bundle();
                             b.putString("order_id", order_id);
@@ -143,6 +150,13 @@ public class KsMessageReceiver extends PushMessageReceiver {
 //                            Log.v("ks", "order id: " + order_id);
                         }
                     }
+                } else if(type.equals("advance")) {
+                    //消息
+                    if(LoginUtils.hasLogin()) {
+                        Intent intent = new Intent(context, MoneyLogActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        context.startActivity(intent);
+                    }
                 } else if(type.equals("new_queue")) {
                     //消息
                     if(LoginUtils.hasLogin()) {
@@ -150,7 +164,7 @@ public class KsMessageReceiver extends PushMessageReceiver {
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         context.startActivity(intent);
                     }
-                } else {
+                }else {
                     //打开app
                     Intent intent = new Intent(context, WelcomeActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -180,9 +194,12 @@ public class KsMessageReceiver extends PushMessageReceiver {
     public void onNotificationMessageArrived(Context context, MiPushMessage message) {
         this.context = context;
         goodsList = new ArrayList<OrderGoods>();
+        tts  = new SpeechUtilOffline(context);
         String content = message.getContent();
 //        Log.v("ks", "mesage: " + message.getDescription());
-
+        service=new PreferencesService(context);
+        System.out.println("content="+content);
+        System.out.println("message="+message);
         if (content != null && content.length() > 0) {
             try {
                 JSONObject a = new JSONObject(content);
@@ -190,16 +207,25 @@ public class KsMessageReceiver extends PushMessageReceiver {
 
                 if (type.equals("new_order")) {
                     order_id = a.getString("order_id");
+                    old_id = a.getString("old_id");
+                    time=a.getLong("time");
+                    Map<String, String> params_change1 = service.getPerferences_order_id();
+                    paycode_order_id=params_change1.get("order_id");
+                    if(!TextUtils.isEmpty(paycode_order_id)&&paycode_order_id.equals(old_id)){
+                        context.sendBroadcast(new Intent(Global.BROADCAST_OpenOrderPayCode_ACTION).putExtra("time",time).putExtra("type",1));
+                    }
 
                     if (!StringUtils.isEmpty(order_id)) {
                         playTts(message.getDescription());
 
-                        if (LoginUtils.isSeller()) {
+                        if (LoginUtils.isSeller()||LoginUtils.isShopper()) {
                             //消息到达时处理
                             doOrder();
 //                            Log.v("ks", "order: " + order_id);
                         }
                     }
+                }else if(type.equals("advance")){
+                    playTts(message.getDescription());
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -209,8 +235,7 @@ public class KsMessageReceiver extends PushMessageReceiver {
 
     @Override
     public void onCommandResult(Context context, MiPushCommandMessage message) {
-        Log.v("ks",
-                "onCommandResult is called. " + message.toString());
+        Log.v("ks", "onCommandResult is called. " + message.toString());
         String command = message.getCommand();
         List<String> arguments = message.getCommandArguments();
         String cmdArg1 = ((arguments != null && arguments.size() > 0) ? arguments.get(0) : null);
@@ -569,7 +594,7 @@ public class KsMessageReceiver extends PushMessageReceiver {
         mHandler.post(new Runnable() {
             @Override
             public void run() {
-                SpeechUtilOffline tts = new SpeechUtilOffline(context);
+//                SpeechUtilOffline tts = new SpeechUtilOffline(context);
                 tts.play(text);
             }
         });
@@ -581,6 +606,7 @@ public class KsMessageReceiver extends PushMessageReceiver {
 //        m_ttsPlayer.setParam("Encoding", TtsEngine.ENCODING_UTF8);///输入文本是"utf8"编码
 //        m_ttsPlayer.playText(text);
     }
+
 
     private Handler m_handler = new Handler()
     {

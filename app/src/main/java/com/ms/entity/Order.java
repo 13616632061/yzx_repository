@@ -1,8 +1,10 @@
 package com.ms.entity;
 
+import android.graphics.Color;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
+import android.widget.TextView;
 
 import com.ms.ks.R;
 
@@ -49,6 +51,16 @@ public class Order implements Parcelable {
 	private String qrcode_url;
 	private String desk_num;
 	private String qr_uri;
+
+	public String getPayment() {
+		return payment;
+	}
+
+	public void setPayment(String payment) {
+		this.payment = payment;
+	}
+
+	private String payment;
 
 	public String getPayment_status() {
 		return payment_status;
@@ -275,6 +287,47 @@ public class Order implements Parcelable {
 		this.distribution = distribution;
 	}
 
+	public  String getPaymentStr() {
+		if (payment.equals("deposit")) {
+			return "余额支付";
+		}
+		if (payment.equals("wxpayjsapi")) {
+			return "微信支付";
+		}
+		if(payment.equals("malipay")){
+			return "支付宝";
+		}
+		if(payment.equals("qq")){
+			return "QQ钱包";
+		}
+		if(payment.equals("cash")){
+			return "现金支付";
+		}
+		else{
+//			(payment.equals("malipay"))
+			return "扫描收款";
+		}
+	}
+	public int getPaymentRes(){
+		if (payment.equals("deposit")) {
+			return R.drawable.yue;
+		}
+		if (payment.equals("wxpayjsapi")) {
+			return R.drawable.weixin;
+		}
+		if(payment.equals("malipay")){
+			return R.drawable.zhifubao;
+		}
+		if(payment.equals("qq")){
+			return R.drawable.qqwellat;
+		}
+		if(payment.equals("cash")){
+			return R.drawable.paycash_purple;
+		}
+		else {
+			return R.drawable.scancode1;
+		}
+	}
 	public String getPayStatusStr() {
 		if (payStatus == 1) {
 			return "已支付";
@@ -283,11 +336,13 @@ public class Order implements Parcelable {
 		}
 	}
 
-	public String getShippingStr() {
+	public String getShippingStr(TextView textView) {
 		if (distribution == 1) {
-			return "到店付";
+			textView.setTextColor(Color.parseColor("#ffff8905"));
+			return "到店";
 		} else {
-			return "配送单";
+			textView.setTextColor(Color.parseColor("#46bef0"));
+			return "配送";
 		}
 	}
 
@@ -350,7 +405,7 @@ public class Order implements Parcelable {
 				 double payed, double shipped, int deliveryExpress, int deliverySeller, int deliverySellerDtId,
 				 String sellerName, String sellerTel, String memo, int distribution, String status,
 				 double cost_item, double pmt_order, double finalPayed, String payment_status, String print_number,
-				 double apay, String order_num, String qrcode_url, String desk_num, String qr_uri){
+				 double apay, String order_num, String qrcode_url, String desk_num, String qr_uri,String payment){
 		this.orderSn = orderSn;
 		this.orderTime = orderTime;
 		this.name = name;
@@ -384,6 +439,7 @@ public class Order implements Parcelable {
 		this.qrcode_url = qrcode_url;
 		this.desk_num = desk_num;
 		this.qr_uri = qr_uri;
+		this.payment=payment;
 	}
 
 	public Order(Parcel in){
@@ -420,6 +476,7 @@ public class Order implements Parcelable {
 		this.qrcode_url = in.readString();
 		this.desk_num = in.readString();
 		this.qr_uri = in.readString();
+		this.payment=in.readString();
 	}
 
 	@Override
@@ -462,6 +519,8 @@ public class Order implements Parcelable {
 		dest.writeString(this.getQrcode_url());
 		dest.writeString(this.getDesk_num());
 		dest.writeString(this.getQr_uri());
+		dest.writeString(this.getPayment());
+
 	}
 
 	public String getStatusStr() {

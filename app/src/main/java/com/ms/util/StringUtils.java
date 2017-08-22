@@ -15,6 +15,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 
 /**
  * 字符串操作工具包
@@ -129,10 +130,14 @@ public class StringUtils {
     /**
      * 判断是不是一个合法的电子邮件地址
      */
-    public static boolean isEmail(String email) {
-        if (email == null || email.trim().length() == 0)
+    //邮箱验证
+    public static boolean isEmail(String strEmail) {
+        String strPattern = "^[a-zA-Z0-9][\\w\\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\\w\\.-]*[a-zA-Z0-9]\\.[a-zA-Z][a-zA-Z\\.]*[a-zA-Z]$";
+        if (TextUtils.isEmpty(strPattern)) {
             return false;
-        return emailer.matcher(email).matches();
+        } else {
+            return strEmail.matches(strPattern);
+        }
     }
 
     /**
@@ -315,4 +320,47 @@ public class StringUtils {
 
         return ret;
     }
+
+    /**
+     * 字符串转json特使字符串转义
+     * @param s
+     * @return
+     */
+   public static String string2Json(String s) {
+       StringBuffer sb = new StringBuffer();
+       for (int i = 0; i < s.length(); i++) {
+
+           char c = s.charAt(i);
+           switch (c) {
+               case '\"':
+                   sb.append("\\\"");
+                   break;
+               case '\\':
+                   sb.append("\\\\");
+                   break;
+               case '/':
+                   sb.append("\\/");
+                   break;
+               case '\b':
+                   sb.append("\\b");
+                   break;
+               case '\f':
+                   sb.append("\\f");
+                   break;
+               case '\n':
+                   sb.append("\\n");
+                   break;
+               case '\r':
+                   sb.append("\\r");
+                   break;
+               case '\t':
+                   sb.append("\\t");
+                   break;
+               default:
+                   sb.append(c);
+           }
+       }
+       return sb.toString();
+   }
+
 }

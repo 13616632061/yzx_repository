@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_goods_size_spec"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:clipToPadding="false"
+    android:background="@color/gray_bg"
+    android:orientation="vertical"
+    tools:context="com.ms.ks.GoodsSize_specActivity">
+    <include
+        layout="@layout/toolbar" android:id="@+id/toolbar_layout" />
+
+    <com.ms.listview.PinnedHeaderListView
+        android:background="@android:color/transparent"
+        android:listSelector="@android:color/transparent"
+        android:id="@+id/list_goods_size_spec"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:choiceMode="singleChoice"
+        android:divider="@null"
+        android:dividerHeight="1dp"
+        android:scrollbarStyle="outsideOverlay"
+        android:scrollingCache="true"
+        android:smoothScrollbar="false"
+        android:scrollbars="none"/>
+    <include
+        android:id="@id/layout_err"
+        android:visibility="gone"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        layout="@layout/layout_err" />
+
+</LinearLayout>

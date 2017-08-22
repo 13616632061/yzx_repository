@@ -1,6 +1,6 @@
 package com.ms.view;
 
-import com.ms.ks.BaseFragment;
+import com.ms.fragment.BaseFragment;
 
 /**
  * fragment懒加载

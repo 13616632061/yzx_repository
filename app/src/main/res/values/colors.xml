@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="gray_66929292">#66929292</color>
+    <color name="gray_cdcdcd">#cdcdcd</color>
+    <color name="gray_efeff4">#efeff4</color>
+
     <color name="transparent">#00000000</color>
     <color name="white">#ffffffff</color>
     <color name="black">#ff000000</color>
@@ -88,5 +92,10 @@
     <!-- 浅灰色 -->
     <color name="bg_Gray_light">#EEEEEE</color>
     <color name="shape_bg">#ddffffff</color>
+    <color name="paycode_btn">#ababab</color>
     <color name="bg_selector">#ffe5e5e5</color>
+
+    <color name="result_view">#b0000000</color>
+    <color name="viewfinder_mask">#60000000</color>
+    <color name="possible_result_points">#c0ffff00</color>
 </resources>

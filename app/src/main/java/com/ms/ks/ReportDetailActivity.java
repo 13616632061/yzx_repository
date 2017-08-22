@@ -17,6 +17,7 @@ import com.android.volley.VolleyError;
 import com.ms.entity.SellerReport;
 import com.ms.listview.PagingListView;
 import com.ms.util.CustomRequest;
+import com.ms.util.JsonUtil;
 import com.ms.util.SysUtils;
 
 import org.json.JSONArray;
@@ -156,12 +157,12 @@ public class ReportDetailActivity extends BaseActivity {
                                 JSONObject data = array.optJSONObject(i);
 
                                 SellerReport bean = new SellerReport();
-                                bean.setSeller_id(data.getInt("seller_id"));
+                                bean.setSeller_id(JsonUtil.getJsonInt(data,"seller_id"));
                                 bean.setSeller_name(data.getString("seller_name"));
                                 bean.setBn(data.getString("bn"));
-                                bean.setToday_income(data.getDouble("today_income"));
-                                bean.setYesterday_income(data.getDouble("yesterday_income"));
-                                bean.setMonth_income(data.getDouble("month_income"));
+                                bean.setToday_income(JsonUtil.getJsonDouble(data,"today_income"));
+                                bean.setYesterday_income(JsonUtil.getJsonDouble(data,"yesterday_income"));
+                                bean.setMonth_income(JsonUtil.getJsonDouble(data,"month_income"));
 
                                 cat_list.add(bean);
                             }

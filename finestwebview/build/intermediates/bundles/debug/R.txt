@@ -1380,9 +1380,10 @@ int string abc_searchview_description_voice 0x7f06000f
 int string abc_shareactionprovider_share_with 0x7f060010
 int string abc_shareactionprovider_share_with_application 0x7f060011
 int string abc_toolbar_collapse_description 0x7f060012
-int string appbar_scrolling_view_behavior 0x7f06001a
-int string bottom_sheet_behavior 0x7f06001b
-int string character_counter_pattern 0x7f06001c
+int string app_name 0x7f06001a
+int string appbar_scrolling_view_behavior 0x7f06001b
+int string bottom_sheet_behavior 0x7f06001c
+int string character_counter_pattern 0x7f06001d
 int string copied_to_clipboard 0x7f060014
 int string copy_link 0x7f060015
 int string find 0x7f060016

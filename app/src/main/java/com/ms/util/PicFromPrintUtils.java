@@ -203,7 +203,6 @@ public class PicFromPrintUtils {
             int red = (clr & 0x00ff0000) >> 16; // 取高两位
             int green = (clr & 0x0000ff00) >> 8; // 取中两位
             int blue = clr & 0x000000ff; // 取低两位
-            System.out.println("r=" + red + ",g=" + green + ",b=" + blue);
         }
         return null;
     }

@@ -8,6 +8,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -29,6 +30,7 @@ public class BaseActivity extends ActionBarActivity {
     private SystemBarTintManager tintManager = null;
     protected ImageLoader imageLoader = ImageLoader.getInstance();
     protected TextView toolbarTitle;
+//    public static TextView toolbarshopTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +49,6 @@ public class BaseActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
 
         setTitle(null);
-//        Log.d("huigu", "Activity Label: " + label);
 
         boolean canNext = true;
         if(loginType == 1) {
@@ -60,8 +61,17 @@ public class BaseActivity extends ActionBarActivity {
             if (!LoginUtils.isMember()) {
                 canNext = false;
             }
+        }else if (loginType == 3) {
+            //总店
+            if (!LoginUtils.isMainStore()) {
+                canNext = false;
+            }
+        }else if (loginType == 4) {
+            //营业员
+            if (!LoginUtils.isShopper()) {
+                canNext = false;
+            }
         }
-
         if (!canNext) {
             LoginUtils.toLogin(this, loginType);
 
@@ -88,7 +98,6 @@ public class BaseActivity extends ActionBarActivity {
     public void setToolbarTitle(String title) {
         toolbarTitle.setText(title);
     }
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -171,6 +180,8 @@ public class BaseActivity extends ActionBarActivity {
         }
 
         toolbarTitle = (TextView)findViewById(R.id.toolbar_title);
+//        toolbarshopTitle = (TextView)findViewById(R.id.toolbar_shoptitle);
+
 
         if(label != null) {
             setToolbarTitle(label);
@@ -215,7 +226,9 @@ public class BaseActivity extends ActionBarActivity {
             return R.color.black;
         } else if(type == 4) {
             return R.color.black;
-        } else {
+        } else if(type == 5) {
+            return R.color.white;
+        }else {
 //            return Theme.isFemaleMode() ? R.color.female_dark_primary_color : R.color.dark_primary_color;
             return R.color.dark_primary_color;
         }
@@ -227,7 +240,6 @@ public class BaseActivity extends ActionBarActivity {
         super.onDestroy();
         RequestManager.cancelAll(this);
     }
-
     //请求网络
     public void executeRequest(Request<?> request) {
         RequestManager.addRequest(request, this);

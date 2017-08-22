@@ -1,18 +1,34 @@
 [
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/release/drawable-ldpi-v4/back_vector.png",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/generated/res/pngs/release/drawable-ldpi/back_vector.png"
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\release\\drawable-ldpi-v4\\close_vector.png",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\generated\\res\\pngs\\release\\drawable-ldpi\\close_vector.png"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/release/drawable-ldpi-v4/more_vector.png",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/generated/res/pngs/release/drawable-ldpi/more_vector.png"
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\release\\drawable-ldpi-v4\\close_vector.png",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\generated\\res\\pngs\\release\\drawable-ldpi\\close_vector.png"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/release/drawable-ldpi-v4/close_vector.png",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/generated/res/pngs/release/drawable-ldpi/close_vector.png"
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\release\\drawable-ldpi-v4\\more_vector.png",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\generated\\res\\pngs\\release\\drawable-ldpi\\more_vector.png"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/release/drawable-ldpi-v4/forward_vector.png",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/generated/res/pngs/release/drawable-ldpi/forward_vector.png"
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\release\\drawable-ldpi-v4\\back_vector.png",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\generated\\res\\pngs\\release\\drawable-ldpi\\back_vector.png"
+    },
+    {
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\release\\drawable-ldpi-v4\\back_vector.png",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\generated\\res\\pngs\\release\\drawable-ldpi\\back_vector.png"
+    },
+    {
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\release\\drawable-ldpi-v4\\more_vector.png",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\generated\\res\\pngs\\release\\drawable-ldpi\\more_vector.png"
+    },
+    {
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\release\\drawable-ldpi-v4\\forward_vector.png",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\generated\\res\\pngs\\release\\drawable-ldpi\\forward_vector.png"
+    },
+    {
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\release\\drawable-ldpi-v4\\forward_vector.png",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\generated\\res\\pngs\\release\\drawable-ldpi\\forward_vector.png"
     }
 ]

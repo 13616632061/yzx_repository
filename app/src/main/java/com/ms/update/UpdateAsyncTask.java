@@ -9,7 +9,9 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.support.annotation.NonNull;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -49,6 +51,7 @@ public class UpdateAsyncTask {
                             UpdateXmlParser xmlParser = new UpdateXmlParser();
                             final UpdateInfo updateInfo = xmlParser.parse(xml);
 
+
                             if (context != null && updateInfo != null) {
                                 try {
                                     PackageInfo pinfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
@@ -69,7 +72,13 @@ public class UpdateAsyncTask {
 //                                                    .content(getUpdateTips(updateInfo))
                                                     .positiveText("立即更新")
                                                     .theme(SysUtils.getDialogTheme())
-//                                                    .negativeText("取消")
+                                                    .negativeText("取消")
+                                                    .onNegative(new MaterialDialog.SingleButtonCallback() {
+                                                        @Override
+                                                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                                            dialog.dismiss();
+                                                        }
+                                                    })
                                                     .callback(new MaterialDialog.ButtonCallback() {
                                                         @Override
                                                         public void onPositive(MaterialDialog dialog) {
@@ -156,19 +165,6 @@ public class UpdateAsyncTask {
 
     public static boolean isDownloadManagerAvailable(Context context) {
         return true;
-//        try {
-//            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.GINGERBREAD) {
-//                return false;
-//            }
-//            Intent intent = new Intent(Intent.ACTION_MAIN);
-//            intent.addCategory(Intent.CATEGORY_LAUNCHER);
-//            intent.setClassName("com.android.providers.downloads.ui", "com.android.providers.downloads.ui.DownloadList");
-//            List<ResolveInfo> list = context.getPackageManager().queryIntentActivities(intent,
-//                    PackageManager.MATCH_DEFAULT_ONLY);
-//            return list.size() > 0;
-//        } catch (Exception e) {
-//            return false;
-//        }
     }
 
     public void startDownload(String title, String url) {
@@ -182,8 +178,6 @@ public class UpdateAsyncTask {
                 request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
             }
 
-//            String savePath = Environment.getExternalStorageDirectory().getAbsolutePath();
-//            savePath += "/oho_food/";
             String savePath = Environment.DIRECTORY_DOWNLOADS;
             request.setDestinationInExternalPublicDir(savePath, title + ".apk");
             DownloadManager manager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);

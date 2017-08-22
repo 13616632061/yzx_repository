@@ -7,12 +7,16 @@ import android.content.SharedPreferences;
 import android.net.wifi.WifiManager;
 import android.os.Process;
 import android.preference.PreferenceManager;
+import android.support.multidex.MultiDex;
 import android.util.DisplayMetrics;
 import android.util.Log;
 
+import com.baidu.tts.client.SpeechSynthesizer;
 import com.ms.db.DBHelper;
 import com.ms.global.Global;
+import com.ms.util.SpeechUtilOffline;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
+import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
@@ -35,13 +39,31 @@ public class KsApplication extends Application {
 
     public static boolean hasNewVersion = false;
     public static String newVersionName = "";
-
+    public static int selectItem=0;//订单类型初始值
+    public static boolean selectItemIsCheck=true;//订单类型是否被选中
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
     @Override
     public void onCreate() {
         super.onCreate();
+        //创建可以打印log的ImageLoaderConfiguration
+        ImageLoaderConfiguration configuration=new ImageLoaderConfiguration.Builder(this)
+                .writeDebugLogs()
+                .memoryCache(new LruMemoryCache(2*1024*1024))//可以通过自己的内存缓存实现
+                .memoryCacheSize(2*1024*1024)//内存缓存的最大值
+                .memoryCacheSizePercentage(13)
+                .build();
+
+        //初始化ImageLoader
+        ImageLoader.getInstance().init(configuration);
 
         sp = PreferenceManager.getDefaultSharedPreferences(this);
         sContext = getApplicationContext();
+        //初始化语言播报
+        SpeechUtilOffline tts= new SpeechUtilOffline(this);
 
         if (shouldInit()) {
             MiPushClient.registerPush(this, "2882303761517488439", "5751748881439");

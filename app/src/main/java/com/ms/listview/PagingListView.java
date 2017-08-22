@@ -10,7 +10,8 @@ import com.ms.ks.R;
 
 import java.util.List;
 
-public class PagingListView extends ListView {
+public class
+PagingListView extends ListView {
 
 	public interface Pagingable {
 		void onLoadMoreItems();

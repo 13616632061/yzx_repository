@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="/Users/eddie/workspace/android/ks/viewpagerindicator/src/main/assets"/></dataSet><dataSet config="release"><source path="/Users/eddie/workspace/android/ks/viewpagerindicator/src/release/assets"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="E:\yzx_repository\viewpagerindicator\src\main\assets"/><source path="E:\yzx_repository\viewpagerindicator\build\generated\assets\shaders\release"/></dataSet><dataSet config="release"><source path="E:\yzx_repository\viewpagerindicator\src\release\assets"/></dataSet></merger>

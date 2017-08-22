@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.os.Environment;
 
+
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.WriterException;
@@ -17,7 +18,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * Created by eddie on 2016/10/25.
@@ -45,7 +45,7 @@ public class QRCodeUtil {
             //容错级别
             hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.H);
             //设置空白边距的宽度
-//            hints.put(EncodeHintType.MARGIN, 2); //default is 4
+            hints.put(EncodeHintType.MARGIN, 2); //default is 4
 
             // 图像数据转换，使用了矩阵转换
             BitMatrix bitMatrix = new QRCodeWriter().encode(content, BarcodeFormat.QR_CODE, widthPix, heightPix, hints);

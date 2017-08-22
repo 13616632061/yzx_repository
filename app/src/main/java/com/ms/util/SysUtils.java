@@ -262,7 +262,9 @@ public class SysUtils {
 
     public static void hideSoftKeyboard(Activity activity) {
         InputMethodManager inputMethodManager = (InputMethodManager)  activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
-        inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
+        if(activity.getCurrentFocus() != null) {
+            inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
+        }
     }
 
 
@@ -430,6 +432,9 @@ public class SysUtils {
             return "http://www.czxshop.net/";
         } else {
             return "http://www.yzx6868.com/";
+//            return "http://new.czxshop.com/";
+//            return "http://fx.yzx6868.com";
+//            return "http://118.178.174.183";
         }
     }
 
@@ -445,6 +450,62 @@ public class SysUtils {
 
     public static String getSellerServiceUrl(String method) {
         String ret = SysUtils.getWebUri() + "rpc/service/?method=ks.seller." + method + "&vsn=1.0&format=json";
+        ret += "&seller_token=" + KsApplication.getString("token", "");
+        return ret;
+    }
+
+    /**
+     *商品添加
+     * @param method
+     * @return
+     */
+    public static String getGoodsServiceUrl(String method) {
+        String ret = SysUtils.getWebUri() + "rpc/service/?method=ks.goods." + method + "&vsn=1.0&format=json";
+        ret += "&seller_token=" + KsApplication.getString("token", "");
+        return ret;
+    }
+
+
+
+    /**
+     * 二维码扫描收款
+     * @param method
+     * @return
+     */
+    public static String payCodeServiceUrl(String method) {
+        String ret = SysUtils.getWebUri() + "rpc/service/?method=ks.seller." + method + "&vsn=1.0&format=json";
+        ret += "&seller_token=" + KsApplication.getString("token", "");
+        return ret;
+    }
+
+    /**
+     * 修改银行卡号
+     * @param method
+     * @return
+     */
+    public static String editBankCardServiceUrl(String method) {
+        String ret = SysUtils.getWebUri() + "rpc/service/?method=ks.seller." + method + "&vsn=1.0&format=json";
+        ret += "&seller_token=" + KsApplication.getString("token", "");
+        return ret;
+    }
+
+    /**
+     * 商户信息上传图片
+     * @param method
+     * @return
+     */
+    public static String getUploadImageServiceUrl(String method) {
+        String ret = SysUtils.getWebUri() + "rpc/service/?method=ks.seller." + method + "&vsn=1.0&format=json";
+        ret += "&seller_token=" + KsApplication.getString("token", "");
+        return ret;
+    }
+    /**
+     * 商品上传上传图片
+     * @param method
+     * @return
+     */
+    public static String getUploadImageGoodsUrl(String method) {
+        String ret = SysUtils.getWebUri() + "rpc/service/?method=ks.goods." + method + "&vsn=1.0&format=json";
         ret += "&seller_token=" + KsApplication.getString("token", "");
         return ret;
     }
@@ -927,7 +988,18 @@ public class SysUtils {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (pxValue / scale + 0.5f);
     }
-
+    /**
+     * 预防按钮连续点击
+     */
+    private static long lastClickTime;
+    public static boolean isFastDoubleClick() {
+        long time = System.currentTimeMillis();
+        if ( time - lastClickTime < 1000) {
+            return true;
+        }
+        lastClickTime = time;
+        return false;
+    }
     /**
      * 得到资讯栏目的分类
      * @param ctx
@@ -1165,40 +1237,79 @@ public class SysUtils {
             if(desk_num.equals("0")) {
                 desk_num = "";
             }
-            b = new Order(
-                    data.getString("order_id"),
-                    data.getString("createtime"),
-                    SysUtils.getFinalString("name", data),
-                    data.optInt("pay_status"),
-                    data.optInt("shipping_id"),
-                    data.optInt("ship_status"),
-                    data.optInt("button_affirm"),
-                    data.optInt("button_off"),
-                    data.optInt("shipments_yes"),
-                    data.optInt("shipments_no"),
-                    SysUtils.getFinalString("ship_addr", data),
-                    SysUtils.getFinalString("ship_name", data),
-                    SysUtils.getFinalString("ship_mobile", data),
-                    data.optDouble("final_amount"),
-                    data.optDouble("cost_freight"),
-                    data.optInt("delivery_express"),
-                    data.optInt("delivery_seller"),
-                    data.optInt("delivery_seller_dt_id"),
-                    SysUtils.getFinalString("seller_name", data),
-                    SysUtils.getFinalString("seller_tel", data),
-                    SysUtils.getFinalString("mark_text", data),
-                    data.optInt("distribution"),
-                    SysUtils.getFinalString("status", data),
-                    data.optDouble("cost_item"),
-                    data.optDouble("pmt_order"),
-                    data.optDouble("payed"),
-                    SysUtils.getFinalString("order_status", data),
-                    SysUtils.getFinalString("print_number", data),
-                    data.optDouble("apay_order"),
-                    data.optString("order_num"),
-                    SysUtils.getFinalString("qrcode_url", data),
-                    desk_num,
-                    SysUtils.getFinalString("qr_uri", data));
+            if("cash".equals(data.getString("payment"))){
+                b = new Order(
+                        data.getString("order_id"),
+                        data.getString("createtime"),
+                        SysUtils.getFinalString("name", data),
+                        data.optInt("pay_status"),
+                        data.optInt("shipping_id"),
+                        data.optInt("ship_status"),
+                        data.optInt("button_affirm"),
+                        data.optInt("button_off"),
+                        data.optInt("shipments_yes"),
+                        data.optInt("shipments_no"),
+                        SysUtils.getFinalString("ship_addr", data),
+                        SysUtils.getFinalString("ship_name", data),
+                        SysUtils.getFinalString("ship_mobile", data),
+                        data.optDouble("total_amount"),
+                        data.optDouble("cost_freight"),
+                        data.optInt("delivery_express"),
+                        data.optInt("delivery_seller"),
+                        data.optInt("delivery_seller_dt_id"),
+                        SysUtils.getFinalString("seller_name", data),
+                        SysUtils.getFinalString("seller_tel", data),
+                        SysUtils.getFinalString("mark_text", data),
+                        data.optInt("distribution"),
+                        SysUtils.getFinalString("status", data),
+                        data.optDouble("cost_item"),
+                        data.optDouble("pmt_order"),
+                        data.optDouble("payed"),
+                        SysUtils.getFinalString("order_status", data),
+                        SysUtils.getFinalString("print_number", data),
+                        data.optDouble("total_amount"),
+                        SysUtils.getFinalString("quantity", data),
+                        SysUtils.getFinalString("qrcode_url", data),
+                        desk_num,
+                        SysUtils.getFinalString("qr_uri", data),
+                        SysUtils.getFinalString("payment", data));
+            }else {
+                b = new Order(
+                        data.getString("order_id"),
+                        data.getString("createtime"),
+                        SysUtils.getFinalString("name", data),
+                        data.optInt("pay_status"),
+                        data.optInt("shipping_id"),
+                        data.optInt("ship_status"),
+                        data.optInt("button_affirm"),
+                        data.optInt("button_off"),
+                        data.optInt("shipments_yes"),
+                        data.optInt("shipments_no"),
+                        SysUtils.getFinalString("ship_addr", data),
+                        SysUtils.getFinalString("ship_name", data),
+                        SysUtils.getFinalString("ship_mobile", data),
+                        data.optDouble("final_amount"),
+                        data.optDouble("cost_freight"),
+                        data.optInt("delivery_express"),
+                        data.optInt("delivery_seller"),
+                        data.optInt("delivery_seller_dt_id"),
+                        SysUtils.getFinalString("seller_name", data),
+                        SysUtils.getFinalString("seller_tel", data),
+                        SysUtils.getFinalString("mark_text", data),
+                        data.optInt("distribution"),
+                        SysUtils.getFinalString("status", data),
+                        data.optDouble("cost_item"),
+                        data.optDouble("pmt_order"),
+                        data.optDouble("payed"),
+                        SysUtils.getFinalString("order_status", data),
+                        SysUtils.getFinalString("print_number", data),
+                        data.optDouble("apay_order"),
+                        data.optString("order_num"),
+                        SysUtils.getFinalString("qrcode_url", data),
+                        desk_num,
+                        SysUtils.getFinalString("qr_uri", data),
+                        SysUtils.getFinalString("payment", data));
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/debug/values-xlarge-land-v4/values-xlarge-land-v4.xml",
+        "outputFile": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-xlarge-land-v4\\values-xlarge-land-v4.xml",
         "map": [
             {
                 "to": {
@@ -11,7 +11,31 @@
                     "endOffset": 114
                 },
                 "from": {
-                    "file": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.3.0/res/values-xlarge-land-v4/values-xlarge-land-v4.xml",
+                    "file": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.3.0\\res\\values-xlarge-land-v4\\values-xlarge-land-v4.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 55,
+                        "endColumn": 63,
+                        "endOffset": 114
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "outputFile": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-xlarge-land-v4\\values-xlarge-land-v4.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 63,
+                    "endOffset": 114
+                },
+                "from": {
+                    "file": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.3.0\\res\\values-xlarge-land-v4\\values-xlarge-land-v4.xml",
                     "position": {
                         "startLine": 2,
                         "startColumn": 4,

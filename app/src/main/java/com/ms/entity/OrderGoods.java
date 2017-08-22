@@ -1,13 +1,45 @@
 package com.ms.entity;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.Serializable;
 
-public class OrderGoods implements Serializable {
+public class OrderGoods implements Serializable, Parcelable {
 	private int quantity;
 	private String name;
 	private double price;
 	private String formatPrice;
 	private String attr;
+
+	protected OrderGoods(Parcel in) {
+		quantity = in.readInt();
+		name = in.readString();
+		price = in.readDouble();
+		formatPrice = in.readString();
+		attr = in.readString();
+	}
+
+	public OrderGoods(int quantity, String name, double price) {
+		this.quantity = quantity;
+		this.name = name;
+		this.price = price;
+	}
+
+	public OrderGoods() {
+	}
+
+	public static final Creator<OrderGoods> CREATOR = new Creator<OrderGoods>() {
+		@Override
+		public OrderGoods createFromParcel(Parcel in) {
+			return new OrderGoods(in);
+		}
+
+		@Override
+		public OrderGoods[] newArray(int size) {
+			return new OrderGoods[size];
+		}
+	};
 
 	public int getQuantity() {
 		return quantity;
@@ -47,5 +79,30 @@ public class OrderGoods implements Serializable {
 
 	public void setAttr(String attr) {
 		this.attr = attr;
+	}
+
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+
+	@Override
+	public String toString() {
+		return "OrderGoods{" +
+				"quantity=" + quantity +
+				", name='" + name + '\'' +
+				", price=" + price +
+				", formatPrice='" + formatPrice + '\'' +
+				", attr='" + attr + '\'' +
+				'}';
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeInt(quantity);
+		dest.writeString(name);
+		dest.writeDouble(price);
+		dest.writeString(formatPrice);
+		dest.writeString(attr);
 	}
 }

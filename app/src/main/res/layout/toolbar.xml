@@ -40,9 +40,18 @@
                 android:textSize="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="?attr/actionBarSize"
-                android:text=""
                 android:gravity="center_vertical"
                 android:id="@+id/toolbar_title" />
+            <TextView
+                android:singleLine="true"
+                android:textColor="@color/white"
+                android:visibility="gone"
+                android:textSize="20dp"
+                android:layout_width="250dp"
+                android:layout_height="33dp"
+                android:background="@drawable/title_textview_shape"
+                android:gravity="center_vertical|center_horizontal"
+                android:id="@+id/toolbar_shoptitle" />
             <ImageButton
                 android:id="@id/btn_expand"
                 android:visibility="gone"
@@ -62,10 +71,52 @@
             android:id="@+id/dropdown_menu"
             android:background="?attr/colorPrimary"
             android:layout_height="?attr/actionBarSize"/>
+        <RelativeLayout
+            android:id="@+id/title_scroll_relayout"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:visibility="gone"
+            android:background="@android:color/transparent"
+            android:layout_alignBottom="@+id/iv_orderlist_search" >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/iv_title_scancode"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_weight="1"
+                android:src="@drawable/saocode" />
+                <ImageView
+                    android:id="@+id/iv_title_spaycode"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/paycode" />
+
+            <ImageView
+                android:id="@+id/iv_title_statistics"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_weight="1"
+                android:src="@drawable/statistics" />
+                <ImageView
+                    android:id="@+id/iv_title_ordertype"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/order_type" />
+
+
+            </LinearLayout>
+
+        </RelativeLayout>
 
 
         <TextView
-            android:id="@id/btn_set"
+            android:id="@+id/btn_set"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15sp"

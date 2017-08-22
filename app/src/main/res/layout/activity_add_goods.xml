@@ -1,0 +1,538 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_add_goods"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?gray_bg"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    tools:context="com.ms.ks.AddGoodsActivity">
+    <include android:visibility="gone"
+        layout="@layout/toolbar" android:id="@id/toolbar_layout" />
+    <RelativeLayout
+        android:id="@+id/title_sortmanagerment"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary">
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="15dp"
+            android:src="@drawable/icon_back_white" />
+        <TextView
+            android:id="@+id/tv_title_name"
+            android:textSize="20sp"
+            android:textColor="#FFFFFF"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_activity_goodsadd"/>
+        <Switch
+            android:id="@+id/btn_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:thumb="@drawable/switch_thumb"
+            android:track="@drawable/switch_track"
+            android:layout_marginRight="15dp"
+            android:layout_alignParentRight="true"/>
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <LinearLayout
+            android:background="#ffffff"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+            <TextView
+                android:layout_marginLeft="15dp"
+                android:textSize="16sp"
+                android:text="@string/tv_goodsname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/btn_corner_orange"
+                android:layout_width="5dp"
+                android:layout_height="5dp" />
+            <EditText
+                android:background="@null"
+                android:textColor="#000000"
+                android:id="@+id/et_goodname"
+                android:textSize="16sp"
+                android:layout_marginRight="15dp"
+                android:paddingRight="20dp"
+                android:layout_marginLeft="15dp"
+                android:gravity="center_vertical|right"
+                android:hint="请输入商品名称"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="1dp"
+            android:background="#ffffff"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+            <TextView
+                android:layout_marginLeft="15dp"
+                android:textSize="16sp"
+                android:text="@string/tv_goodsprice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/btn_corner_orange"
+                android:layout_width="5dp"
+                android:layout_height="5dp" />
+            <EditText
+                android:background="@null"
+                android:textColor="#000000"
+                android:id="@+id/et_goodprice"
+                android:textSize="16sp"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
+                android:paddingRight="20dp"
+                android:gravity="right"
+                android:hint="请输入商品售价"
+                android:inputType="numberDecimal"
+                android:digits="0123456789."
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+        <RelativeLayout
+            android:visibility="gone"
+            android:id="@+id/layout_goodscode"
+            android:layout_marginTop="1dp"
+            android:background="#ffffff"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_marginLeft="15dp"
+                android:layout_centerVertical="true"
+                android:textSize="16sp"
+                android:text="@string/tv_goodscode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:visibility="gone"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/btn_corner_orange"
+                android:layout_width="5dp"
+                android:layout_height="5dp" />
+            <EditText
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:textColor="#000000"
+                android:id="@+id/et_goodcode"
+                android:layout_toRightOf="@+id/tv_name"
+                android:layout_toLeftOf="@+id/iv_scangoodcode"
+                android:textSize="16sp"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
+                android:gravity="right"
+                android:hint="请输入商品条码"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:layout_centerVertical="true"
+                android:id="@+id/iv_scangoodcode"
+                android:layout_marginLeft="0dp"
+                android:layout_toLeftOf="@+id/btn_scangoodcode"
+                android:background="@drawable/select_scangoodcode"
+                android:layout_width="35dp"
+                android:layout_height="35dp" />
+            <Button
+                android:layout_centerVertical="true"
+                android:id="@+id/btn_scangoodcode"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/btn_corner_orange"
+                android:textColor="#ffffff"
+                android:layout_alignParentRight="true"
+                android:text="@string/tv_goodscode"
+                android:textSize="14sp"
+                android:layout_width="65dp"
+                android:layout_height="30dp" />
+
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_marginTop="1dp"
+            android:background="#ffffff"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+            <TextView
+                android:layout_marginLeft="15dp"
+                android:textSize="16sp"
+                android:text="@string/tv_goodcostscode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:visibility="invisible"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/btn_corner_orange"
+                android:layout_width="5dp"
+                android:layout_height="5dp" />
+            <EditText
+                android:background="@null"
+                android:textColor="#000000"
+                android:id="@+id/et_good_costprice"
+                android:textSize="16sp"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
+                android:paddingRight="20dp"
+                android:gravity="right"
+                android:hint="请输入成本价"
+                android:inputType="numberDecimal"
+                android:digits="0123456789."
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="1dp"
+            android:background="#ffffff"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+            <TextView
+                android:layout_marginLeft="15dp"
+                android:textSize="16sp"
+                android:text="@string/tv_goodgrossscode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:visibility="invisible"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/btn_corner_orange"
+                android:layout_width="5dp"
+                android:layout_height="5dp" />
+            <EditText
+                android:background="@null"
+                android:textColor="#000000"
+                android:id="@+id/et_good_grossprice"
+                android:textSize="16sp"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="55dp"
+                android:paddingRight="20dp"
+                android:gravity="right"
+                android:hint="请输入毛利"
+                android:inputType="numberDecimal"
+                android:digits="0123456789."
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+        <RelativeLayout
+            android:id="@+id/layout_good_type"
+            android:layout_marginTop="1dp"
+            android:background="@drawable/select_whitle"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+            <TextView
+                android:id="@+id/tv_name_good_type"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:textSize="16sp"
+                android:text="@string/tv_goodtype"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/tv_name_good_type"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/btn_corner_orange"
+                android:layout_width="5dp"
+                android:layout_height="5dp" />
+            <TextView
+                android:layout_toLeftOf="@+id/iv_drop"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:textColor="#000000"
+                android:id="@+id/tv_good_type"
+                android:textSize="16sp"
+                android:gravity="right"
+                android:hint="请选择类型"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:id="@+id/iv_drop"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/ic_right_grey"
+                android:layout_width="25dp"
+                android:layout_height="25dp" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_marginTop="1dp"
+            android:background="#ffffff"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+            <TextView
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:textSize="16sp"
+                android:text="@string/tv_upframe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <Switch
+                android:id="@+id/good_switch_up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:thumb="@drawable/switch_thumb"
+                android:track="@drawable/switch_track"
+                android:checked="true"
+                android:layout_marginRight="15dp"
+                android:layout_alignParentRight="true"/>
+        </RelativeLayout>
+            <RelativeLayout
+                android:visibility="gone"
+                android:id="@+id/layout_good_size"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/select_whitle"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+                <TextView
+                    android:id="@+id/tv_name_good_size"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:textSize="16sp"
+                    android:text="规格"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <ImageView
+                    android:visibility="gone"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/tv_name_good_size"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:background="@drawable/btn_corner_orange"
+                    android:layout_width="5dp"
+                    android:layout_height="5dp" />
+                <TextView
+                    android:layout_toLeftOf="@+id/iv_drop_size"
+                    android:layout_centerVertical="true"
+                    android:background="@null"
+                    android:textColor="#000000"
+                    android:id="@+id/tv_good_size"
+                    android:textSize="16sp"
+                    android:gravity="right"
+                    android:hint=""
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <ImageView
+                    android:id="@+id/iv_drop_size"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/ic_right_grey"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:visibility="gone"
+                android:id="@+id/good_stock_layout"
+                android:layout_marginTop="1dp"
+                android:background="#ffffff"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+                <TextView
+                    android:layout_centerVertical="true"
+                    android:id="@+id/tv_store"
+                    android:layout_marginLeft="15dp"
+                    android:textSize="16sp"
+                    android:text="@string/tv_good_stock"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <ImageView
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/tv_store"
+                    android:id="@+id/iv_point"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:background="@drawable/btn_corner_orange"
+                    android:layout_width="5dp"
+                    android:layout_height="5dp" />
+                <EditText
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/btn_add_store"
+                    android:layout_toRightOf="@+id/iv_point"
+                    android:background="@null"
+                    android:textColor="#000000"
+                    android:id="@+id/et_good_stocknum"
+                    android:textSize="16sp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:gravity="right"
+                    android:hint="请输入库存量"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <Button
+                    android:layout_centerVertical="true"
+                    android:visibility="visible"
+                    android:layout_marginRight="15dp"
+                    android:id="@+id/btn_add_store"
+                    android:layout_alignParentRight="true"
+                    android:textColor="#ffffff"
+                    android:textSize="16sp"
+                    android:text="库存补充"
+                    android:background="@drawable/btn_corner_orange"
+                    android:layout_width="75dp"
+                    android:layout_height="30dp" />
+
+            </RelativeLayout>
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/good_stocknum_layout"
+                android:layout_marginTop="1dp"
+                android:background="#ffffff"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+                <TextView
+                    android:layout_marginLeft="15dp"
+                    android:textSize="16sp"
+                    android:text="@string/tv_stock_warning_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <ImageView
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:background="@drawable/btn_corner_orange"
+                    android:layout_width="5dp"
+                    android:layout_height="5dp" />
+                <EditText
+                    android:background="@null"
+                    android:textColor="#000000"
+                    android:id="@+id/et_good_stock"
+                    android:textSize="16dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:paddingRight="20dp"
+                    android:gravity="right"
+                    android:hint="请输入库存预警量"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="1dp"
+            android:background="#ffffff"
+            android:layout_width="match_parent"
+            android:gravity="center_vertical"
+            android:layout_height="50dp">
+            <TextView
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:textSize="16sp"
+                android:text="@string/tv_remark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:background="@null"
+                android:textColor="#000000"
+                android:lines="5"
+                android:gravity="right|center_vertical"
+                android:hint="请输入备注信息"
+                android:id="@+id/et_good_remark"
+                android:paddingRight="20dp"
+                android:textSize="16sp"
+                android:layout_marginRight="15sp"
+                android:layout_marginLeft="55dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            <ImageView
+                android:layout_toRightOf="@+id/tv_good_price"
+                android:id="@+id/iv_goodpicture"
+                android:scaleType="fitXY"
+                android:src="@drawable/imageadd"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_width="55dp"
+                android:layout_height="55dp" />
+                <TextView
+                    android:id="@+id/tv_good_price"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:textSize="16sp"
+                    android:text="@string/tv_goodpicture"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+            <Button
+                android:id="@+id/btn_save"
+                android:textColor="#ffffff"
+                android:layout_marginBottom="30dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/btn_corner_orange"
+                android:layout_marginRight="45dp"
+                android:layout_marginLeft="45dp"
+                android:textSize="16sp"
+                android:text="@string/tv_save"
+                android:layout_width="match_parent"
+                android:layout_height="40dp" />
+            <LinearLayout
+                android:id="@+id/good_edit_bottombtn_layout"
+                android:visibility="gone"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <Button
+                    android:id="@+id/btn_edit_cell"
+                    android:textColor="#ffffff"
+                    android:layout_marginBottom="30dp"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/btn_corner_gray"
+                    android:layout_marginRight="45dp"
+                    android:layout_marginLeft="45dp"
+                    android:textSize="16sp"
+                    android:text="@string/tv_cell"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="35dp" />
+                <Button
+                    android:id="@+id/btn_edit_save"
+                    android:textColor="#ffffff"
+                    android:layout_marginBottom="30dp"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/btn_corner_orange"
+                    android:layout_marginRight="45dp"
+                    android:layout_marginLeft="45dp"
+                    android:textSize="16sp"
+                    android:text="@string/tv_save"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="35dp" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

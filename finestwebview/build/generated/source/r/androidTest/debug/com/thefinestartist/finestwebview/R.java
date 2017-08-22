@@ -1410,9 +1410,10 @@ public final class R {
 		public static final int abc_shareactionprovider_share_with = 0x7f060010;
 		public static final int abc_shareactionprovider_share_with_application = 0x7f060011;
 		public static final int abc_toolbar_collapse_description = 0x7f060012;
-		public static final int appbar_scrolling_view_behavior = 0x7f06001a;
-		public static final int bottom_sheet_behavior = 0x7f06001b;
-		public static final int character_counter_pattern = 0x7f06001c;
+		public static final int app_name = 0x7f06001a;
+		public static final int appbar_scrolling_view_behavior = 0x7f06001b;
+		public static final int bottom_sheet_behavior = 0x7f06001c;
+		public static final int character_counter_pattern = 0x7f06001d;
 		public static final int copied_to_clipboard = 0x7f060014;
 		public static final int copy_link = 0x7f060015;
 		public static final int find = 0x7f060016;

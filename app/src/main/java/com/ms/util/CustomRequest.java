@@ -1,8 +1,12 @@
 package com.ms.util;
 
+import android.os.SystemClock;
+
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -22,6 +26,7 @@ public class CustomRequest extends Request<JSONObject> {
     private Listener<JSONObject> listener;
     private Map<String, String> params;
 
+
     public CustomRequest(String url, Map<String, String> params,
                          Listener<JSONObject> reponseListener, ErrorListener errorListener) {
         super(Method.GET, url, errorListener);
@@ -34,11 +39,13 @@ public class CustomRequest extends Request<JSONObject> {
         super(method, url, errorListener);
         this.listener = reponseListener;
         this.params = params;
+        SystemClock.sleep(200);
     }
 
     protected Map<String, String> getParams()
             throws com.android.volley.AuthFailureError {
         return params;
+
     };
 
     @Override
@@ -55,10 +62,11 @@ public class CustomRequest extends Request<JSONObject> {
     protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
         try {
             //如果未解析出正确的编码，就默认当为utf-8
-            String jsonString = new String(response.data,
-                    HttpHeaderParser.parseCharset(response.headers, "utf-8"));
-            return Response.success(new JSONObject(jsonString),
-                    HttpHeaderParser.parseCacheHeaders(response));
+
+                String jsonString = new String(response.data,
+                        HttpHeaderParser.parseCharset(response.headers, "utf-8"));
+                return Response.success(new JSONObject(jsonString),
+                        HttpHeaderParser.parseCacheHeaders(response));
         } catch (UnsupportedEncodingException e) {
             return Response.error(new ParseError(e));
         } catch (JSONException je) {

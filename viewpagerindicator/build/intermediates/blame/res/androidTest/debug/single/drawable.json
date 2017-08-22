@@ -1,6 +1,10 @@
 [
     {
-        "merged": "/Users/eddie/workspace/android/ks/viewpagerindicator/build/intermediates/res/merged/androidTest/debug/drawable/vpi__tab_indicator.xml",
-        "source": "/Users/eddie/workspace/android/ks/viewpagerindicator/build/intermediates/bundles/debug/res/drawable/vpi__tab_indicator.xml"
+        "merged": "E:\\yzx_repository\\ks\\viewpagerindicator\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\vpi__tab_indicator.xml",
+        "source": "E:\\yzx_repository\\ks\\viewpagerindicator\\build\\intermediates\\bundles\\debug\\res\\drawable\\vpi__tab_indicator.xml"
+    },
+    {
+        "merged": "E:\\yzx_repository\\viewpagerindicator\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\vpi__tab_indicator.xml",
+        "source": "E:\\yzx_repository\\viewpagerindicator\\build\\intermediates\\bundles\\debug\\res\\drawable\\vpi__tab_indicator.xml"
     }
 ]

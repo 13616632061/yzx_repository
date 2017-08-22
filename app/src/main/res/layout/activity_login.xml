@@ -131,6 +131,8 @@
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:hint="请输入验证码"
+                    android:inputType="number"
+                    android:digits="0123456789"
                     android:singleLine="true"
                     android:maxLength="30"
                     android:layout_toLeftOf="@id/textView7"
@@ -142,7 +144,7 @@
                 android:background="@drawable/bg_downline_common"
                 android:clickable="true"
                 android:layout_width="fill_parent"
-                android:layout_height="@dimen/s_component_height"
+                android:layout_height="48dp"
                 android:paddingLeft="16.0dip">
                 <TextView
                     android:textSize="@dimen/text_size_list"
@@ -150,42 +152,32 @@
                     android:id="@id/textView10"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:minWidth="96.0dip"
+                    android:minWidth="@dimen/layout_x_96"
                     android:text="登录类型"
                     android:layout_centerVertical="true" />
+                <Spinner
+                    android:popupBackground="#ffffff"
+                    android:id="@+id/login_spinner"
+                    android:layout_marginRight="10dp"
+                    android:layout_toRightOf="@id/textView10"
+                    android:paddingLeft="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/s_component_height"></Spinner>
                 <RelativeLayout
-                    android:paddingLeft="10dp"
+                    android:visibility="gone"
+                    android:paddingLeft="@dimen/layout_x_10"
                     android:layout_toRightOf="@id/textView10"
                     android:clickable="true"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/s_component_height">
 
-                    <CheckBox
-                        android:layout_toRightOf="@id/tv_right"
-                        android:textColor="#ff434e5a"
-                        android:id="@id/cb_left"
-                        android:layout_width="wrap_content"
-                        android:layout_height="fill_parent"
-                        android:layout_marginLeft="32.0dip"
-                        android:layout_marginRight="10.0dip"
-                        android:button="@drawable/selector_setting_passenger_checkbox"
-                        android:layout_centerVertical="true" />
-                    <TextView
-                        android:textColor="@color/text_secondary_color"
-                        android:textSize="@dimen/text_size_info"
-                        android:id="@id/tv_left"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="业务员"
-                        android:layout_toRightOf="@id/cb_left"
-                        android:layout_centerVertical="true" />
 
                     <CheckBox
                         android:textColor="#ff434e5a"
                         android:id="@id/cb_right"
                         android:layout_width="wrap_content"
                         android:layout_height="fill_parent"
-                        android:layout_marginRight="10.0dip"
+                        android:layout_marginRight="@dimen/layout_x_10"
                         android:button="@drawable/selector_setting_passenger_checkbox"
                         android:layout_centerVertical="true" />
                     <TextView
@@ -196,6 +188,43 @@
                         android:layout_height="wrap_content"
                         android:text="商家"
                         android:layout_toRightOf="@id/cb_right"
+                        android:layout_centerVertical="true" />
+                    <CheckBox
+                        android:layout_toRightOf="@id/tv_right"
+                        android:textColor="#ff434e5a"
+                        android:id="@+id/cb_mainstore"
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:layout_marginLeft="@dimen/layout_x_20"
+                        android:layout_marginRight="@dimen/layout_x_10"
+                        android:button="@drawable/selector_setting_passenger_checkbox"
+                        android:layout_centerVertical="true" />
+                    <TextView
+                        android:textColor="@color/text_secondary_color"
+                        android:textSize="@dimen/text_size_info"
+                        android:id="@+id/tv_mainstore"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="总店"
+                        android:layout_toRightOf="@id/cb_mainstore"
+                        android:layout_centerVertical="true" />
+                    <CheckBox
+                        android:layout_toRightOf="@id/tv_mainstore"
+                        android:textColor="#ff434e5a"
+                        android:id="@id/cb_left"
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:layout_marginLeft="@dimen/layout_x_20"
+                        android:button="@drawable/selector_setting_passenger_checkbox"
+                        android:layout_centerVertical="true" />
+                    <TextView
+                        android:textColor="@color/text_secondary_color"
+                        android:textSize="@dimen/text_size_info"
+                        android:id="@id/tv_left"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="业务员"
+                        android:layout_toRightOf="@id/cb_left"
                         android:layout_centerVertical="true" />
 
 

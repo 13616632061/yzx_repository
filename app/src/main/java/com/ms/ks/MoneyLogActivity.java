@@ -71,6 +71,7 @@ public class MoneyLogActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 //重新加载数据
+//                setRefreshing(true);
                 loadFirst();
             }
         });
@@ -119,19 +120,20 @@ public class MoneyLogActivity extends BaseActivity {
 
 
     private void loadData() {
-        Map<String,Object> finalMap = new HashMap<String,Object>();
-        finalMap.put("page", PAGE);
-        finalMap.put("pagelimit", NUM_PER_PAGE);
+        Map<String, String> finalMap = new HashMap<String, String>();
+        finalMap.put("page", PAGE+"");
+        finalMap.put("pagelimit", NUM_PER_PAGE+"");
 
-        String uri = LoginUtils.isSeller() ? SysUtils.getSellerServiceUrl("getListByMemId") : SysUtils.getMemberServiceUrl("drawal");
+//        String uri = LoginUtils.isSeller() ? SysUtils.getSellerServiceUrl("getListByMemId") : SysUtils.getMemberServiceUrl("drawal");
 
-        CustomRequest r = new CustomRequest(Request.Method.POST, uri, null, new Response.Listener<JSONObject>() {
+        CustomRequest r = new CustomRequest(Request.Method.POST, SysUtils.getSellerServiceUrl("getListByMemId"),finalMap, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject jsonObject) {
                 setRefreshing(false);
 
                 try {
                     JSONObject ret = SysUtils.didResponse(jsonObject);
+                    System.out.println("getListByMemId:" + ret);
                     String status = ret.getString("status");
                     String message = ret.getString("message");
                     JSONObject dataObject = ret.getJSONObject("data");
@@ -139,10 +141,9 @@ public class MoneyLogActivity extends BaseActivity {
                     if (!status.equals("200")) {
                         SysUtils.showError(message);
                     } else {
-                        if(PAGE <= 1) {
+                        if (PAGE <= 1) {
                             cat_list.clear();
                         }
-
                         JSONArray array = dataObject.getJSONArray("advance_list");
                         if (array != null && array.length() > 0) {
                             for (int i = 0; i < array.length(); i++) {
@@ -154,12 +155,13 @@ public class MoneyLogActivity extends BaseActivity {
                                 bean.setMessage(data.getString("message"));
                                 bean.setMtime(data.getString("mtime"));
                                 bean.setMoney(data.getDouble("money"));
+                                bean.setService(data.getDouble("service"));
 
                                 String bank_id = "", bank_name = "";
-                                if(!TextUtils.isEmpty(data.optString("bank_id"))) {
+                                if (!TextUtils.isEmpty(data.optString("bank_id"))) {
                                     bank_id = data.optString("bank_id");
                                 }
-                                if(!TextUtils.isEmpty(data.optString("bank_name"))) {
+                                if (!TextUtils.isEmpty(data.optString("bank_name"))) {
                                     bank_name = data.optString("bank_name");
                                 }
                                 bean.setBank_id(bank_id);
@@ -170,7 +172,7 @@ public class MoneyLogActivity extends BaseActivity {
                         }
 
                         int total = dataObject.getInt("total");
-                        int totalPage = (int)Math.ceil((float)total / NUM_PER_PAGE);
+                        int totalPage = (int) Math.ceil((float) total / NUM_PER_PAGE);
                         loadingMore = totalPage > PAGE;
 
                         if (loadingMore) {
@@ -178,11 +180,10 @@ public class MoneyLogActivity extends BaseActivity {
 //                            SysUtils.showSuccess("more");
                         }
                     }
-                } catch(Exception e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 } finally {
                     setView();
-
                     updateAdapter();
                 }
             }
@@ -241,6 +242,7 @@ public class MoneyLogActivity extends BaseActivity {
                     holder.textView2 = (TextView) convertView.findViewById(R.id.textView2);
                     holder.textView3 = (TextView) convertView.findViewById(R.id.textView3);
                     holder.textView4 = (TextView) convertView.findViewById(R.id.textView4);
+                    holder.tv_service = (TextView) convertView.findViewById(R.id.tv_service);
                     convertView.setTag(holder);
                 } catch (Exception e) {
                 }
@@ -261,6 +263,12 @@ public class MoneyLogActivity extends BaseActivity {
                 }
                 holder.textView2.setText("类型：" + (data.getType().equals("withdraw") ? "提现" : "充值"));
                 holder.textView3.setText(SysUtils.getMoneyFormat(data.getMoney()));
+                if(data.getService()>0){
+                    holder.tv_service.setVisibility(View.VISIBLE);
+                    holder.tv_service.setText("服务费"+data.getService()+"元");
+                }else {
+                    holder.tv_service.setVisibility(View.GONE);
+                }
 
                 if(data.getType().equals("withdraw") && !TextUtils.isEmpty(data.getBank_id())) {
                     //提现
@@ -276,7 +284,7 @@ public class MoneyLogActivity extends BaseActivity {
     }
 
     static class ViewHolder {
-        public TextView tv_content, textView1, textView2, textView3, textView4;
+        public TextView tv_content, textView1, textView2, textView3, textView4,tv_service;
     }
 
     private void setView() {
@@ -299,8 +307,8 @@ public class MoneyLogActivity extends BaseActivity {
 
     private void setNoNetwork() {
         //网络不通
-        if(PAGE <= 1 && cat_list.size() < 1) {
-            if(!include_nowifi.isShown()) {
+        if (PAGE <= 1 && cat_list.size() < 1) {
+            if (!include_nowifi.isShown()) {
                 lv_content.setVisibility(View.GONE);
                 include_noresult.setVisibility(View.GONE);
                 include_nowifi.setVisibility(View.VISIBLE);
@@ -310,4 +318,4 @@ public class MoneyLogActivity extends BaseActivity {
             SysUtils.showNetworkError();
         }
     }
-}
+    }

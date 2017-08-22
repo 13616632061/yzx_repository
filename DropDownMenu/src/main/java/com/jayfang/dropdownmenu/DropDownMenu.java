@@ -25,7 +25,8 @@ import java.util.List;
  *  GitHub:github.com/JayFang1993
  *
  */
-public class DropDownMenu extends LinearLayout{
+public class
+DropDownMenu extends LinearLayout{
 
     // Menu 展开的ListView 的 adapter
     private List<MenuListAdapter> mMenuAdapters=new ArrayList<MenuListAdapter>();

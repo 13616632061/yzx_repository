@@ -16,6 +16,7 @@ import com.ms.util.SysUtils;
 import com.nostra13.universalimageloader.utils.StorageUtils;
 
 import java.io.File;
+import java.sql.SQLOutput;
 
 
 public class SetActivity extends BaseUpdateActivity {
@@ -61,6 +62,7 @@ public class SetActivity extends BaseUpdateActivity {
         //清除缓存
         View set_cache = (View) findViewById(R.id.set_cache_item);
         cache_btn = (TextView) set_cache.findViewById(R.id.ll_set_hint_text);
+        System.out.println("formatSize()="+formatSize());
         cache_btn.setText(formatSize());
         SysUtils.setLine(set_cache, Global.SET_TWO_LINE, "清除缓存", 0, new View.OnClickListener() {
             @Override
@@ -127,8 +129,12 @@ public class SetActivity extends BaseUpdateActivity {
         long totalSize = dbSize + cacheSize + uilDiskCacheSize;
 
         String size = SysUtils.humanReadableByteCount(totalSize, false);
-
+        System.out.println("dbSize="+dbSize);
+        System.out.println("cacheSize="+cacheSize);
+        System.out.println("uilDiskCacheSize="+uilDiskCacheSize);
+        System.out.println("size="+size);
         return size;
+
     }
 
     private void deleteDb(String name) {

@@ -10,6 +10,15 @@ public class Money implements Serializable {
 	private int status;
 	private String bank_id;
 	private String bank_name;
+	private double service;
+
+	public double getService() {
+		return service;
+	}
+
+	public void setService(double service) {
+		this.service = service;
+	}
 
 	public String getType() {
 		return type;

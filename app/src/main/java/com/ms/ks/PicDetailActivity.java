@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.material.widget.CircularProgress;
 import com.ms.adapter.PicDetailAdapter;
-import com.ms.adapter.PicDetailFragment;
+import com.ms.fragment.PicDetailFragment;
 import com.ms.entity.PicsDetail;
 import com.ms.util.AndroidBug5497Workaround;
 import com.ms.util.BitmapUtils;

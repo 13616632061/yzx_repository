@@ -11,7 +11,7 @@
         android:id="@+id/realtabcontent"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" />
-    <include layout="@layout/toolbar" android:id="@id/toolbar_layout" />
+    <!--<include layout="@layout/toolbar" android:id="@id/toolbar_layout" />-->
 
     <com.ms.view.FragmentTabHost
         android:layout_alignParentBottom="true"

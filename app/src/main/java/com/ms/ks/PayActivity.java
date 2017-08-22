@@ -152,7 +152,6 @@ public class PayActivity extends ShareBaseActivity {
                     String status = ret.getString("status");
                     String message = ret.getString("message");
                     JSONObject dataObject = ret.getJSONObject("data");
-
                     if (!status.equals("200")) {
                         SysUtils.showError(message);
                     } else {
@@ -168,7 +167,6 @@ public class PayActivity extends ShareBaseActivity {
                         req.nonceStr = orderObject.getString("noncestr");
                         req.timeStamp = orderObject.getString("timestamp");
                         req.sign = orderObject.getString("sign");
-
                         msgApi.sendReq(req);
 
                     }

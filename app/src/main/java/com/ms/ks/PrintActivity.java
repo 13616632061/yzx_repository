@@ -22,7 +22,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.material.widget.PaperButton;
-import com.ms.adapter.Printer;
+import com.ms.recyclerviewleftslideremove.Printer;
 import com.ms.util.BluetoothService;
 import com.ms.util.PicFromPrintUtils;
 import com.ms.util.PrintUtil;

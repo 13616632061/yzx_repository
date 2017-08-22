@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 
+/**
+ * 启动app时的欢迎页面，2s后进入
+ */
 public class Welcome2Activity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {

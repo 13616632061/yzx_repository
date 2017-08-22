@@ -19,7 +19,9 @@ public class Global {
 	public static boolean isWifi = false;
 
     //版本地址
-	public static final String versionUrl = "http://www.yzx6868.com/apk/update.xml";
+//	public static final String versionUrl = "http://www.yzx6868.com/apk/update.xml";
+//	public static final String versionUrl = "http://www.czxshop.net/apk/update.xml";//测试站
+	public static final String versionUrl = "http://new.czxshop.com/apk/update.xml";
 	public static final String webUrl = "http://114.55.63.134/";
 
 	public static final String 	weiboServer = "https://api.weibo.com/2";
@@ -76,6 +78,23 @@ public class Global {
 	public static final String BROADCAST_CART_UPDATE_ACTION = "com.ms.ks.receiver.cart_update";
 	public static final String BROADCAST_REFRESH_THEME_ACTION = "com.ms.ks.receiver.refresh_theme";
 	public static final String BROADCAST_LOGOUT_ACTION = "com.ms.ks.receiver.logout";
+	public static final String BROADCAST_GoodsManagementactivity_ACTION= "com.ms.ks.receiver.goodsManagementactivity";
+	public static final String BROADCAST_OpenOrderActivity_ACTION= "com.ms.ks.receiver.openorderactivity";
+	public static final String BROADCAST_ChooseGoodsFrament_ACTION= "com.ms.ks.receiver.ChooseGoodsFrament";
+	public static final String BROADCAST_ChooseScanCodeFrament_ACTION= "com.ms.ks.receiver.ChooseScanCodeFrament";
+	public static final String BROADCAST_GetOpenOrder_ACTION= "com.ms.ks.receiver.GetOpenOrder";
+	public static final String BROADCAST_OpenOrderPayCode_ACTION= "com.ms.ks.receiver.OpenOrderPayCode";
+	public static final String BROADCAST_SubmitOrderActivity_ACTION= "com.ms.ks.receiver.SubmitOrderActivity";
+	public static final String BROADCAST_Goods_Sales_StatisticsAcitvity_ACTION= "com.ms.ks.receiver.Goods_Sales_StatisticsAcitvity";
+	public static final String BROADCAST_Goods_Sales_ChartStatisticsAcitvity_ACTION= "com.ms.ks.receiver.Goods_Sales_ChartStatisticsAcitvity";
+	public static final String BROADCAST_Goods_Sales_Statistics_SearchActivity_ACTION= "com.ms.ks.receiver.Goods_Sales_Statistics_SearchActivity";
+	public static final String BROADCAST_NearlyShopperGoodsActivity_ACTION= "com.ms.ks.receiver.NearlyShopperGoodsActivity";
+	public static final String BROADCAST_WholeSaleOrdersActivity_ACTION= "com.ms.ks.receiver.WholeSaleOrdersActivity";
+	public static final String BROADCAST_StockWarningActivity_ACTION= "com.ms.ks.receiver.StockWarningActivity";
+	public static final String BROADCAST_ShoppingMallShoppingCarFragment_ACTION= "com.ms.ks.receiver.ShoppingMallShoppingCarFragment";
+	public static final String BROADCAST_SelectAdressActivity_ACTION= "com.ms.ks.receiver.SelectAdressActivity";
+	public static final String BROADCAST_ShoppingMallOrderPageFragment_ACTION= "com.ms.ks.receiver.ShoppingMallOrderPageFragment";
+	public static final String BROADCAST_ShoppingCartOrderSureActivity_ACTION= "com.ms.ks.receiver.ShoppingCartOrderSureActivity";
 
 	public static final String NEWS_USER_TAG = "my_news_cat";
 	public static final String NEWS_OTHER_TAG = "other_news_cat";

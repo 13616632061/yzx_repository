@@ -21,6 +21,7 @@ import android.widget.FrameLayout.LayoutParams;
 
 /**
  * Created by sam on 14-10-30.
+ * 系统一体化工具
  */
 public class SystemBarTintManager {
     /**
@@ -48,6 +49,7 @@ public class SystemBarTintManager {
      * @param activity The host activity.
      */
     @TargetApi(19)
+    @SuppressWarnings("ResourceType")
     public SystemBarTintManager(Activity activity) {
 
         Window win = activity.getWindow();

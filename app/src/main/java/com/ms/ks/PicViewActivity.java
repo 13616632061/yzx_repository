@@ -10,7 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ms.adapter.PicDetailAdapter;
-import com.ms.adapter.PicDetailFragment;
+import com.ms.fragment.PicDetailFragment;
 import com.ms.entity.PicsDetail;
 import com.ms.util.BitmapUtils;
 import com.ms.util.HackyViewPager;

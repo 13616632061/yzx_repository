@@ -3,6 +3,7 @@
     android:id="@+id/loading_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:minWidth="@dimen/layout_x_480"
     android:gravity="center"
     android:padding="10dp"
     android:orientation="horizontal">

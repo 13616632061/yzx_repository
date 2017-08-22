@@ -119,6 +119,7 @@ public class AddressActivity extends BaseActivity {
             public void onClick(View view) {
 //                Intent intent = new Intent(Intent.ACTION_PICK,
 //                        ContactsContract.Contacts.CONTENT_URI);
+
                 Intent intent = new Intent(Intent.ACTION_PICK,
                         ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
                 AddressActivity.this.startActivityForResult(intent, 1);
@@ -129,6 +130,7 @@ public class AddressActivity extends BaseActivity {
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 String name = textView2.getText().toString();
                 if(StringUtils.isEmpty(name)) {
                     SysUtils.showError("请填写发货人姓名");

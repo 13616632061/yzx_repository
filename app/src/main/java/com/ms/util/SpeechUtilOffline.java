@@ -30,6 +30,7 @@ public class SpeechUtilOffline implements TTSPlayerListener {
 	 * @date 2015-4-14 下午7:32:58
 	 */
 	private void init() {
+//		mTTSPlayer.init();// 初始化合成引擎
 		mTTSPlayer = TTSFactory.createTTSControl(context, appKey);// 初始化语音合成对象
 		mTTSPlayer.setTTSListener(this);// 设置回调监听
 		mTTSPlayer.setStreamType(AudioManager.STREAM_MUSIC);//设置音频流

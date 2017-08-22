@@ -1,254 +1,506 @@
 [
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/anim/modal_activity_close_exit.xml",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/bundles/debug/res/anim/modal_activity_close_exit.xml"
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\view_fade_in.xml",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\exploded-aar\\com.thefinestartist\\utils\\0.9.0\\res\\anim\\view_fade_in.xml"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/anim/abc_shrink_fade_out_from_bottom.xml",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.3.0/res/anim/abc_shrink_fade_out_from_bottom.xml"
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\none.xml",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\bundles\\debug\\res\\anim\\none.xml"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/anim/abc_fade_out.xml",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.3.0/res/anim/abc_fade_out.xml"
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\activity_open_exit.xml",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\bundles\\debug\\res\\anim\\activity_open_exit.xml"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/anim/view_fade_out.xml",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/exploded-aar/com.thefinestartist/utils/0.9.0/res/anim/view_fade_out.xml"
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\design_snackbar_out.xml",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\exploded-aar\\com.android.support\\design\\23.3.0\\res\\anim\\design_snackbar_out.xml"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/anim/accelerate_cubic.xml",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/bundles/debug/res/anim/accelerate_cubic.xml"
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_shrink_fade_out_from_bottom.xml",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.3.0\\res\\anim\\abc_shrink_fade_out_from_bottom.xml"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/anim/view_bounce.xml",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/exploded-aar/com.thefinestartist/utils/0.9.0/res/anim/view_bounce.xml"
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\slide_up.xml",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\bundles\\debug\\res\\anim\\slide_up.xml"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/anim/activity_close_exit.xml",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/bundles/debug/res/anim/activity_close_exit.xml"
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\decelerate_quint.xml",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\bundles\\debug\\res\\anim\\decelerate_quint.xml"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/anim/modal_activity_close_enter.xml",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/bundles/debug/res/anim/modal_activity_close_enter.xml"
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\view_bounce.xml",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\exploded-aar\\com.thefinestartist\\utils\\0.9.0\\res\\anim\\view_bounce.xml"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/anim/view_zoom_out.xml",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/exploded-aar/com.thefinestartist/utils/0.9.0/res/anim/view_zoom_out.xml"
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\fade_in_fast.xml",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\bundles\\debug\\res\\anim\\fade_in_fast.xml"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/anim/slide_left_in.xml",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/bundles/debug/res/anim/slide_left_in.xml"
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\fade_out_fast.xml",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\bundles\\debug\\res\\anim\\fade_out_fast.xml"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/anim/popup_flyout_show.xml",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/bundles/debug/res/anim/popup_flyout_show.xml"
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\view_slide_down.xml",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\exploded-aar\\com.thefinestartist\\utils\\0.9.0\\res\\anim\\view_slide_down.xml"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/anim/design_fab_in.xml",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/exploded-aar/com.android.support/design/23.3.0/res/anim/design_fab_in.xml"
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\activity_open_enter.xml",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\bundles\\debug\\res\\anim\\activity_open_enter.xml"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/anim/view_zoom_in.xml",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/exploded-aar/com.thefinestartist/utils/0.9.0/res/anim/view_zoom_in.xml"
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\decelerate_cubic.xml",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\bundles\\debug\\res\\anim\\decelerate_cubic.xml"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/anim/slide_up.xml",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/bundles/debug/res/anim/slide_up.xml"
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\view_slide_up.xml",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\exploded-aar\\com.thefinestartist\\utils\\0.9.0\\res\\anim\\view_slide_up.xml"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/anim/fade_in.xml",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/exploded-aar/com.thefinestartist/utils/0.9.0/res/anim/fade_in.xml"
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_fade_in.xml",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.3.0\\res\\anim\\abc_fade_in.xml"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/anim/fragment_close_enter.xml",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/bundles/debug/res/anim/fragment_close_enter.xml"
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\popup_flyout_hide.xml",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\bundles\\debug\\res\\anim\\popup_flyout_hide.xml"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/anim/abc_popup_exit.xml",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.3.0/res/anim/abc_popup_exit.xml"
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\view_fade_in.xml",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\exploded-aar\\com.thefinestartist\\utils\\0.9.0\\res\\anim\\view_fade_in.xml"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/anim/view_blink.xml",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/exploded-aar/com.thefinestartist/utils/0.9.0/res/anim/view_blink.xml"
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\accelerate_quart.xml",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\bundles\\debug\\res\\anim\\accelerate_quart.xml"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/anim/accelerate_quart.xml",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/bundles/debug/res/anim/accelerate_quart.xml"
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_slide_out_bottom.xml",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.3.0\\res\\anim\\abc_slide_out_bottom.xml"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/anim/view_slide_down.xml",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/exploded-aar/com.thefinestartist/utils/0.9.0/res/anim/view_slide_down.xml"
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\view_blink.xml",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\exploded-aar\\com.thefinestartist\\utils\\0.9.0\\res\\anim\\view_blink.xml"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/anim/fade_out.xml",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/exploded-aar/com.thefinestartist/utils/0.9.0/res/anim/fade_out.xml"
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\activity_close_enter.xml",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\bundles\\debug\\res\\anim\\activity_close_enter.xml"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/anim/abc_fade_in.xml",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.3.0/res/anim/abc_fade_in.xml"
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\view_slide_down.xml",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\exploded-aar\\com.thefinestartist\\utils\\0.9.0\\res\\anim\\view_slide_down.xml"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/anim/design_bottom_sheet_slide_out.xml",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/exploded-aar/com.android.support/design/23.3.0/res/anim/design_bottom_sheet_slide_out.xml"
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_popup_exit.xml",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.3.0\\res\\anim\\abc_popup_exit.xml"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/anim/activity_close_enter.xml",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/bundles/debug/res/anim/activity_close_enter.xml"
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\modal_activity_open_exit.xml",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\bundles\\debug\\res\\anim\\modal_activity_open_exit.xml"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/anim/view_fade_in.xml",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/exploded-aar/com.thefinestartist/utils/0.9.0/res/anim/view_fade_in.xml"
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\no_anim.xml",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\exploded-aar\\com.thefinestartist\\utils\\0.9.0\\res\\anim\\no_anim.xml"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/anim/fade_in_medium.xml",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/bundles/debug/res/anim/fade_in_medium.xml"
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\modal_activity_close_enter.xml",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\bundles\\debug\\res\\anim\\modal_activity_close_enter.xml"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/anim/fragment_close_exit_reverse.xml",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/exploded-aar/com.thefinestartist/utils/0.9.0/res/anim/fragment_close_exit_reverse.xml"
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\decelerate_cubic.xml",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\bundles\\debug\\res\\anim\\decelerate_cubic.xml"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/anim/hold.xml",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/bundles/debug/res/anim/hold.xml"
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\hold.xml",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\bundles\\debug\\res\\anim\\hold.xml"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/anim/fade_out_medium.xml",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/bundles/debug/res/anim/fade_out_medium.xml"
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\none.xml",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\bundles\\debug\\res\\anim\\none.xml"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/anim/view_move.xml",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/exploded-aar/com.thefinestartist/utils/0.9.0/res/anim/view_move.xml"
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\fade_in.xml",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\exploded-aar\\com.thefinestartist\\utils\\0.9.0\\res\\anim\\fade_in.xml"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/anim/modal_activity_open_enter.xml",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/bundles/debug/res/anim/modal_activity_open_enter.xml"
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_fade_out.xml",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.3.0\\res\\anim\\abc_fade_out.xml"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/anim/abc_slide_out_bottom.xml",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.3.0/res/anim/abc_slide_out_bottom.xml"
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\slide_up.xml",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\bundles\\debug\\res\\anim\\slide_up.xml"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/anim/fragment_open_enter.xml",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/bundles/debug/res/anim/fragment_open_enter.xml"
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\decelerate_quint.xml",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\bundles\\debug\\res\\anim\\decelerate_quint.xml"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/anim/view_slide_up.xml",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/exploded-aar/com.thefinestartist/utils/0.9.0/res/anim/view_slide_up.xml"
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\design_fab_out.xml",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\exploded-aar\\com.android.support\\design\\23.3.0\\res\\anim\\design_fab_out.xml"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/anim/abc_slide_out_top.xml",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.3.0/res/anim/abc_slide_out_top.xml"
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_slide_in_bottom.xml",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.3.0\\res\\anim\\abc_slide_in_bottom.xml"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/anim/none.xml",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/bundles/debug/res/anim/none.xml"
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\popup_flyout_show.xml",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\bundles\\debug\\res\\anim\\popup_flyout_show.xml"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/anim/fragment_open_enter_reverse.xml",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/exploded-aar/com.thefinestartist/utils/0.9.0/res/anim/fragment_open_enter_reverse.xml"
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\splash_out.xml",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\exploded-aar\\com.thefinestartist\\utils\\0.9.0\\res\\anim\\splash_out.xml"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/anim/fade_out_fast.xml",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/bundles/debug/res/anim/fade_out_fast.xml"
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\fade_out_fast.xml",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\bundles\\debug\\res\\anim\\fade_out_fast.xml"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/anim/splash_out.xml",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/exploded-aar/com.thefinestartist/utils/0.9.0/res/anim/splash_out.xml"
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\fade_out_slow.xml",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\exploded-aar\\com.thefinestartist\\utils\\0.9.0\\res\\anim\\fade_out_slow.xml"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/anim/fragment_open_exit.xml",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/bundles/debug/res/anim/fragment_open_exit.xml"
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\fragment_open_exit.xml",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\bundles\\debug\\res\\anim\\fragment_open_exit.xml"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/anim/activity_open_exit.xml",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/bundles/debug/res/anim/activity_open_exit.xml"
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\popup_flyout_hide.xml",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\bundles\\debug\\res\\anim\\popup_flyout_hide.xml"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/anim/decelerate_cubic.xml",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/bundles/debug/res/anim/decelerate_cubic.xml"
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\accelerate_quint.xml",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\bundles\\debug\\res\\anim\\accelerate_quint.xml"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/anim/activity_open_enter.xml",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/bundles/debug/res/anim/activity_open_enter.xml"
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\fade_in.xml",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\exploded-aar\\com.thefinestartist\\utils\\0.9.0\\res\\anim\\fade_in.xml"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/anim/popup_flyout_hide.xml",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/bundles/debug/res/anim/popup_flyout_hide.xml"
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\slide_right_out.xml",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\bundles\\debug\\res\\anim\\slide_right_out.xml"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/anim/view_rotate.xml",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/exploded-aar/com.thefinestartist/utils/0.9.0/res/anim/view_rotate.xml"
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\modal_activity_open_exit.xml",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\bundles\\debug\\res\\anim\\modal_activity_open_exit.xml"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/anim/decelerate_quint.xml",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/bundles/debug/res/anim/decelerate_quint.xml"
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\design_snackbar_in.xml",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\exploded-aar\\com.android.support\\design\\23.3.0\\res\\anim\\design_snackbar_in.xml"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/anim/fade_out_slow.xml",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/exploded-aar/com.thefinestartist/utils/0.9.0/res/anim/fade_out_slow.xml"
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\modal_activity_close_exit.xml",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\bundles\\debug\\res\\anim\\modal_activity_close_exit.xml"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/anim/accelerate_quint.xml",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/bundles/debug/res/anim/accelerate_quint.xml"
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\activity_close_exit.xml",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\bundles\\debug\\res\\anim\\activity_close_exit.xml"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/anim/fragment_close_exit.xml",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/bundles/debug/res/anim/fragment_close_exit.xml"
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\fade_in_fast.xml",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\bundles\\debug\\res\\anim\\fade_in_fast.xml"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/anim/abc_slide_in_top.xml",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.3.0/res/anim/abc_slide_in_top.xml"
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\fade_out_medium.xml",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\bundles\\debug\\res\\anim\\fade_out_medium.xml"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/anim/design_bottom_sheet_slide_in.xml",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/exploded-aar/com.android.support/design/23.3.0/res/anim/design_bottom_sheet_slide_in.xml"
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\view_blink.xml",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\exploded-aar\\com.thefinestartist\\utils\\0.9.0\\res\\anim\\view_blink.xml"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/anim/modal_activity_open_exit.xml",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/bundles/debug/res/anim/modal_activity_open_exit.xml"
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\view_zoom_out.xml",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\exploded-aar\\com.thefinestartist\\utils\\0.9.0\\res\\anim\\view_zoom_out.xml"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/anim/slide_down.xml",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/bundles/debug/res/anim/slide_down.xml"
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\design_snackbar_out.xml",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\exploded-aar\\com.android.support\\design\\23.3.0\\res\\anim\\design_snackbar_out.xml"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/anim/design_snackbar_out.xml",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/exploded-aar/com.android.support/design/23.3.0/res/anim/design_snackbar_out.xml"
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\fade_out.xml",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\exploded-aar\\com.thefinestartist\\utils\\0.9.0\\res\\anim\\fade_out.xml"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/anim/fade_in_fast.xml",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/bundles/debug/res/anim/fade_in_fast.xml"
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\fragment_close_exit.xml",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\bundles\\debug\\res\\anim\\fragment_close_exit.xml"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/anim/abc_grow_fade_in_from_bottom.xml",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.3.0/res/anim/abc_grow_fade_in_from_bottom.xml"
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\fragment_close_enter.xml",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\bundles\\debug\\res\\anim\\fragment_close_enter.xml"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/anim/design_fab_out.xml",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/exploded-aar/com.android.support/design/23.3.0/res/anim/design_fab_out.xml"
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\modal_activity_close_enter.xml",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\bundles\\debug\\res\\anim\\modal_activity_close_enter.xml"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/anim/design_snackbar_in.xml",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/exploded-aar/com.android.support/design/23.3.0/res/anim/design_snackbar_in.xml"
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\fragment_open_enter_reverse.xml",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\exploded-aar\\com.thefinestartist\\utils\\0.9.0\\res\\anim\\fragment_open_enter_reverse.xml"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/anim/abc_popup_enter.xml",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.3.0/res/anim/abc_popup_enter.xml"
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_popup_enter.xml",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.3.0\\res\\anim\\abc_popup_enter.xml"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/anim/no_anim.xml",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/exploded-aar/com.thefinestartist/utils/0.9.0/res/anim/no_anim.xml"
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\design_bottom_sheet_slide_out.xml",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\exploded-aar\\com.android.support\\design\\23.3.0\\res\\anim\\design_bottom_sheet_slide_out.xml"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/anim/abc_slide_in_bottom.xml",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.3.0/res/anim/abc_slide_in_bottom.xml"
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\view_rotate.xml",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\exploded-aar\\com.thefinestartist\\utils\\0.9.0\\res\\anim\\view_rotate.xml"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/anim/decelerate_quart.xml",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/bundles/debug/res/anim/decelerate_quart.xml"
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\fade_in_medium.xml",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\bundles\\debug\\res\\anim\\fade_in_medium.xml"
     },
     {
-        "merged": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/res/merged/androidTest/debug/anim/slide_right_out.xml",
-        "source": "/Users/eddie/workspace/android/ks/finestwebview/build/intermediates/bundles/debug/res/anim/slide_right_out.xml"
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\design_bottom_sheet_slide_in.xml",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\exploded-aar\\com.android.support\\design\\23.3.0\\res\\anim\\design_bottom_sheet_slide_in.xml"
+    },
+    {
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_shrink_fade_out_from_bottom.xml",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.3.0\\res\\anim\\abc_shrink_fade_out_from_bottom.xml"
+    },
+    {
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\design_fab_out.xml",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\exploded-aar\\com.android.support\\design\\23.3.0\\res\\anim\\design_fab_out.xml"
+    },
+    {
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\popup_flyout_show.xml",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\bundles\\debug\\res\\anim\\popup_flyout_show.xml"
+    },
+    {
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\fade_out_slow.xml",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\exploded-aar\\com.thefinestartist\\utils\\0.9.0\\res\\anim\\fade_out_slow.xml"
+    },
+    {
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\decelerate_quart.xml",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\bundles\\debug\\res\\anim\\decelerate_quart.xml"
+    },
+    {
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\fragment_close_exit_reverse.xml",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\exploded-aar\\com.thefinestartist\\utils\\0.9.0\\res\\anim\\fragment_close_exit_reverse.xml"
+    },
+    {
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_popup_enter.xml",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.3.0\\res\\anim\\abc_popup_enter.xml"
+    },
+    {
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_grow_fade_in_from_bottom.xml",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.3.0\\res\\anim\\abc_grow_fade_in_from_bottom.xml"
+    },
+    {
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\fragment_open_enter.xml",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\bundles\\debug\\res\\anim\\fragment_open_enter.xml"
+    },
+    {
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\view_zoom_in.xml",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\exploded-aar\\com.thefinestartist\\utils\\0.9.0\\res\\anim\\view_zoom_in.xml"
+    },
+    {
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_slide_out_bottom.xml",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.3.0\\res\\anim\\abc_slide_out_bottom.xml"
+    },
+    {
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\design_bottom_sheet_slide_out.xml",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\exploded-aar\\com.android.support\\design\\23.3.0\\res\\anim\\design_bottom_sheet_slide_out.xml"
+    },
+    {
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\view_move.xml",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\exploded-aar\\com.thefinestartist\\utils\\0.9.0\\res\\anim\\view_move.xml"
+    },
+    {
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\no_anim.xml",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\exploded-aar\\com.thefinestartist\\utils\\0.9.0\\res\\anim\\no_anim.xml"
+    },
+    {
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\splash_out.xml",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\exploded-aar\\com.thefinestartist\\utils\\0.9.0\\res\\anim\\splash_out.xml"
+    },
+    {
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\slide_left_in.xml",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\bundles\\debug\\res\\anim\\slide_left_in.xml"
+    },
+    {
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\fragment_open_exit.xml",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\bundles\\debug\\res\\anim\\fragment_open_exit.xml"
+    },
+    {
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\view_slide_up.xml",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\exploded-aar\\com.thefinestartist\\utils\\0.9.0\\res\\anim\\view_slide_up.xml"
+    },
+    {
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\fragment_open_enter_reverse.xml",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\exploded-aar\\com.thefinestartist\\utils\\0.9.0\\res\\anim\\fragment_open_enter_reverse.xml"
+    },
+    {
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_slide_out_top.xml",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.3.0\\res\\anim\\abc_slide_out_top.xml"
+    },
+    {
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\view_zoom_out.xml",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\exploded-aar\\com.thefinestartist\\utils\\0.9.0\\res\\anim\\view_zoom_out.xml"
+    },
+    {
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\modal_activity_close_exit.xml",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\bundles\\debug\\res\\anim\\modal_activity_close_exit.xml"
+    },
+    {
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\accelerate_quint.xml",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\bundles\\debug\\res\\anim\\accelerate_quint.xml"
+    },
+    {
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\view_move.xml",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\exploded-aar\\com.thefinestartist\\utils\\0.9.0\\res\\anim\\view_move.xml"
+    },
+    {
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\modal_activity_open_enter.xml",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\bundles\\debug\\res\\anim\\modal_activity_open_enter.xml"
+    },
+    {
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\fragment_close_enter.xml",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\bundles\\debug\\res\\anim\\fragment_close_enter.xml"
+    },
+    {
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_slide_in_top.xml",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.3.0\\res\\anim\\abc_slide_in_top.xml"
+    },
+    {
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_grow_fade_in_from_bottom.xml",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.3.0\\res\\anim\\abc_grow_fade_in_from_bottom.xml"
+    },
+    {
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_popup_exit.xml",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.3.0\\res\\anim\\abc_popup_exit.xml"
+    },
+    {
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_slide_in_top.xml",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.3.0\\res\\anim\\abc_slide_in_top.xml"
+    },
+    {
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\design_snackbar_in.xml",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\exploded-aar\\com.android.support\\design\\23.3.0\\res\\anim\\design_snackbar_in.xml"
+    },
+    {
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\slide_down.xml",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\bundles\\debug\\res\\anim\\slide_down.xml"
+    },
+    {
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\design_bottom_sheet_slide_in.xml",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\exploded-aar\\com.android.support\\design\\23.3.0\\res\\anim\\design_bottom_sheet_slide_in.xml"
+    },
+    {
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_fade_in.xml",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.3.0\\res\\anim\\abc_fade_in.xml"
+    },
+    {
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\decelerate_quart.xml",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\bundles\\debug\\res\\anim\\decelerate_quart.xml"
+    },
+    {
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\fade_out.xml",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\exploded-aar\\com.thefinestartist\\utils\\0.9.0\\res\\anim\\fade_out.xml"
+    },
+    {
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\view_rotate.xml",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\exploded-aar\\com.thefinestartist\\utils\\0.9.0\\res\\anim\\view_rotate.xml"
+    },
+    {
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\view_fade_out.xml",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\exploded-aar\\com.thefinestartist\\utils\\0.9.0\\res\\anim\\view_fade_out.xml"
+    },
+    {
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\activity_close_enter.xml",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\bundles\\debug\\res\\anim\\activity_close_enter.xml"
+    },
+    {
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\design_fab_in.xml",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\exploded-aar\\com.android.support\\design\\23.3.0\\res\\anim\\design_fab_in.xml"
+    },
+    {
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\fade_out_medium.xml",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\bundles\\debug\\res\\anim\\fade_out_medium.xml"
+    },
+    {
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\fragment_close_exit.xml",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\bundles\\debug\\res\\anim\\fragment_close_exit.xml"
+    },
+    {
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\design_fab_in.xml",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\exploded-aar\\com.android.support\\design\\23.3.0\\res\\anim\\design_fab_in.xml"
+    },
+    {
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\slide_left_in.xml",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\bundles\\debug\\res\\anim\\slide_left_in.xml"
+    },
+    {
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\fragment_close_exit_reverse.xml",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\exploded-aar\\com.thefinestartist\\utils\\0.9.0\\res\\anim\\fragment_close_exit_reverse.xml"
+    },
+    {
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\activity_close_exit.xml",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\bundles\\debug\\res\\anim\\activity_close_exit.xml"
+    },
+    {
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\activity_open_exit.xml",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\bundles\\debug\\res\\anim\\activity_open_exit.xml"
+    },
+    {
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\modal_activity_open_enter.xml",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\bundles\\debug\\res\\anim\\modal_activity_open_enter.xml"
+    },
+    {
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\accelerate_cubic.xml",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\bundles\\debug\\res\\anim\\accelerate_cubic.xml"
+    },
+    {
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\view_zoom_in.xml",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\exploded-aar\\com.thefinestartist\\utils\\0.9.0\\res\\anim\\view_zoom_in.xml"
+    },
+    {
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\accelerate_cubic.xml",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\bundles\\debug\\res\\anim\\accelerate_cubic.xml"
+    },
+    {
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\activity_open_enter.xml",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\bundles\\debug\\res\\anim\\activity_open_enter.xml"
+    },
+    {
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\fragment_open_enter.xml",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\bundles\\debug\\res\\anim\\fragment_open_enter.xml"
+    },
+    {
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\view_fade_out.xml",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\exploded-aar\\com.thefinestartist\\utils\\0.9.0\\res\\anim\\view_fade_out.xml"
+    },
+    {
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_fade_out.xml",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.3.0\\res\\anim\\abc_fade_out.xml"
+    },
+    {
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\slide_right_out.xml",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\bundles\\debug\\res\\anim\\slide_right_out.xml"
+    },
+    {
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_slide_out_top.xml",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.3.0\\res\\anim\\abc_slide_out_top.xml"
+    },
+    {
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_slide_in_bottom.xml",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.3.0\\res\\anim\\abc_slide_in_bottom.xml"
+    },
+    {
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\slide_down.xml",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\bundles\\debug\\res\\anim\\slide_down.xml"
+    },
+    {
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\view_bounce.xml",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\exploded-aar\\com.thefinestartist\\utils\\0.9.0\\res\\anim\\view_bounce.xml"
+    },
+    {
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\hold.xml",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\bundles\\debug\\res\\anim\\hold.xml"
+    },
+    {
+        "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\fade_in_medium.xml",
+        "source": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\bundles\\debug\\res\\anim\\fade_in_medium.xml"
+    },
+    {
+        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\accelerate_quart.xml",
+        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\bundles\\debug\\res\\anim\\accelerate_quart.xml"
     }
 ]
