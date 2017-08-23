@@ -1,23 +1,7 @@
 [
     {
-        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-ldpi-v4\\close_vector.png",
-        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\bundles\\debug\\res\\drawable-ldpi-v4\\close_vector.png"
-    },
-    {
         "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-ldpi-v4\\forward_vector.png",
         "source": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\bundles\\debug\\res\\drawable-ldpi-v4\\forward_vector.png"
-    },
-    {
-        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-ldpi-v4\\back_vector.png",
-        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\bundles\\debug\\res\\drawable-ldpi-v4\\back_vector.png"
-    },
-    {
-        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-ldpi-v4\\more_vector.png",
-        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\bundles\\debug\\res\\drawable-ldpi-v4\\more_vector.png"
-    },
-    {
-        "merged": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-ldpi-v4\\forward_vector.png",
-        "source": "E:\\yzx_repository\\ks\\finestwebview\\build\\intermediates\\bundles\\debug\\res\\drawable-ldpi-v4\\forward_vector.png"
     },
     {
         "merged": "E:\\yzx_repository\\finestwebview\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-ldpi-v4\\close_vector.png",

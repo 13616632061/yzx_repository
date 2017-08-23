@@ -32,7 +32,6 @@ public class AboutActivity extends BaseActivity {
                 checkVersion();
             }
         });
-
         //版权信息
         View set_fk = (View) findViewById(R.id.set_fk_item);
         SysUtils.setLine(set_fk, Global.SET_SINGLE_LINE, "版权信息", 0, new View.OnClickListener() {
